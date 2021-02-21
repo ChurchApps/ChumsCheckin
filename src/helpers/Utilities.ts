@@ -12,7 +12,7 @@ export class Utilities {
     Snackbar.show({ text: message, backgroundColor: StyleConstants.baseColor, duration: Snackbar.LENGTH_SHORT });
   }
 
-  public static getById(list: any[], id: number): any {
+  public static getById(list: any[], id: string): any {
     var result = null;
     list.forEach(item => { if (item.id === id) result = item; });
     return result;

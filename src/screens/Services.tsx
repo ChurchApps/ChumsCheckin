@@ -21,7 +21,7 @@ export const Services = (props: Props) => {
         });
     }
 
-    const selectService = (serviceId: number) => {
+    const selectService = (serviceId: string) => {
         setIsLoading(true);
 
         const promises: Promise<any>[] = [

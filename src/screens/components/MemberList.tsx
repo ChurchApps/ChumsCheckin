@@ -4,24 +4,23 @@ import { Icon } from 'native-base'
 import Ripple from 'react-native-material-ripple';
 import { CachedData, EnvironmentHelper, PersonInterface, screenNavigationProps, ServiceTimeInterface, Utilities, VisitHelper, VisitInterface, Styles, StyleConstants, GroupInterface, VisitSessionInterface } from "../../helpers";
 import { MemberServiceTimes } from './MemberServiceTimes';
-import { ArrayHelper } from '../../helpers/ArrayHelper';
 
 interface Props { navigation: screenNavigationProps, pendingVisits: VisitInterface[] }
 
 export const MemberList = (props: Props) => {
-    const [selectedMemberId, setSelectedMemberId] = React.useState(0);
-    const handleMemberClick = (id: number) => { setSelectedMemberId((selectedMemberId === id) ? 0 : id); }
+    const [selectedMemberId, setSelectedMemberId] = React.useState("");
+    const handleMemberClick = (id: string) => { setSelectedMemberId((selectedMemberId === id) ? "" : id); }
 
     const getCondensedGroupList = (person: PersonInterface) => {
         if (selectedMemberId == person.id) return null;
         else {
-            const visit = VisitHelper.getByPersonId(props.pendingVisits, person.id || 0);
+            const visit = VisitHelper.getByPersonId(props.pendingVisits, person.id || "");
             if (visit?.visitSessions?.length === 0) return (null);
             else {
                 const groups: JSX.Element[] = [];
                 visit?.visitSessions?.forEach((vs: VisitSessionInterface) => {
-                    const st: ServiceTimeInterface | null = Utilities.getById(CachedData.serviceTimes, vs.session?.serviceTimeId || 0);
-                    const group: GroupInterface = Utilities.getById(st?.groups || [], vs.session?.groupId || 0);
+                    const st: ServiceTimeInterface | null = Utilities.getById(CachedData.serviceTimes, vs.session?.serviceTimeId || "");
+                    const group: GroupInterface = Utilities.getById(st?.groups || [], vs.session?.groupId || "");
                     //const group: GroupInterface = ArrayHelper.getOne()
                     var name = group.name || "none";
                     if (st != null) name = (st.name || "") + " - " + name;
@@ -37,7 +36,7 @@ export const MemberList = (props: Props) => {
         const person: PersonInterface = data.item;
         return (
             <View>
-                <Ripple style={Styles.flatlistMainView} onPress={() => { handleMemberClick(person.id || 0) }}  >
+                <Ripple style={Styles.flatlistMainView} onPress={() => { handleMemberClick(person.id || "") }}  >
                     <Icon name={(selectedMemberId === person.id) ? 'up' : 'down'} type="AntDesign" style={Styles.flatlistDropIcon} />
                     <Image source={{ uri: EnvironmentHelper.ImageBaseUrl + person.photo }} style={Styles.personPhoto} resizeMode="contain" />
                     <View style={{ justifyContent: 'center', alignItems: 'center', marginLeft: '5%' }} >

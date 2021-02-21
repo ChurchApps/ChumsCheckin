@@ -37,7 +37,7 @@ export const Lookup = (props: Props) => {
 
     const selectPerson = (person: PersonInterface) => {
         setIsLoading(true);
-        CachedData.householdId = person.householdId || 0;
+        CachedData.householdId = person.householdId || "";
         loadHouseholdMembers();
     }
 

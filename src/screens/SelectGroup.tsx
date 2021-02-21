@@ -27,9 +27,9 @@ export const SelectGroup = (props: Props) => {
     }
 
     const handleCategoryClick = (value: number) => { setSelectedCategory((selectedCategory == value) ? -1 : value); }
-    const handleNone = () => { selectGroup(0, "NONE"); }
+    const handleNone = () => { selectGroup("", "NONE"); }
 
-    const selectGroup = (id: number, name: string) => {
+    const selectGroup = (id: string, name: string) => {
         const personId = props.route.params.personId;
         var visit = VisitHelper.getByPersonId(CachedData.pendingVisits, personId);
         if (visit === null) {
@@ -37,7 +37,7 @@ export const SelectGroup = (props: Props) => {
             CachedData.pendingVisits.push(visit);
         }
         const vs = visit?.visitSessions || [];
-        const serviceTimeId = props.route.params.serviceTime.id || 0;
+        const serviceTimeId = props.route.params.serviceTime.id || "";
         VisitSessionHelper.setValue(vs, serviceTimeId, id, name);
         props.navigation.goBack()
     }
@@ -61,7 +61,7 @@ export const SelectGroup = (props: Props) => {
         else {
             const result: JSX.Element[] = [];
             category.items.forEach(g => {
-                result.push(<Ripple key={g.id?.toString()} style={[Styles.expandedRow, { justifyContent: "flex-start" }]} onPress={() => selectGroup(g.id || 0, g.name || "")}>
+                result.push(<Ripple key={g.id?.toString()} style={[Styles.expandedRow, { justifyContent: "flex-start" }]} onPress={() => selectGroup(g.id || "", g.name || "")}>
                     <Text style={[Styles.bigLinkButtonText, { marginLeft: '10%' }]}>{g.name}</Text>
                 </Ripple>);
             })

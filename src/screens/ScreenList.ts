@@ -9,5 +9,5 @@ export type ScreenList = {
     AddGuest: undefined,
     Household: undefined,
     CheckinComplete: undefined,
-    SelectGroup: { serviceTime: ServiceTimeInterface, personId: number },
+    SelectGroup: { serviceTime: ServiceTimeInterface, personId: string },
 }

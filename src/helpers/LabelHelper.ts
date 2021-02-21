@@ -23,7 +23,7 @@ export class LabelHelper {
     }
 
     private static replaceValues(html: string, visit: VisitInterface, childVisits: VisitInterface[], pickupCode: string) {
-        const person: PersonInterface = Utilities.getById(CachedData.householdMembers, visit.personId || 0);
+        const person: PersonInterface = Utilities.getById(CachedData.householdMembers, visit.personId || "");
         var isChild: boolean = false;
         childVisits.forEach(cv => { if (cv.personId === person.id) isChild = true; });
         var result = html.replace(/\[Name\]/g, person.name.display || "");
@@ -36,7 +36,7 @@ export class LabelHelper {
     private static replaceValuesPickup(html: string, childVisits: VisitInterface[], pickupCode: string) {
         var childList: string[] = [];
         childVisits.forEach(cv => {
-            const person: PersonInterface = Utilities.getById(CachedData.householdMembers, cv.personId || 0);
+            const person: PersonInterface = Utilities.getById(CachedData.householdMembers, cv.personId || "");
             childList.push(person.name.display + " - " + VisitSessionHelper.getPickupSessions(cv.visitSessions || []));
         });
         var childBullets = "";
@@ -52,8 +52,8 @@ export class LabelHelper {
         CachedData.pendingVisits.forEach(pv => {
             var isChild = false;
             pv.visitSessions?.forEach(vs => {
-                const serviceTime: ServiceTimeInterface = Utilities.getById(CachedData.serviceTimes, vs.session?.serviceTimeId || 0);
-                const group: GroupInterface = Utilities.getById(serviceTime.groups || [], vs.session?.groupId || 0);
+                const serviceTime: ServiceTimeInterface = Utilities.getById(CachedData.serviceTimes, vs.session?.serviceTimeId || "");
+                const group: GroupInterface = Utilities.getById(serviceTime.groups || [], vs.session?.groupId || "");
                 if (group.parentPickup) isChild = true;
             });
             if (isChild) result.push(pv);

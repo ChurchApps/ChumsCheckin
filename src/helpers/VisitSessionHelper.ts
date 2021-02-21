@@ -4,22 +4,22 @@ import { Utilities } from "./Utilities";
 
 export class VisitSessionHelper {
 
-    public static getByServiceTimeId(visitSessions: VisitSessionInterface[], serviceTimeId: number): VisitSessionInterface[] {
+    public static getByServiceTimeId(visitSessions: VisitSessionInterface[], serviceTimeId: string): VisitSessionInterface[] {
         var result: VisitSessionInterface[] = [];
         visitSessions.forEach(vs => { if (vs.session?.serviceTimeId === serviceTimeId) result.push(vs) });
         return result;
     }
 
-    public static setValue(visitSessions: VisitSessionInterface[], serviceTimeId: number, groupId: number, displayName: string) {
+    public static setValue(visitSessions: VisitSessionInterface[], serviceTimeId: string, groupId: string, displayName: string) {
         for (let i = visitSessions.length - 1; i >= 0; i--) {
             if (visitSessions[i].session?.serviceTimeId === serviceTimeId) visitSessions.splice(i, 1);
         }
-        if (groupId > 0) visitSessions.push({ session: { serviceTimeId: serviceTimeId, groupId: groupId, displayName: displayName } });
+        if (groupId != "") visitSessions.push({ session: { serviceTimeId: serviceTimeId, groupId: groupId, displayName: displayName } });
     }
 
     public static getDisplayText = (visitSession: VisitSessionInterface) => {
-        const st: ServiceTimeInterface = Utilities.getById(CachedData.serviceTimes, visitSession.session?.serviceTimeId || 0);
-        const group: GroupInterface = Utilities.getById(st?.groups || [], visitSession.session?.groupId || 0);
+        const st: ServiceTimeInterface = Utilities.getById(CachedData.serviceTimes, visitSession.session?.serviceTimeId || "");
+        const group: GroupInterface = Utilities.getById(st?.groups || [], visitSession.session?.groupId || "");
         return st.name + " - " + group.name;
     }
 
@@ -30,8 +30,8 @@ export class VisitSessionHelper {
     }
 
     public static getPickupText = (visitSession: VisitSessionInterface) => {
-        const st: ServiceTimeInterface = Utilities.getById(CachedData.serviceTimes, visitSession.session?.serviceTimeId || 0);
-        const group: GroupInterface = Utilities.getById(st?.groups || [], visitSession.session?.groupId || 0);
+        const st: ServiceTimeInterface = Utilities.getById(CachedData.serviceTimes, visitSession.session?.serviceTimeId || "");
+        const group: GroupInterface = Utilities.getById(st?.groups || [], visitSession.session?.groupId || "");
         if (group.parentPickup) return group.name;
         else return "";
     }
