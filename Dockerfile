@@ -5,7 +5,7 @@ RUN apk update && \
 
 WORKDIR /app
 
-COPY . .
+RUN git clone https://github.com/LiveChurchSolutions/ChumsCheckin.git .
 
 RUN git submodule init && git submodule update
 
