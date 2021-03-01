@@ -5,19 +5,20 @@ export class EnvironmentHelper {
     //private static AttendanceApi = "http://192.168.1.34:8085";
 
     //Staging
-    /*
+
     static ImageBaseUrl = "https://app.staging.chums.org";
     private static AccessApi = "https://accessapi.staging.churchapps.org";
     private static MembershipApi = "https://membershipapi.staging.churchapps.org";
     private static AttendanceApi = "https://attendanceapi.staging.churchapps.org";
-    */
+
 
     //Prod
+    /*
     static ImageBaseUrl = "https://app.chums.org";
     private static AccessApi = "https://accessapi.churchapps.org";
     private static MembershipApi = "https://membershipapi.churchapps.org";
     private static AttendanceApi = "https://attendanceapi.churchapps.org";
-
+*/
 
     static init = () => {
         /*

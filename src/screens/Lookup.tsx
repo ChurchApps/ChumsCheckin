@@ -18,21 +18,23 @@ export const Lookup = (props: Props) => {
     const [phone, setPhone] = React.useState("");
 
     const loadHouseholdMembers = async () => {
-        return ApiHelper.get('/people/household/' + CachedData.householdId, "MembershipApi").then(data => {
-            CachedData.householdMembers = data
-            loadExistingVisits();
-        });
+        console.log('/people/household/' + CachedData.householdId);
+        CachedData.householdMembers = await ApiHelper.get('/people/household/' + CachedData.householdId, "MembershipApi");
+        loadExistingVisits();
     }
 
     const loadExistingVisits = async () => {
-        const peopleIds: number[] = ArrayHelper.getUniqueValues(CachedData.householdMembers, "id");
-        const url = '/visits/checkin?serviceId=' + CachedData.serviceId + '&peopleIds=' + escape(peopleIds.join(",")) + '&include=visitSessions';
-        ApiHelper.get(url, "AttendanceApi").then(data => {
-            CachedData.existingVisits = [...data];
-            CachedData.pendingVisits = [...data];
-            setIsLoading(false);
-            props.navigation.navigate("Household")
-        });
+        try {
+            CachedData.existingVisits = []
+            const peopleIds: number[] = ArrayHelper.getUniqueValues(CachedData.householdMembers, "id");
+            const url = '/visits/checkin?serviceId=' + CachedData.serviceId + '&peopleIds=' + escape(peopleIds.join(",")) + '&include=visitSessions';
+            CachedData.existingVisits = await ApiHelper.get(url, "AttendanceApi");
+        } catch {
+            console.log("***ERROR LOADING EXISTING");
+        }
+        CachedData.pendingVisits = [...CachedData.existingVisits];
+        setIsLoading(false);
+        props.navigation.navigate("Household")
     }
 
     const selectPerson = (person: PersonInterface) => {
