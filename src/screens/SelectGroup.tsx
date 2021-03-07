@@ -18,7 +18,12 @@ export const SelectGroup = (props: Props) => {
     const buildTree = () => {
         var category = "";
         var gt: GroupCategoryInterface[] = [];
-        props.route.params.serviceTime?.groups?.forEach(g => {
+
+        const sortedGroups = props.route.params.serviceTime?.groups?.sort((a, b) => {
+            return ((a.categoryName || "") > (b.categoryName || "")) ? 1 : -1;
+        });
+
+        sortedGroups?.forEach(g => {
             if (g.categoryName !== category) gt.push({ key: gt.length, name: g.categoryName || "", items: [] })
             gt[gt.length - 1].items.push(g);
             category = g.categoryName || "";

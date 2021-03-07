@@ -2,15 +2,19 @@ import { ApiHelper } from "./ApiHelper";
 
 export class EnvironmentHelper {
 
-    //private static AttendanceApi = "http://192.168.1.34:8085";
+    //Local
+    /*
+    private static ImageBaseUrl = "http://192.168.1.36:3100";
+    private static AccessApi = "http://192.168.1.36:8082";
+    private static MembershipApi = "http://192.168.1.36:8083";
+    private static AttendanceApi = "http://192.168.1.36:8085";
+    */
 
     //Staging
-
     static ImageBaseUrl = "https://app.staging.chums.org";
     private static AccessApi = "https://accessapi.staging.churchapps.org";
     private static MembershipApi = "https://membershipapi.staging.churchapps.org";
     private static AttendanceApi = "https://attendanceapi.staging.churchapps.org";
-
 
     //Prod
     /*
@@ -70,4 +74,5 @@ export class EnvironmentHelper {
 
 
 }
+
 

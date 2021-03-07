@@ -24,14 +24,10 @@ export const Lookup = (props: Props) => {
     }
 
     const loadExistingVisits = async () => {
-        try {
-            CachedData.existingVisits = []
-            const peopleIds: number[] = ArrayHelper.getUniqueValues(CachedData.householdMembers, "id");
-            const url = '/visits/checkin?serviceId=' + CachedData.serviceId + '&peopleIds=' + escape(peopleIds.join(",")) + '&include=visitSessions';
-            CachedData.existingVisits = await ApiHelper.get(url, "AttendanceApi");
-        } catch {
-            console.log("***ERROR LOADING EXISTING");
-        }
+        CachedData.existingVisits = []
+        const peopleIds: number[] = ArrayHelper.getUniqueValues(CachedData.householdMembers, "id");
+        const url = '/visits/checkin?serviceId=' + CachedData.serviceId + '&peopleIds=' + escape(peopleIds.join(",")) + '&include=visitSessions';
+        CachedData.existingVisits = await ApiHelper.get(url, "AttendanceApi");
         CachedData.pendingVisits = [...CachedData.existingVisits];
         setIsLoading(false);
         props.navigation.navigate("Household")

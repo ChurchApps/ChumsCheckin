@@ -15,8 +15,6 @@ export const Services = (props: Props) => {
     const loadData = () => {
         setIsLoading(true);
         ApiHelper.get("/services", "AttendanceApi").then(data => {
-            console.log("DATA");
-            console.log(data);
             setServices(data); setIsLoading(false);
         });
     }
@@ -39,6 +37,7 @@ export const Services = (props: Props) => {
                     st.groups?.push(g);
                 })
             });
+            console.log(JSON.stringify(CachedData.serviceTimes));
 
             setIsLoading(false);
             props.navigation.navigate("Lookup");
