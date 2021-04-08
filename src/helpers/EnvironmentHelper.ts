@@ -11,7 +11,7 @@ export class EnvironmentHelper {
     */
 
     //Staging
-    static ImageBaseUrl = "https://app.staging.chums.org";
+    static ImageBaseUrl = "https://content.staging.churchapps.org";
     private static AccessApi = "https://accessapi.staging.churchapps.org";
     private static MembershipApi = "https://membershipapi.staging.churchapps.org";
     private static AttendanceApi = "https://attendanceapi.staging.churchapps.org";
