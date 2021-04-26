@@ -35,7 +35,6 @@ export class ApiHelper {
         if (config === undefined) return;
         try {
             const requestOptions = { method: 'GET', headers: { 'Authorization': 'Bearer ' + config.jwt } };
-            console.log(path);
             return fetch(config.url + path, requestOptions).then(response => response.json())
         } catch (e) {
             throw (e);
@@ -50,8 +49,6 @@ export class ApiHelper {
             headers: { 'Authorization': 'Bearer ' + config.jwt, 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         };
-        console.log(path);
-        console.log(JSON.stringify(data));
         return fetch(config.url + path, requestOptions).then(response => response.json())
     }
 
