@@ -4,9 +4,11 @@ import { Container } from 'native-base'
 import { WebView } from "react-native-webview"
 import { Header } from './components'
 import ViewShot, { captureRef } from "react-native-view-shot";
-import { screenNavigationProps, CachedData, ApiHelper, LabelHelper, Styles } from "../helpers"
+import { screenNavigationProps, CachedData, ApiHelper, LabelHelper, Styles, StyleConstants } from "../helpers"
 import { CommonActions } from '@react-navigation/native';
 import { ArrayHelper } from '../helpers/ArrayHelper'
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { widthPercentageToDP as wp} from 'react-native-responsive-screen'
 
 interface Props { navigation: screenNavigationProps; }
 
@@ -87,10 +89,11 @@ export const CheckinComplete = (props: Props) => {
     React.useEffect(loadData, []);
 
     return (
-        <Container>
+        <Container style={{ backgroundColor: StyleConstants.ghostWhite }}>
             <Header />
-            <View style={[Styles.mainContainer]}>
-                <Text style={Styles.H1}>Checkin Complete.</Text>
+            <View style={[Styles.mainContainer, {justifyContent:'center'}]}>
+                <Icon name={'check-circle'} style={{fontSize: wp('20%'), color: StyleConstants.greenColor, alignSelf: 'center'}} size={wp('20%')} />
+                <Text style={[Styles.H1, { alignSelf: 'center'}]}>Checkin Complete.</Text>
                 {getLabelView()}
             </View>
         </Container>

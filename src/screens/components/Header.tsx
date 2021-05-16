@@ -27,12 +27,12 @@ export const Header = () => {
     React.useEffect(init, []);
 
     return (
-        <View style={Styles.headerImageView}>
+        <View style={Styles.headerLogoView}>
             <StatusBar backgroundColor="#08A1CD"></StatusBar>
-            <Ripple style={Styles.printerStatus} onPress={() => { handleClick() }} >
-                <Text style={{ backgroundColor: "#09A1CD", color: "#FFF" }} >{status} - Configure Printer</Text>
-            </Ripple>
-            <Image source={require('../../images/logo1.png')} style={Styles.headerImage} resizeMode="contain" />
+             <Ripple style={Styles.printerStatus} onPress={() => { handleClick() }} >
+                 <Text style={{ backgroundColor: "#09A1CD", color: "#FFF" }} >{status} - Configure Printer</Text>
+             </Ripple>
+            <Image source={require('../../images/logo1.png')} style={Styles.headerLogoIcon} />
         </View>
     )
 }

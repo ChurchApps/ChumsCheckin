@@ -2,6 +2,8 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import Ripple from 'react-native-material-ripple';
 import { CachedData, PersonInterface, screenNavigationProps, ServiceTimeInterface, VisitHelper, VisitSessionHelper, VisitSessionInterface, VisitInterface, Styles, StyleConstants, Utilities, GroupInterface } from "../../helpers";
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 interface Props { person: PersonInterface, selectedMemberId: string, navigation: screenNavigationProps, pendingVisits: VisitInterface[] }
 
@@ -19,7 +21,10 @@ export const MemberServiceTimes = (props: Props) => {
             selectedGroupName = group?.name || "Error";
         }
         return (<View key={serviceTime.id} style={Styles.expandedRow}>
-            <Text style={Styles.serviceTimeText}>{serviceTime.name}</Text>
+            <View style={Styles.serviceTimeView}>
+                <Icon name={'clock-o'} style={Styles.timeIcon} size={wp('5%')} />
+                <Text style={Styles.serviceTimeText}>{serviceTime.name}</Text>
+            </View>
             <Ripple style={[Styles.serviceTimeButton, buttonStyle]} onPress={() => { handleServiceTimeClick(serviceTime, props.person) }} >
                 <Text style={Styles.serviceTimeButtonText}>{selectedGroupName}</Text>
             </Ripple>

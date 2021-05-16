@@ -5,8 +5,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { CommonActions } from '@react-navigation/native';
 import Ripple from 'react-native-material-ripple';
 import { Header } from './components'
-import { ApiHelper, Utilities, screenNavigationProps, Styles, CachedData, LoginResponseInterface } from "../helpers";
-
+import { ApiHelper, Utilities, screenNavigationProps, Styles, CachedData, LoginResponseInterface, StyleConstants } from "../helpers";
+import Icon from 'react-native-vector-icons/Fontisto';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 interface Props { navigation: screenNavigationProps }
 
@@ -37,15 +38,18 @@ export const Login = (props: Props) => {
     }
 
     return (
-        <Container>
+        <Container style={{ backgroundColor: StyleConstants.ghostWhite }}>
             <Header />
             <Content contentContainerStyle={Styles.mainContainer} >
-                <Text style={Styles.H1}>Welcome.  Please Log in.</Text>
-                <TextInput placeholder="Email" value={email} style={Styles.textInput} autoCompleteType="email" keyboardType="email-address" onChangeText={(value) => setEmail(value)} />
-                <View style={{ marginTop: "5%" }}>
-                    <TextInput placeholder="Password" value={password} secureTextEntry={true} autoCompleteType="password" style={Styles.textInput} onChangeText={(value) => { setPassword(value) }} />
+                <Text style={{...Styles.H1, marginTop: wp('6%')}}>Welcome.  Please Log in.</Text>
+                <View style={Styles.textInputView}>
+                    <Icon name={'email'} color={StyleConstants.baseColor} style={Styles.inputIcon} size={wp('4.5%')} />
+                    <TextInput placeholder={'Email'} placeholderTextColor={'lightgray'} style={Styles.textInputStyle} autoCompleteType="email" keyboardType='email-address' autoCapitalize="none" value={email} onChangeText={(value) => setEmail(value)}  />
                 </View>
-
+                <View style={Styles.textInputView}>
+                    <Icon name={'key'} color={StyleConstants.baseColor} style={Styles.inputIcon} size={wp('4.5%')} />
+                    <TextInput placeholder={'Password'} placeholderTextColor={'lightgray'} style={Styles.textInputStyle} secureTextEntry={true} autoCapitalize="none" autoCorrect={false} keyboardType='default' value={password} onChangeText={(value) => { setPassword(value) }} />
+                </View>
                 <Ripple style={Styles.bigButton} onPress={login}>
                     <ActivityIndicator size="small" color="#FFFFFF" animating={isLoading} style={{ display: (isLoading) ? "flex" : "none" }} />
                     <Text style={[Styles.bigButtonText, { display: (isLoading) ? "none" : "flex" }]} >LOGIN</Text>

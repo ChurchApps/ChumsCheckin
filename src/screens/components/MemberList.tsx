@@ -1,9 +1,10 @@
 import React from 'react'
 import { View, Text, FlatList, Image } from 'react-native'
-import { Icon } from 'native-base'
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Ripple from 'react-native-material-ripple';
-import { CachedData, EnvironmentHelper, PersonInterface, screenNavigationProps, ServiceTimeInterface, Utilities, VisitHelper, VisitInterface, Styles, StyleConstants, GroupInterface, VisitSessionInterface } from "../../helpers";
+import { CachedData, EnvironmentHelper, PersonInterface, screenNavigationProps, ServiceTimeInterface, Utilities, VisitHelper, VisitInterface, Styles, GroupInterface, VisitSessionInterface } from "../../helpers";
 import { MemberServiceTimes } from './MemberServiceTimes';
+import { widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 interface Props { navigation: screenNavigationProps, pendingVisits: VisitInterface[] }
 
@@ -24,10 +25,12 @@ export const MemberList = (props: Props) => {
                     //const group: GroupInterface = ArrayHelper.getOne()
                     var name = group.name || "none";
                     if (st != null) name = (st.name || "") + " - " + name;
-                    if (groups.length > 0) groups.push(<Text key={vs.id?.toString() + "comma"} style={{ color: StyleConstants.grayColor }}>, </Text>);
-                    groups.push(<Text key={vs.id?.toString()} style={{ color: StyleConstants.greenColor }}>{name}</Text>);
+                    // if (groups.length > 0) groups.push(<Text key={vs.id?.toString() + "comma"} style={{ color: StyleConstants.grayColor }}>, </Text>);
+                    groups.push(<View key={vs.id?.toString()}>
+                        <Text style={Styles.groupName} numberOfLines={1}>{name}</Text>
+                    </View>)
                 });
-                return (<View style={{ flexDirection: "row" }} >{groups}</View>);
+                return (<View>{groups}</View>);
             }
         }
     }
@@ -37,10 +40,10 @@ export const MemberList = (props: Props) => {
         return (
             <View>
                 <Ripple style={Styles.flatlistMainView} onPress={() => { handleMemberClick(person.id || "") }}  >
-                    <Icon name={(selectedMemberId === person.id) ? 'up' : 'down'} type="AntDesign" style={Styles.flatlistDropIcon} />
-                    <Image source={{ uri: EnvironmentHelper.ImageBaseUrl + person.photo }} style={Styles.personPhoto} resizeMode="contain" />
-                    <View style={{ justifyContent: 'center', alignItems: 'center', marginLeft: '5%' }} >
-                        <Text style={[Styles.personName, { alignSelf: 'center' }]}>{person.name.display}</Text>
+                    <Icon name={(selectedMemberId === person.id) ? 'angle-down' : 'angle-right'} style={Styles.flatlistDropIcon} size={wp('6%')} />
+                    <Image source={{ uri: EnvironmentHelper.ImageBaseUrl + person.photo }} style={Styles.personPhoto} />
+                    <View style={{ justifyContent: 'center', alignItems: 'center'}} >
+                        <Text style={[Styles.personName, { alignSelf: 'flex-start' }]} numberOfLines={1}>{person.name.display}</Text>
                         {getCondensedGroupList(person)}
                     </View>
                 </Ripple>

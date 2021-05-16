@@ -1,10 +1,11 @@
 import React from 'react'
-import { View, Text, FlatList, ActivityIndicator } from 'react-native'
+import { Text, FlatList, ActivityIndicator, SafeAreaView } from 'react-native'
 import { Container } from 'native-base'
 import Ripple from 'react-native-material-ripple'
 import { Header } from './components'
 import { ApiHelper, screenNavigationProps, CachedData, Styles, StyleConstants, GroupInterface, GroupServiceTimeInterface } from '../helpers'
 import { ArrayHelper } from '../helpers/ArrayHelper'
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 interface Props { navigation: screenNavigationProps }
 
@@ -62,12 +63,12 @@ export const Services = (props: Props) => {
     React.useEffect(loadData, []);
 
     return (
-        <Container>
+        <Container style={{ backgroundColor: StyleConstants.ghostWhite }}>
             <Header />
-            <View style={Styles.mainContainer} >
-                <Text style={Styles.H1}>Select a service:</Text>
+            <SafeAreaView style={Styles.fullWidthContainer} >
+                <Text style={{...Styles.H1, marginLeft: wp('5%')}}>Select a service:</Text>
                 {getResults()}
-            </View>
+            </SafeAreaView>
         </Container>
     )
 }
