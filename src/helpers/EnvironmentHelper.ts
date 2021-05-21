@@ -15,13 +15,13 @@ export class EnvironmentHelper {
     private static MembershipApi = "https://membershipapi.staging.churchapps.org";
     private static AttendanceApi = "https://attendanceapi.staging.churchapps.org";
 
+
     //Prod
-    /*
-    static ImageBaseUrl = "https://app.chums.org";
-    private static AccessApi = "https://accessapi.churchapps.org";
-    private static MembershipApi = "https://membershipapi.churchapps.org";
-    private static AttendanceApi = "https://attendanceapi.churchapps.org";
-*/
+    //static ImageBaseUrl = "https://content.churchapps.org";
+    //private static AccessApi = "https://accessapi.churchapps.org";
+    //private static MembershipApi = "https://membershipapi.churchapps.org";
+    //private static AttendanceApi = "https://attendanceapi.churchapps.org";
+
 
     static init = () => {
         /*
