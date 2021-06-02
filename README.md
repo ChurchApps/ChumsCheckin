@@ -17,3 +17,10 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 5. **Start React Native** - Run `npm start` to start the React Native server.
 6. **Install Android App** - In Android Studio open the /android folder and click the run button to install the app on your device.  It will initially load with the logo missing, you need to connect it to the ReactNative server.
 7. **Connect App to React Native** - Either shake the device or run `adb shell input keyevent 82` to open the developer menu. Go to settings, Debug server host and enter YourIP:8080.  Restart the app and it should work properly.
+
+## Release build
+1. Make sure the environment variables point to the production servers in EnvironmentHelper.ts
+2. Run 'cd android' followed by 'gradlew bundleRelease' to produce the release bundle.
+3. Plug in an Amazon fire tablet via USB so an apk is generated for the correct device.
+4. Run 'cd..' followed by 'react-native run-android --variant=release' to generate an apk file for Fire devices.  You can close the node window when it completes.
+5. The apk file is located at 'android/app/build/outputs/apk/release/app-release.apk'.  Publish it via the Amazon developer portal.
