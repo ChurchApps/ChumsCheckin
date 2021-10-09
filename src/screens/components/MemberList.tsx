@@ -19,14 +19,14 @@ export const MemberList = (props: Props) => {
             if (visit?.visitSessions?.length === 0) return (null);
             else {
                 const groups: JSX.Element[] = [];
-                visit?.visitSessions?.forEach((vs: VisitSessionInterface) => {
+                visit?.visitSessions?.forEach((vs: VisitSessionInterface, index) => {
                     const st: ServiceTimeInterface | null = Utilities.getById(CachedData.serviceTimes, vs.session?.serviceTimeId || "");
                     const group: GroupInterface = Utilities.getById(st?.groups || [], vs.session?.groupId || "");
                     //const group: GroupInterface = ArrayHelper.getOne()
                     var name = group.name || "none";
                     if (st != null) name = (st.name || "") + " - " + name;
                     // if (groups.length > 0) groups.push(<Text key={vs.id?.toString() + "comma"} style={{ color: StyleConstants.grayColor }}>, </Text>);
-                    groups.push(<View key={vs.id?.toString()}>
+                    groups.push(<View key={index}>
                         <Text style={Styles.groupName} numberOfLines={1}>{name}</Text>
                     </View>)
                 });
