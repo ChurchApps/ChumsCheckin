@@ -7,3 +7,4 @@ export { SelectGroup } from "./SelectGroup"
 export { Services } from './Services'
 export { ScreenList } from "./ScreenList"
 export { Splash } from './Splash'
+export { SelectChurch } from "./SelectChurch"
