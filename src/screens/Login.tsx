@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { CommonActions } from '@react-navigation/native';
 import Ripple from 'react-native-material-ripple';
 import { Header } from './components'
-import { ApiHelper, Utilities, screenNavigationProps, Styles, CachedData, LoginResponseInterface, StyleConstants } from "../helpers";
+import { ApiHelper, Utilities, screenNavigationProps, Styles, LoginResponseInterface, StyleConstants } from "../helpers";
 import Icon from 'react-native-vector-icons/Fontisto';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
@@ -26,12 +26,11 @@ export const Login = (props: Props) => {
                 setIsLoading(false);
                 if (data.errors?.length > 0) Utilities.snackBar(data.errors[0])
                 else {
-                    CachedData.church = data.churches[0];
-                    data.churches[0].apis?.forEach(api => { ApiHelper.setPermissions(api.keyName || "", api.jwt, api.permissions); });
-                    AsyncStorage.multiSet([['@Login', 'true'], ['@Email', email], ['@Password', password]]);
+                    const churches = data.churches?.filter(church => church.apis && church.apis?.length > 0)
+                    AsyncStorage.multiSet([['@Login', 'true'], ['@Email', email], ['@Password', password], ["@UserChurches", JSON.stringify(churches)]]);
                     setEmail("");
                     setPassword("");
-                    props.navigation.dispatch(CommonActions.reset({ index: 0, routes: [{ name: 'Services' }] }));
+                    props.navigation.dispatch(CommonActions.reset({ index: 0, routes: [{ name: 'SelectChurch' }] }));
                 }
             });
         }

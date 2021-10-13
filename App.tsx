@@ -2,7 +2,7 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { CheckinComplete } from './src/screens/CheckinComplete'
-import { Splash, Lookup, Services, Login, Household, SelectGroup, AddGuest, ScreenList } from './src/screens'
+import { Splash, Lookup, Services, Login, Household, SelectGroup, AddGuest, ScreenList, SelectChurch } from './src/screens'
 import { EnvironmentHelper } from './src/helpers'
 
 EnvironmentHelper.init();
@@ -19,6 +19,7 @@ const createNavigation = () => {
                 <stack.Screen name='AddGuest' component={AddGuest} />
                 <stack.Screen name='CheckinComplete' component={CheckinComplete} />
                 <stack.Screen name='SelectGroup' component={SelectGroup} />
+                <stack.Screen name="SelectChurch" component={SelectChurch} />
             </stack.Navigator>
         </NavigationContainer>
     )
