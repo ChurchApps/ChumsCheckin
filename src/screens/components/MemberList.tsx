@@ -41,7 +41,7 @@ export const MemberList = (props: Props) => {
             <View>
                 <Ripple style={Styles.flatlistMainView} onPress={() => { handleMemberClick(person.id || "") }}  >
                     <Icon name={(selectedMemberId === person.id) ? 'angle-down' : 'angle-right'} style={Styles.flatlistDropIcon} size={wp('6%')} />
-                    <Image source={{ uri: EnvironmentHelper.ImageBaseUrl + person.photo }} style={Styles.personPhoto} />
+                    <Image source={{ uri: EnvironmentHelper.ContentRoot + person.photo }} style={Styles.personPhoto} />
                     <View style={{ justifyContent: 'center', alignItems: 'center'}} >
                         <Text style={[Styles.personName, { alignSelf: 'flex-start' }]} numberOfLines={1}>{person.name.display}</Text>
                         {getCondensedGroupList(person)}
