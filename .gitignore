@@ -136,3 +136,6 @@ Thumbs.db
 *.flv
 *.mov
 *.wmv
+
+# env files
+.env
