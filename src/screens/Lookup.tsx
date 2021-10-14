@@ -58,7 +58,7 @@ export const Lookup = (props: Props) => {
         const person: PersonInterface = data.item;
         return (
             <Ripple style={Styles.flatlistMainView} onPress={() => { selectPerson(person) }} >
-                <Image source={{ uri: EnvironmentHelper.ImageBaseUrl + person.photo }} style={Styles.personPhoto} />
+                <Image source={{ uri: EnvironmentHelper.ContentRoot + person.photo }} style={Styles.personPhoto} />
                 <Text style={Styles.personName}>{person.name.display}</Text>
             </Ripple>
         )
