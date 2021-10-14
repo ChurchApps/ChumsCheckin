@@ -12,7 +12,10 @@
       "skipLibCheck": true,
       "declaration": true,
       "noUnusedLocals": true,
-      "allowJs":true
+      "allowJs":true,
+      "typeRoots": [
+        "src/@types"
+      ]
     },
     "exclude": [
       "node_modules"
