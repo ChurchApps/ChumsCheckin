@@ -13,6 +13,9 @@ import org.chums.checkin.BuildConfig;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import com.microsoft.codepush.react.CodePush;
+
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
@@ -35,6 +38,20 @@ public class MainApplication extends Application implements ReactApplication {
         protected String getJSMainModuleName() {
           return "index";
         }
+
+        @Override
+        protected String getJSBundleFile() {
+            return CodePush.getJSBundleFile();
+        }
+
+        @Override
+        protected List<ReactPackage> getPackages() {
+            return Arrays.<ReactPackage>asList(
+                new MainReactPackage(),
+                new CodePush("DY_Lkr9-GZDz8flf8fS3yd6Udp-t-6qyopnEs", MainApplication.this, BuildConfig.DEBUG)
+            );
+        }
+
       };
 
   @Override
