@@ -5,7 +5,7 @@ import { Container } from 'native-base';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ripple from 'react-native-material-ripple';
 import { CommonActions } from "@react-navigation/native"
-import { ChurchInterface, StyleConstants, Styles, CachedData, ApiHelper, screenNavigationProps, } from '../helpers';
+import { ChurchInterface, StyleConstants, Styles, CachedData, ApiHelper, screenNavigationProps, Utilities, } from '../helpers';
 import { Header } from './components';
 
 interface Props {
@@ -18,6 +18,7 @@ export function SelectChurch({ navigation }: Props) {
 
   React.useEffect(() => {
     setLoading(true);
+    Utilities.trackEvent("Select Church Screen");
     (async () => {
       const churches = await AsyncStorage.getItem('@UserChurches');
       setChurches(JSON.parse(churches || ''));
@@ -45,7 +46,7 @@ export function SelectChurch({ navigation }: Props) {
       size="large"
       color={StyleConstants.baseColor1}
       animating={isLoading}
-      style={{marginTop: '25%'}}
+      style={{ marginTop: '25%' }}
     />
   ) : (
     <FlatList
@@ -56,10 +57,10 @@ export function SelectChurch({ navigation }: Props) {
   );
 
   return (
-    <Container style={{backgroundColor: StyleConstants.ghostWhite}}>
+    <Container style={{ backgroundColor: StyleConstants.ghostWhite }}>
       <Header />
       <SafeAreaView style={Styles.fullWidthContainer}>
-        <Text style={{...Styles.H1, marginLeft: wp('5%')}}>
+        <Text style={{ ...Styles.H1, marginLeft: wp('5%') }}>
           Select a Church:
         </Text>
         {churchList}

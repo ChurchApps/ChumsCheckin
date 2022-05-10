@@ -8,7 +8,9 @@ export class EnvironmentHelper {
   static ContentRoot = "";
 
   static init = () => {
-    switch (STAGE) {
+    let stage = STAGE;
+    stage = "prod";
+    switch (stage) {
       case "staging": EnvironmentHelper.initStaging(); break;
       case "prod": EnvironmentHelper.initProd(); break;
       default: EnvironmentHelper.initDev(); break;

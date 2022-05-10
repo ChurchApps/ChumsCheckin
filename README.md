@@ -26,9 +26,16 @@ To debug within VSCode, set breakpoints like normal, then:
 4. The program will now pause at your breakpoints.
 
 ## Release build
-1. Make sure the environment variables point to the production servers in EnvironmentHelper.ts
+1. Hardcode stage to prod EnvironmentHelper.ts
 2. Increment the version number in android/app/build.gradle
 3. Run 'cd android' followed by 'gradlew bundleRelease' to produce the release bundle.
 4. Plug in an Amazon fire tablet via USB so an apk is generated for the correct device.
 5. Run 'cd..' followed by 'react-native run-android --variant=release' to generate an apk file for Fire devices.  You can close the node window when it completes.
 7. The apk file is located at 'android/app/build/outputs/apk/release/app-release.apk'.  Publish it via the Amazon developer portal.
+8. Remove hardcoded stage in EnvironmentHelper.ts
+
+## Codepush release
+1. Hardcode stage to prod EnvironmentHelper.ts
+2. Update version number in package.json
+3. Run 'appcenter codepush release-react -a SignPresenter/SignPresenterScreen_Android -d Production'
+4. Remove hardcoded stage in EnvironmentHelper.ts
