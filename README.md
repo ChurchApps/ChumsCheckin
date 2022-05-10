@@ -37,5 +37,5 @@ To debug within VSCode, set breakpoints like normal, then:
 ## Codepush release
 1. Hardcode stage to prod EnvironmentHelper.ts
 2. Update version number in package.json
-3. Run 'appcenter codepush release-react -a SignPresenter/SignPresenterScreen_Android -d Production'
+3. Run 'appcenter codepush release-react -a Live-Church-Solutions/ChumsCheckin -d Production'
 4. Remove hardcoded stage in EnvironmentHelper.ts

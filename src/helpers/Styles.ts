@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native'
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { heightPercentageToDP, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 export class StyleConstants {
   static deviceWidth = Dimensions.get("window").width;
@@ -94,5 +94,5 @@ export const Styles = StyleSheet.create({
 
   //WhiteLogo
   headerLogoView: { borderBottomLeftRadius: wp('8%'), borderBottomRightRadius: wp('8%'), marginBottom: wp('2.5%'), backgroundColor: 'white', shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.3, shadowRadius: wp('1.5%'), shadowColor: StyleConstants.blueColor, elevation: 5 },
-  headerLogoIcon: { maxWidth: wp('55%'), maxHeight: wp('55%'), resizeMode: 'contain', alignSelf: 'center' },
+  headerLogoIcon: { maxWidth: wp('55%'), maxHeight: wp('55%'), marginBottom: wp("2%"), marginTop: wp("2%"), resizeMode: 'contain', alignSelf: 'center' },
 })
