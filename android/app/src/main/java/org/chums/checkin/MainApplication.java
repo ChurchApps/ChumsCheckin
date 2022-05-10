@@ -44,13 +44,6 @@ public class MainApplication extends Application implements ReactApplication {
             return CodePush.getJSBundleFile();
         }
 
-        @Override
-        protected List<ReactPackage> getPackages() {
-            return Arrays.<ReactPackage>asList(
-                new MainReactPackage(),
-                new CodePush("DY_Lkr9-GZDz8flf8fS3yd6Udp-t-6qyopnEs", MainApplication.this, BuildConfig.DEBUG)
-            );
-        }
 
       };
 
