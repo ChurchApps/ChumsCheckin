@@ -28,10 +28,13 @@ To debug within VSCode, set breakpoints like normal, then:
 ## Release build
 1. Hardcode stage to prod EnvironmentHelper.ts
 2. Increment the version number in android/app/build.gradle
-3. Run 'cd android' followed by 'gradlew bundleRelease' to produce the release bundle.
-4. Plug in an Amazon fire tablet via USB so an apk is generated for the correct device.
-5. Run 'cd..' followed by 'react-native run-android --variant=release' to generate an apk file for Fire devices.  You can close the node window when it completes.
+3. Update version number in package.json
+4. Run 'cd android' followed by 'gradlew bundleRelease' to produce the release bundle.
+5. Plug in an Amazon fire tablet via USB so an apk is generated for the correct device.
+6. Run 'cd..' followed by 'react-native run-android --variant=release' to generate an apk file for Fire devices.  You can close the node window when it completes.
 7. The apk file is located at 'android/app/build/outputs/apk/release/app-release.apk'.  Publish it via the Amazon developer portal.
+8. Open Android Studio, Go to Build->Generate Signed Bundle.
+9. The bundle aab is located at 'android/app/release'.  Publish it to Google Play Store.
 8. Remove hardcoded stage in EnvironmentHelper.ts
 
 ## Codepush release
