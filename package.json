@@ -21,7 +21,7 @@
     "appcenter-crashes": "4.4.4",
     "native-base": "^2.15.2",
     "react": "16.13.1",
-    "react-native": "^0.64.3",
+    "react-native": "^0.68.2",
     "react-native-code-push": "^7.0.4",
     "react-native-config": "^1.4.5",
     "react-native-dotenv": "^2.6.2",
