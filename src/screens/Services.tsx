@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, FlatList, ActivityIndicator, SafeAreaView } from 'react-native'
+import { Text, FlatList, ActivityIndicator, SafeAreaView, Dimensions, PixelRatio, ScrollView } from 'react-native'
 import { Container } from 'native-base'
 import Ripple from 'react-native-material-ripple'
 import { Header } from './components'
@@ -12,6 +12,7 @@ interface Props { navigation: screenNavigationProps }
 export const Services = (props: Props) => {
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [services, setServices] = React.useState([]);
+  const [dimension, setDimension] = React.useState(Dimensions.get('window'));
 
   const loadData = () => {
     setIsLoading(true);
@@ -20,6 +21,18 @@ export const Services = (props: Props) => {
       setServices(data); setIsLoading(false);
     });
   }
+
+  React.useEffect(() => {
+    Dimensions.addEventListener('change', () => {
+      const dim = Dimensions.get('screen')
+      setDimension(dim);
+    })
+  }, []);
+
+  const wd = (number: string) => {
+    let givenWidth = typeof number === "number" ? number : parseFloat(number);
+    return PixelRatio.roundToNearestPixel((dimension.width * givenWidth) / 100);
+  };
 
   const selectService = (serviceId: string) => {
     setIsLoading(true);
@@ -50,7 +63,7 @@ export const Services = (props: Props) => {
   const getRow = (data: any) => {
     const item = data.item;
     return (
-      <Ripple style={Styles.bigLinkButton} onPress={() => { selectService(item.id) }}>
+      <Ripple style={[Styles.bigLinkButton,{width:wd('90%')}]} onPress={() => { selectService(item.id) }}>
         <Text style={Styles.bigLinkButtonText}>{item.campus.name} - {item.name}</Text>
       </Ripple>
     );
@@ -65,11 +78,13 @@ export const Services = (props: Props) => {
 
   return (
     <Container style={{ backgroundColor: StyleConstants.ghostWhite }}>
-      <Header />
-      <SafeAreaView style={Styles.fullWidthContainer} >
-        <Text style={{ ...Styles.H1, marginLeft: wp('5%') }}>Select a service:</Text>
-        {getResults()}
-      </SafeAreaView>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Header />
+        <SafeAreaView style={Styles.fullWidthContainer} >
+          <Text style={{ ...Styles.H1, marginLeft: wp('5%') }}>Select a service:</Text>
+          {getResults()}
+        </SafeAreaView>
+      </ScrollView>
     </Container>
   )
 }

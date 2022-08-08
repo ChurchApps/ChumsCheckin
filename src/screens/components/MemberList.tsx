@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, FlatList, Image } from 'react-native'
+import { View, Text, FlatList, Image, Dimensions, PixelRatio } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Ripple from 'react-native-material-ripple';
 import { CachedData, EnvironmentHelper, PersonInterface, screenNavigationProps, ServiceTimeInterface, Utilities, VisitHelper, VisitInterface, Styles, GroupInterface, VisitSessionInterface } from "../../helpers";
@@ -10,6 +10,8 @@ interface Props { navigation: screenNavigationProps, pendingVisits: VisitInterfa
 
 export const MemberList = (props: Props) => {
     const [selectedMemberId, setSelectedMemberId] = React.useState("");
+    const [dimension, setDimension] = React.useState(Dimensions.get('window'));
+
     const handleMemberClick = (id: string) => { setSelectedMemberId((selectedMemberId === id) ? "" : id); }
 
     const getCondensedGroupList = (person: PersonInterface) => {
@@ -35,11 +37,23 @@ export const MemberList = (props: Props) => {
         }
     }
 
-    const getMemberRow = (data: any) => {
+    React.useEffect(() => {
+        Dimensions.addEventListener('change', () => {
+          const dim = Dimensions.get('screen')
+          setDimension(dim);
+        })
+    }, []);
+    
+    const wd = (number: string) => {
+        let givenWidth = typeof number === "number" ? number : parseFloat(number);
+        return PixelRatio.roundToNearestPixel((dimension.width * givenWidth) / 100);
+    };
+
+    const getMemberRow = (data: any) => {  
         const person: PersonInterface = data.item;
         return (
             <View>
-                <Ripple style={Styles.flatlistMainView} onPress={() => { handleMemberClick(person.id || "") }}  >
+                <Ripple style={[Styles.flatlistMainView,{width:wd('90%')}]} onPress={() => { handleMemberClick(person.id || "") }}>
                     <Icon name={(selectedMemberId === person.id) ? 'angle-down' : 'angle-right'} style={Styles.flatlistDropIcon} size={wp('6%')} />
                     <Image source={{ uri: EnvironmentHelper.ContentRoot + person.photo }} style={Styles.personPhoto} />
                     <View style={{ justifyContent: 'center', alignItems: 'center'}} >

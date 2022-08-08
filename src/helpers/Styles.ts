@@ -48,7 +48,7 @@ export const Styles = StyleSheet.create({
   content: { backgroundColor: StyleConstants.ghostWhite, paddingBottom: '5%', flex: 1, },
   label: { fontSize: StyleConstants.fontSize, alignSelf: 'flex-start', marginVertical: '4%', fontFamily: StyleConstants.RobotoLight },
   textInput: { backgroundColor: StyleConstants.whiteColor, paddingHorizontal: '3%', fontSize: StyleConstants.smallFont, },
-  textInputView: { height: wp('12%'), flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: wp('5%'), backgroundColor: 'white', borderRadius: wp('2%'), shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.1, shadowRadius: wp('1.5%'), elevation: 5 },
+  textInputView: { height: wp('12%'), flexDirection: 'row', alignItems: 'center', marginTop: wp('5.5%'), marginHorizontal: wp('5%'), backgroundColor: 'white', borderRadius: wp('2%'), shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.1, shadowRadius: wp('1.5%'), elevation: 5,alignSelf:'center' },
   textInputStyle: { height: wp('10%'), width: wp('80%'), alignItems: 'center', justifyContent: 'center', fontSize: wp('3.8%'), color: 'gray' },
   flatlistDropIcon: { fontSize: wp('6%'), color: StyleConstants.grayColor, marginLeft: wp('3%') },
   inputIcon: { width: wp('4.5%'), height: wp('4.5%'), margin: wp('3%') },
@@ -56,7 +56,7 @@ export const Styles = StyleSheet.create({
   //Buttons
   button: { backgroundColor: StyleConstants.baseColor, marginVertical: '8%', height: 50, justifyContent: 'center', flexDirection: 'row', },
   buttonText: { alignSelf: 'center', color: StyleConstants.whiteColor, fontSize: StyleConstants.smallerFont },
-  bigButton: { backgroundColor: StyleConstants.baseColor, height: wp('12%'), width: wp('90%'), borderRadius: wp('2%'), justifyContent: 'center', alignItems: 'center', alignSelf: 'center', marginTop: wp('8%') },
+  bigButton: { height: wp('12%'), borderRadius: wp('2%'), justifyContent: 'center', alignItems: 'center', alignSelf: 'center', backgroundColor: StyleConstants.baseColor, marginTop: wp('8%') },
   bigButtonText: { alignSelf: 'center', color: StyleConstants.whiteColor, fontSize: StyleConstants.smallFont, fontFamily: StyleConstants.RobotoMedium },
   bigLinkButton: { width: wp('90%'), height: wp('15%'), justifyContent: 'center', backgroundColor: 'white', alignSelf: 'center', alignItems: 'center', marginVertical: wp('2%'), borderRadius: wp('2%'), shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.2, shadowRadius: wp('1.5%'), elevation: 5, shadowColor: StyleConstants.blueColor, flexDirection: 'row' },
   bigLinkButtonText: { fontSize: wp('4.5%'), fontFamily: StyleConstants.RobotoMedium, color: StyleConstants.baseColor1 },
@@ -94,5 +94,5 @@ export const Styles = StyleSheet.create({
 
   //WhiteLogo
   headerLogoView: { borderBottomLeftRadius: wp('8%'), borderBottomRightRadius: wp('8%'), marginBottom: wp('2.5%'), backgroundColor: 'white', shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.3, shadowRadius: wp('1.5%'), shadowColor: StyleConstants.blueColor, elevation: 5 },
-  headerLogoIcon: { maxWidth: wp('55%'), maxHeight: wp('55%'), marginBottom: wp("2%"), marginTop: wp("2%"), resizeMode: 'contain', alignSelf: 'center' },
+  headerLogoIcon: { maxWidth:wp('50%'), maxHeight: '60%', marginBottom: wp("2%"), marginTop: wp("4%"), resizeMode: 'contain', alignSelf: 'center' },
 })
