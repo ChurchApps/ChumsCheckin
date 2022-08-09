@@ -1,5 +1,5 @@
 import React from 'react'
-import { TextInput, View, Text } from 'react-native'
+import { TextInput, View, Text, ScrollView } from 'react-native'
 import { Container, Content } from 'native-base'
 import Ripple from 'react-native-material-ripple';
 import { Header } from './components'
@@ -48,19 +48,19 @@ export const AddGuest = (props: Props) => {
 
   return (
     <Container>
-      <Header />
-      <View style={Styles.mainContainer}>
-        <Content>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Header />
+        <View style={Styles.mainContainer}>
           <Text style={Styles.label}>First Name</Text>
-          <TextInput placeholder="First" onChangeText={(value) => { setFirstName(value) }} style={Styles.textInput} />
+          <TextInput placeholder="First" onChangeText={(value) => { setFirstName(value) }} style={[Styles.textInput]} />
           <Text style={Styles.label}>Last Name</Text>
-          <TextInput placeholder="Last" onChangeText={(value) => { setLastName(value) }} style={Styles.textInput} />
-        </Content>
-      </View>
+          <TextInput placeholder="Last" onChangeText={(value) => { setLastName(value) }} style={[Styles.textInput,{marginBottom:10}]} />
+        </View>
+      </ScrollView>
       <View style={Styles.blockButtons}>
         <Ripple style={[Styles.blockButton, { backgroundColor: StyleConstants.yellowColor }]} onPress={cancelGuest} ><Text style={Styles.blockButtonText}>CANCEL</Text></Ripple>
         <Ripple style={[Styles.blockButton, { backgroundColor: StyleConstants.greenColor }]} onPress={addGuest} ><Text style={Styles.blockButtonText}>ADD</Text></Ripple>
       </View>
-    </Container >
+    </Container>
   )
 }

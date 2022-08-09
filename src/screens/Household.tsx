@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, ScrollView } from 'react-native'
 import { Container } from 'native-base'
 import Ripple from 'react-native-material-ripple';
 import { RouteProp } from '@react-navigation/native';
@@ -16,20 +16,22 @@ export const Household = (props: Props) => {
     Utilities.trackEvent("Household screen");
     props.navigation.addListener('focus', () => {
       setPendingVisits([...CachedData.pendingVisits]);
-    });
+    });    
   }
   const checkin = () => { props.navigation.navigate("CheckinComplete"); }
   React.useEffect(init, []);
-  return (
-    <Container>
-      <View style={Styles.fullWidthContainer}>
-        <Header />
 
-        <MemberList navigation={props.navigation} pendingVisits={pendingVisits} />
-        <View style={[Styles.blockButtons]}>
-          <Ripple style={[Styles.blockButton]} onPress={checkin}><Text style={Styles.blockButtonText}>CHECKIN</Text></Ripple>
-        </View>
+  return (
+    <View style={{flex:1}}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={Styles.fullWidthContainer}>
+            <Header />
+            <MemberList navigation={props.navigation} pendingVisits={pendingVisits} />
+          </View>
+      </ScrollView>
+      <View style={[Styles.blockButtons]}>
+        <Ripple style={[Styles.blockButton]} onPress={checkin}><Text style={Styles.blockButtonText}>CHECKIN</Text></Ripple>
       </View>
-    </Container>
+    </View>
   )
 }

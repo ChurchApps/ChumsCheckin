@@ -1,10 +1,13 @@
 import React from 'react'
-import { View, Image, StatusBar, Text, NativeModules, NativeEventEmitter, Platform } from 'react-native'
+import { View, Image, StatusBar, Text, NativeModules, NativeEventEmitter, Platform, Dimensions } from 'react-native'
 import Ripple from 'react-native-material-ripple';
+import { widthPercentageToDP } from 'react-native-responsive-screen';
 import { CachedData, Styles } from '../../helpers'
 
-export const Header = () => {
+export const Header = ({logo}:any) => {
     const [status, setStatus] = React.useState("");
+    const [landscap,setLandscap] = React.useState(false);
+
     var eventEmitter: NativeEventEmitter;
 
     const handleClick = () => { NativeModules.PrinterHelper.configure(); }
@@ -26,13 +29,30 @@ export const Header = () => {
 
     React.useEffect(init, []);
 
+    const isLandscape = () => {
+        const dim = Dimensions.get('screen');
+        return dim.width >= dim.height;
+    };
+
+    React.useEffect(() => {
+        Dimensions.addEventListener('change', () => {
+            isLandscape() ? setLandscap(true) : setLandscap(false);
+        })
+      }, []);
+
+    React.useEffect(()=>{
+        Dimensions.addEventListener('change', () => {
+            isLandscape() ? setLandscap(true) : setLandscap(false);
+        })
+    },[landscap])
+
     return (
-        <View style={Styles.headerLogoView}>
+        <View style={[Styles.headerLogoView,landscap && {maxHeight:logo ?'30%':widthPercentageToDP('50%')}]}>
             <StatusBar backgroundColor="#08A1CD"></StatusBar>
              <Ripple style={Styles.printerStatus} onPress={() => { handleClick() }} >
                  <Text style={{ backgroundColor: "#09A1CD", color: "#FFF" }} >{status} - Configure Printer</Text>
              </Ripple>
-            <Image source={require('../../images/logo1.png')} style={Styles.headerLogoIcon} />
+            <Image source={require('../../images/logo1.png')} style={[Styles.headerLogoIcon,landscap && {maxHeight:'40%',top:'10%'}]} />
         </View>
     )
 }
