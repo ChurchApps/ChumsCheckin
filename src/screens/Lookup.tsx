@@ -16,7 +16,7 @@ export const Lookup = (props: Props) => {
   const [hasSearched, setHasSearched] = React.useState<boolean>(false);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [people, setPeople] = React.useState([]);
-  const [phone, setPhone] = React.useState(""); 
+  const [phone, setPhone] = React.useState("");
   const [dimension, setDimension] = React.useState(Dimensions.get('window'));
 
   const loadHouseholdMembers = async () => {
@@ -59,7 +59,7 @@ export const Lookup = (props: Props) => {
   const getRow = (data: any) => {
     const person: PersonInterface = data.item;
     return (
-      <Ripple style={[Styles.flatlistMainView,{width:wd('90%')}]} onPress={() => { selectPerson(person) }} >
+      <Ripple style={[Styles.flatlistMainView, { width: wd('90%') }]} onPress={() => { selectPerson(person) }} >
         <Image source={{ uri: EnvironmentHelper.ContentRoot + person.photo }} style={Styles.personPhoto} />
         <Text style={Styles.personName}>{person.name.display}</Text>
       </Ripple>
@@ -87,10 +87,10 @@ export const Lookup = (props: Props) => {
   return (
     <Container style={{ backgroundColor: StyleConstants.ghostWhite }}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Header />
+        <Header navigation={props.navigation} />
         <SafeAreaView style={Styles.fullWidthContainer}>
           <Text style={{ ...Styles.H1, marginLeft: wp('5%') }}>Search by phone number:</Text>
-          <View style={[Styles.searchView,{width:wd('90%')}]} >
+          <View style={[Styles.searchView, { width: wd('90%') }]} >
             <TextInput placeholder='Enter mobile no' onChangeText={(value) => { setPhone(value) }} keyboardType="numeric" style={Styles.searchTextInput} />
             <Ripple style={Styles.searchButton} onPress={handleSearch} >
               <Text style={[Styles.searchButtonText]}>Search</Text>

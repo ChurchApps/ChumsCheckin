@@ -93,7 +93,7 @@ export const CheckinComplete = (props: Props) => {
 
   return (
     <Container style={{ backgroundColor: StyleConstants.ghostWhite }}>
-      <Header />
+      <Header navigation={props.navigation} />
       <View style={[Styles.mainContainer, { justifyContent: 'center' }]}>
         <Icon name={'check-circle'} style={{ fontSize: wp('20%'), color: StyleConstants.greenColor, alignSelf: 'center' }} size={wp('20%')} />
         <Text style={[Styles.H1, { alignSelf: 'center' }]}>Checkin Complete.</Text>

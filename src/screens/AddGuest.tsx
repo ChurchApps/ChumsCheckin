@@ -49,12 +49,12 @@ export const AddGuest = (props: Props) => {
   return (
     <Container>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Header />
+        <Header navigation={props.navigation} />
         <View style={Styles.mainContainer}>
           <Text style={Styles.label}>First Name</Text>
           <TextInput placeholder="First" onChangeText={(value) => { setFirstName(value) }} style={[Styles.textInput]} />
           <Text style={Styles.label}>Last Name</Text>
-          <TextInput placeholder="Last" onChangeText={(value) => { setLastName(value) }} style={[Styles.textInput,{marginBottom:10}]} />
+          <TextInput placeholder="Last" onChangeText={(value) => { setLastName(value) }} style={[Styles.textInput, { marginBottom: 10 }]} />
         </View>
       </ScrollView>
       <View style={Styles.blockButtons}>

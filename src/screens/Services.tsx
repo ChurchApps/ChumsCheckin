@@ -63,7 +63,7 @@ export const Services = (props: Props) => {
   const getRow = (data: any) => {
     const item = data.item;
     return (
-      <Ripple style={[Styles.bigLinkButton,{width:wd('90%')}]} onPress={() => { selectService(item.id) }}>
+      <Ripple style={[Styles.bigLinkButton, { width: wd('90%') }]} onPress={() => { selectService(item.id) }}>
         <Text style={Styles.bigLinkButtonText}>{item.campus.name} - {item.name}</Text>
       </Ripple>
     );
@@ -79,7 +79,7 @@ export const Services = (props: Props) => {
   return (
     <Container style={{ backgroundColor: StyleConstants.ghostWhite }}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Header />
+        <Header navigation={props.navigation} />
         <SafeAreaView style={Styles.fullWidthContainer} >
           <Text style={{ ...Styles.H1, marginLeft: wp('5%') }}>Select a service:</Text>
           {getResults()}

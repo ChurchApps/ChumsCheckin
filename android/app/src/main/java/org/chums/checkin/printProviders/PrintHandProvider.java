@@ -16,6 +16,11 @@ public class PrintHandProvider implements PrintProviderInterface {
     static Context context = null;
     public static boolean readyToPrint=false;
 
+    public String[] scan() {
+        return new String[]{"Scan unavailable"};
+    }
+
+
     private void setStatus(String status)
     {
         PrinterHelper.updateStatus(status);

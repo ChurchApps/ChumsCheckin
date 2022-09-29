@@ -10,4 +10,5 @@ public interface PrintProviderInterface {
     public void init();
     public void configure();
     public void printBitmaps(List<Bitmap> bmps);
+    public String[] scan();
 }

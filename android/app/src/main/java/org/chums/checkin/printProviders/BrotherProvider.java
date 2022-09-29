@@ -27,13 +27,13 @@ import com.brother.sdk.lmprinter.PrinterDriver;
 import com.brother.sdk.lmprinter.PrinterDriverGenerateResult;
 import com.brother.sdk.lmprinter.PrinterDriverGenerator;
 
+
 public class BrotherProvider implements PrintProviderInterface {
     static Context context = null;
     public static boolean readyToPrint=false;
 
-    private void setStatus(String status)
-    {
-        PrinterHelper.updateStatus(status);
+    public String[] scan() {
+        return new String[]{"192.168.1.2", "192.168.1.3"};
     }
 
     public void checkInit(Context c) {
@@ -42,6 +42,7 @@ public class BrotherProvider implements PrintProviderInterface {
 
     public void init()
     {
+        PrinterHelper.updateStatus("No Printer");
     }
 
     public void configure()

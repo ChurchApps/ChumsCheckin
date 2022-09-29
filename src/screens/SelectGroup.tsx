@@ -81,7 +81,7 @@ export const SelectGroup = (props: Props) => {
 
   return (
     <Container>
-      <Header />
+      <Header navigation={props.navigation} />
       <View style={Styles.fullWidthContainer}>
         <FlatList data={groupTree} renderItem={getRow} keyExtractor={(item: GroupCategoryInterface) => item.name} />
         <View style={Styles.blockButtons}>

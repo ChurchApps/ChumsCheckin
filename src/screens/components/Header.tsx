@@ -2,15 +2,23 @@ import React from 'react'
 import { View, Image, StatusBar, Text, NativeModules, NativeEventEmitter, Platform, Dimensions } from 'react-native'
 import Ripple from 'react-native-material-ripple';
 import { widthPercentageToDP } from 'react-native-responsive-screen';
-import { CachedData, Styles } from '../../helpers'
+import { CachedData, screenNavigationProps, Styles } from '../../helpers'
 
-export const Header = ({ logo }: any) => {
+interface Props {
+  navigation: screenNavigationProps,
+  logo?: any
+}
+
+export const Header = (props: Props) => {
   const [status, setStatus] = React.useState("");
   const [landscap, setLandscap] = React.useState(false);
 
   var eventEmitter: NativeEventEmitter;
 
-  const handleClick = () => { NativeModules.PrinterHelper.configure(); }
+  const handleClick = () => {
+    props.navigation.navigate("Printers");
+    //NativeModules.PrinterHelper.configure(); 
+  }
   const receiveNativeStatus = (receivedStatus: string) => { setStatus(receivedStatus); }
 
   const init = () => {
@@ -49,7 +57,7 @@ export const Header = ({ logo }: any) => {
   }, [landscap])
 
   return (
-    <View style={[Styles.headerLogoView, landscap && { maxHeight: logo ? '30%' : widthPercentageToDP('50%') }]}>
+    <View style={[Styles.headerLogoView, landscap && { maxHeight: props.logo ? '30%' : widthPercentageToDP('50%') }]}>
       <StatusBar backgroundColor="#08A1CD"></StatusBar>
       <Ripple style={Styles.printerStatus} onPress={() => { handleClick() }} >
         <Text style={{ backgroundColor: "#09A1CD", color: "#FFF" }} >{status} - Configure Printer</Text>

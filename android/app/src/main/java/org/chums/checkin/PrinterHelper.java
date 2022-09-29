@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -20,6 +21,7 @@ import org.chums.checkin.printProviders.PrintProviderInterface;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.facebook.react.bridge.Promise;
 
 public class PrinterHelper extends  ReactContextBaseJavaModule  {
     public static String Status = "Pending init";
@@ -45,6 +47,19 @@ public class PrinterHelper extends  ReactContextBaseJavaModule  {
         params.putString("status", PrinterHelper.Status);
         reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("StatusUpdated", params);
     }
+
+    @ReactMethod
+    public void scan(final Promise promise) {
+        promise.resolve(String.join(",", printProvider.scan()));
+    }
+
+/*
+    @ReactMethod
+    public String[] scan()
+    {
+        return printProvider.scan();
+    }
+  */
 
     @ReactMethod
     public void init()
