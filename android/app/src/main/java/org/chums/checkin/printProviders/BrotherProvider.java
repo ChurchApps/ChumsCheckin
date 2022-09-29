@@ -48,19 +48,37 @@ public class BrotherProvider implements PrintProviderInterface {
 
     }
 
-    public void printUris(String uriList) //comma separated
+    public void printBitmaps(List<Bitmap> bmps)
     {
-        String[] uris = uriList.split(",");
-        List<Bitmap> bmps = new ArrayList<>();
-        for (String uriString : uris)
-        {
-            Uri uri = Uri.parse(uriString);
-            try {
-                Bitmap  mBitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
-                bmps.add(mBitmap);
-            } catch (Exception ex)
-            {  int a=0; }
+        Channel channel = Channel.newWifiChannel("192.168.1.53");
+
+        PrinterDriverGenerateResult result = PrinterDriverGenerator.openChannel(channel);
+        if (result.getError().getCode() != OpenChannelError.ErrorCode.NoError) {
+            Log.e("", "Error - Open Channel: " + result.getError().getCode());
+            return;
         }
+
+        File dir = context.getExternalFilesDir(null); // getExternalFilesDir(null);
+        File file = new File(dir, "tv" + ".png");
+
+        PrinterDriver printerDriver = result.getDriver();
+        QLPrintSettings printSettings = new QLPrintSettings(PrinterModel.QL_1110NWB);
+
+        printSettings.setLabelSize(QLPrintSettings.LabelSize.DieCutW29H90);
+        printSettings.setAutoCut(true);
+        printSettings.setWorkPath(dir.toString());
+
+        PrintError printError =  printerDriver.printImage(bmps.get(0), printSettings);
+
+        if (printError.getCode() != PrintError.ErrorCode.NoError) {
+            Log.d("", "Error - Print Image: " + printError.getCode());
+        }
+        else {
+            Log.d("", "Success - Print Image");
+        }
+
+        printerDriver.closeChannel();
+
 
     }
 
@@ -86,7 +104,7 @@ public class BrotherProvider implements PrintProviderInterface {
         printSettings.setAutoCut(true);
         printSettings.setWorkPath(dir.toString());
 
-        PrintError printError = printerDriver.printImage(file.toString(), printSettings);
+        PrintError printError =  printerDriver.printImage(file.toString(), printSettings);
 
         if (printError.getCode() != PrintError.ErrorCode.NoError) {
             Log.d("", "Error - Print Image: " + printError.getCode());

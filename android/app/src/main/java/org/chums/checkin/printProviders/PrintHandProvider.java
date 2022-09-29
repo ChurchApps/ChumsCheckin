@@ -53,19 +53,8 @@ public class PrintHandProvider implements PrintProviderInterface {
         }
     }
 
-    public void printUris(String uriList) //comma separated
+    public void printBitmaps(List<Bitmap> bmps)
     {
-        String[] uris = uriList.split(",");
-        List<Bitmap> bmps = new ArrayList<>();
-        for (String uriString : uris)
-        {
-            Uri uri = Uri.parse(uriString);
-            try {
-                Bitmap  mBitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
-                bmps.add(mBitmap);
-            } catch (Exception ex)
-            {  int a=0; }
-        }
         phh.print(bmps, context);
     }
 

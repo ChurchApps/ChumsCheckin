@@ -2,6 +2,9 @@ package org.chums.checkin;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
@@ -14,12 +17,16 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import org.chums.checkin.printProviders.PrintHandProvider;
 import org.chums.checkin.printProviders.PrintProviderInterface;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PrinterHelper extends  ReactContextBaseJavaModule  {
     public static String Status = "Pending init";
     static Runnable statusChangeRunnable;
     public static boolean readyToPrint=false;
     static ReactContext reactContext = null;
     static PrintProviderInterface printProvider = new PrintHandProvider();
+    static Context context = null;
 
     public PrinterHelper(ReactContext _reactContext) {
         reactContext = _reactContext;
@@ -58,7 +65,7 @@ public class PrinterHelper extends  ReactContextBaseJavaModule  {
     {
         // Runnable runnable
         Activity activity = reactContext.getCurrentActivity();
-        Context context = (activity==null) ? reactContext : activity;
+        context = (activity==null) ? reactContext : activity;
 
         statusChangeRunnable = new Runnable() { @Override public void run() {  sendStatusUpdate();  } };
         getStatus(statusChangeCallback);
@@ -69,7 +76,18 @@ public class PrinterHelper extends  ReactContextBaseJavaModule  {
     @ReactMethod
     public void printUris(String uriList) //comma separated
     {
-        printProvider.printUris(uriList);
+        String[] uris = uriList.split(",");
+        List<Bitmap> bmps = new ArrayList<>();
+        for (String uriString : uris)
+        {
+            Uri uri = Uri.parse(uriString);
+            try {
+                Bitmap  mBitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+                bmps.add(mBitmap);
+            } catch (Exception ex)
+            {  int a=0; }
+        }
+        if (bmps.size()>0) printProvider.printBitmaps(bmps);
     }
 
     @ReactMethod
