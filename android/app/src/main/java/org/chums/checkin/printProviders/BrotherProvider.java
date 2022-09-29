@@ -33,7 +33,16 @@ public class BrotherProvider implements PrintProviderInterface {
     public static boolean readyToPrint=false;
 
     public String[] scan() {
-        return new String[]{"192.168.1.2", "192.168.1.3"};
+        //return new String[]{"192.168.1.2", "192.168.1.3"};
+
+        List<String> result = new ArrayList<>();
+        Printer printers = new Printer();
+        NetPrinter[] printerList = printers.getNetPrinters("QL-1110NWB");
+
+        for (NetPrinter printer: printerList) {
+            result.add(printer.ipAddress);
+        }
+        return result.toArray(new String[0]);
     }
 
     public void checkInit(Context c) {
