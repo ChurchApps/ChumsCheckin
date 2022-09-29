@@ -133,7 +133,7 @@ android {
         applicationId "org.chums.checkin"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 6
+        versionCode 8
         versionName "1.15.0"
 
     }
