@@ -21,7 +21,8 @@ export const CheckinComplete = (props: Props) => {
   const loadData = () => {
     const promises: Promise<any>[] = [];
     promises.push(checkin());
-    if (CachedData.printerReady) promises.push(print());
+    //if (CachedData.printerReady) 
+    promises.push(print());
 
     Promise.all(promises).then(() => {
       CachedData.existingVisits = [];

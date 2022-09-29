@@ -18,6 +18,7 @@ import com.brother.ptouch.sdk.NetPrinter;
 import com.brother.ptouch.sdk.Printer;
 import com.brother.sdk.lmprinter.PrintError;
 import com.brother.sdk.lmprinter.PrinterModel;
+import com.brother.sdk.lmprinter.setting.PrintImageSettings;
 import com.brother.sdk.lmprinter.setting.QLPrintSettings;
 
 import com.brother.sdk.lmprinter.Channel;
@@ -58,24 +59,27 @@ public class BrotherProvider implements PrintProviderInterface {
             return;
         }
 
-        File dir = context.getExternalFilesDir(null); // getExternalFilesDir(null);
-        File file = new File(dir, "tv" + ".png");
+        File dir = context.getExternalFilesDir(null);
 
         PrinterDriver printerDriver = result.getDriver();
         QLPrintSettings printSettings = new QLPrintSettings(PrinterModel.QL_1110NWB);
 
+        printSettings.setPrintOrientation(PrintImageSettings.Orientation.Landscape);
         printSettings.setLabelSize(QLPrintSettings.LabelSize.DieCutW29H90);
         printSettings.setAutoCut(true);
         printSettings.setWorkPath(dir.toString());
 
-        PrintError printError =  printerDriver.printImage(bmps.get(0), printSettings);
+        for (Bitmap bmp: bmps) {
+            PrintError printError =  printerDriver.printImage(bmps.get(0), printSettings);
 
-        if (printError.getCode() != PrintError.ErrorCode.NoError) {
-            Log.d("", "Error - Print Image: " + printError.getCode());
+            if (printError.getCode() != PrintError.ErrorCode.NoError) {
+                Log.d("", "Error - Print Image: " + printError.getCode());
+            }
+            else {
+                Log.d("", "Success - Print Image");
+            }
         }
-        else {
-            Log.d("", "Success - Print Image");
-        }
+
 
         printerDriver.closeChannel();
 
