@@ -61,11 +61,6 @@ public class PrinterHelper extends  ReactContextBaseJavaModule  {
     }
   */
 
-    @ReactMethod
-    public void init()
-    {
-        printProvider.init();
-    }
 
     public static void updateStatus(String status)
     {
@@ -86,8 +81,12 @@ public class PrinterHelper extends  ReactContextBaseJavaModule  {
 
         statusChangeRunnable = new Runnable() { @Override public void run() {  sendStatusUpdate();  } };
         getStatus(statusChangeCallback);
+    }
 
-        printProvider.checkInit(context);
+    @ReactMethod
+    public void checkInit(String printerIP)
+    {
+        printProvider.checkInit(context, printerIP);
     }
 
     @ReactMethod

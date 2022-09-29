@@ -1,10 +1,10 @@
 import React from 'react'
-import { View, Text, ScrollView, NativeModules, FlatList, PixelRatio, Dimensions } from 'react-native'
+import { View, Text, ScrollView, NativeModules, FlatList, PixelRatio, Dimensions, AsyncStorage } from 'react-native'
 import Ripple from 'react-native-material-ripple';
 import { RouteProp } from '@react-navigation/native';
 import { ScreenList } from './ScreenList'
 import { Header } from './components'
-import { screenNavigationProps, Styles } from "../helpers"
+import { CachedData, screenNavigationProps, Styles } from "../helpers"
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import CodePush from 'react-native-code-push';
 
@@ -24,9 +24,13 @@ export const Printers = (props: Props) => {
 
   }
 
-  const selectNone = () => {
+  const selectPrinter = async (ip: string) => {
     //props.navigation.navigate("CheckinComplete"); 
+    CachedData.printer = { ip }
+    await AsyncStorage.setItem("@Printer", JSON.stringify(CachedData.printer))
+    CodePush.restartApp();
   }
+
   React.useEffect(() => { init() }, []);
 
   const wd = (number: string) => {
@@ -36,7 +40,8 @@ export const Printers = (props: Props) => {
 
   const handlePrinterClick = (printer: string) => {
 
-    CodePush.restartApp();
+    selectPrinter(printer)
+
 
   }
 
@@ -65,7 +70,7 @@ export const Printers = (props: Props) => {
       </View>
 
       <View style={[Styles.blockButtons]}>
-        <Ripple style={[Styles.blockButton]} onPress={selectNone}><Text style={Styles.blockButtonText}>No Printer</Text></Ripple>
+        <Ripple style={[Styles.blockButton]} onPress={() => { selectPrinter("") }}><Text style={Styles.blockButtonText}>No Printer</Text></Ripple>
       </View>
     </View>
   )

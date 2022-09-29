@@ -16,12 +16,16 @@ export const Splash = (props: Props) => {
   }
 
   const access = async () => {
-    await AsyncStorage.multiGet(['@Login', '@Email', '@Password', "@SelectedChurchId"]).then(response => {
+    await AsyncStorage.multiGet(['@Login', '@Email', '@Password', "@SelectedChurchId", "@Printer"]).then(response => {
       const login = response[0][1] === "true";
       if (login) {
         const email = response[1][1];
         const password = response[2][1];
         const selectedChurchId = response[3][1]
+        const printerJSON = response[4][1];
+        console.log("PRINTER JSON IS: ")
+        console.log(printerJSON);
+        if (printerJSON) CachedData.printer = JSON.parse(printerJSON);
         attemptLogin(email || "", password || "", selectedChurchId || "");
       } else redirectToLogin();
     });

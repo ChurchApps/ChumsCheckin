@@ -31,6 +31,7 @@ import com.brother.sdk.lmprinter.PrinterDriverGenerator;
 public class BrotherProvider implements PrintProviderInterface {
     static Context context = null;
     public static boolean readyToPrint=false;
+    private static String printerIP = "";
 
     public String[] scan() {
         //return new String[]{"192.168.1.2", "192.168.1.3"};
@@ -45,14 +46,13 @@ public class BrotherProvider implements PrintProviderInterface {
         return result.toArray(new String[0]);
     }
 
-    public void checkInit(Context c) {
+    public void checkInit(Context c, String ip) {
+        printerIP = ip;
         context = c;
+        if (!printerIP.equals("")) PrinterHelper.updateStatus(printerIP);
+        else PrinterHelper.updateStatus("No Printer");
     }
 
-    public void init()
-    {
-        PrinterHelper.updateStatus("No Printer");
-    }
 
     public void configure()
     {
@@ -61,7 +61,7 @@ public class BrotherProvider implements PrintProviderInterface {
 
     public void printBitmaps(List<Bitmap> bmps)
     {
-        Channel channel = Channel.newWifiChannel("192.168.1.53");
+        Channel channel = Channel.newWifiChannel(printerIP);
 
         PrinterDriverGenerateResult result = PrinterDriverGenerator.openChannel(channel);
         if (result.getError().getCode() != OpenChannelError.ErrorCode.NoError) {

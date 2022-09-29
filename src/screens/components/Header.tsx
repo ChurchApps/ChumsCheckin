@@ -25,13 +25,16 @@ export const Header = (props: Props) => {
     console.log(Platform.OS)
     if (Platform.OS === 'android') {
 
+      console.log("PRINTER IS: ");
+      console.log(CachedData.printer)
 
       NativeModules.PrinterHelper.bind(receiveNativeStatus);
+      NativeModules.PrinterHelper.checkInit(CachedData.printer?.ip || "");
       eventEmitter = new NativeEventEmitter(NativeModules.PrinterHelper);
       eventEmitter.addListener('StatusUpdated', (event: any) => {
         console.log("PRINTER STATUS: ");
         console.log(event.status);
-        if (event.status.indexOf("ready") > -1) CachedData.printerReady = true;
+        if (event.status.indexOf("ready") > -1) CachedData.printer.ip = "ready";
         setStatus(event.status);
       });
     }
