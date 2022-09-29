@@ -12,12 +12,14 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 import org.chums.checkin.printProviders.PrintHandProvider;
+import org.chums.checkin.printProviders.PrintProviderInterface;
 
 public class PrinterHelper extends  ReactContextBaseJavaModule  {
     public static String Status = "Pending init";
     static Runnable statusChangeRunnable;
     public static boolean readyToPrint=false;
     static ReactContext reactContext = null;
+    static PrintProviderInterface printProvider = new PrintHandProvider();
 
     public PrinterHelper(ReactContext _reactContext) {
         reactContext = _reactContext;
@@ -38,7 +40,7 @@ public class PrinterHelper extends  ReactContextBaseJavaModule  {
     @ReactMethod
     public void init()
     {
-        PrintHandProvider.init();
+        printProvider.init();
     }
 
     public static void updateStatus(String status)
@@ -61,19 +63,19 @@ public class PrinterHelper extends  ReactContextBaseJavaModule  {
         statusChangeRunnable = new Runnable() { @Override public void run() {  sendStatusUpdate();  } };
         getStatus(statusChangeCallback);
 
-        PrintHandProvider.checkInit(context);
+        printProvider.checkInit(context);
     }
 
     @ReactMethod
     public void printUris(String uriList) //comma separated
     {
-        PrintHandProvider.printUris(uriList);
+        printProvider.printUris(uriList);
     }
 
     @ReactMethod
     public void configure()
     {
-        PrintHandProvider.configure();
+        printProvider.configure();
     }
 
     @Override

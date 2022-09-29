@@ -11,25 +11,24 @@ import org.chums.checkin.PrinterHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PrintHandProvider {
-    public static String Status = "Pending init";
+public class PrintHandProvider implements PrintProviderInterface {
     static PrintHandHelper phh;
     static Context context = null;
     public static boolean readyToPrint=false;
 
-    private static void setStatus(String status)
+    private void setStatus(String status)
     {
         PrinterHelper.updateStatus(status);
         checkPrinterStatus();
     }
 
-    public static void checkInit(Context c) {
+    public void checkInit(Context c) {
         context = c;
         if (phh==null) init();
         checkPrinterStatus();
     }
 
-    public static void init()
+    public void init()
     {
         System.out.println("Print Method call");
         Runnable r = new Runnable() { @Override public void run() {
@@ -45,7 +44,7 @@ public class PrintHandProvider {
         phh = new PrintHandHelper(r);
     }
 
-    public static void configure()
+    public void configure()
     {
         try {
             phh.configurePrinter();
@@ -54,7 +53,7 @@ public class PrintHandProvider {
         }
     }
 
-    public static void printUris(String uriList) //comma separated
+    public void printUris(String uriList) //comma separated
     {
         String[] uris = uriList.split(",");
         List<Bitmap> bmps = new ArrayList<>();
@@ -70,14 +69,14 @@ public class PrintHandProvider {
         phh.print(bmps, context);
     }
 
-    private static void checkPrinterStatus()
+    private void checkPrinterStatus()
     {
-        if (Status.equals("Pending init")) { setStatus("Initializing print service."); phh.initSdk(context); }
+        if (PrinterHelper.Status.equals("Pending init")) { setStatus("Initializing print service."); phh.initSdk(context); }
         else if (PrintHandHelper.Status.equals("PrintHand not installed.")) setStatus("PrintHand required to enable printing.  You may still checkin.");
-        else if (Status.equals("Initialized")) { attachToPrinter(); }
+        else if (PrinterHelper.Status.equals("Initialized")) { attachToPrinter(); }
     }
 
-    private static void attachToPrinter()
+    private void attachToPrinter()
     {
         setStatus("Detecting printer.");
         phh.attach(context);
