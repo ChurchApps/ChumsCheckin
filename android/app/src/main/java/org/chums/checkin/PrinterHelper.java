@@ -2,9 +2,6 @@ package org.chums.checkin;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.provider.MediaStore;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
@@ -15,9 +12,6 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 import org.chums.checkin.printProviders.PrintHandProvider;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PrinterHelper extends  ReactContextBaseJavaModule  {
     public static String Status = "Pending init";

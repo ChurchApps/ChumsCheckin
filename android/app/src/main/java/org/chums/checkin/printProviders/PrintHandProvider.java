@@ -33,12 +33,11 @@ public class PrintHandProvider {
     {
         System.out.println("Print Method call");
         Runnable r = new Runnable() { @Override public void run() {
-
-            if (phh.Status=="Initialized") setStatus("Initialized");
-            else if (phh.Status == "PrintHand not installed.") setStatus("PrintHand required to enable printing.  You may still checkin.");
-            else if (phh.Status == "Printer not configured.") setStatus(phh.Status);
-            else if (phh.Status.contains("Printer ready")) {
-                setStatus(phh.Status);
+            if (PrintHandHelper.Status.equals("Initialized")) setStatus("Initialized");
+            else if (PrintHandHelper.Status.equals("PrintHand not installed.")) setStatus("PrintHand required to enable printing.  You may still checkin.");
+            else if (PrintHandHelper.Status.equals("Printer not configured.")) setStatus(PrintHandHelper.Status);
+            else if (PrintHandHelper.Status.contains("Printer ready")) {
+                setStatus(PrintHandHelper.Status);
                 readyToPrint=true;
             }
             checkPrinterStatus();
@@ -58,7 +57,7 @@ public class PrintHandProvider {
     public static void printUris(String uriList) //comma separated
     {
         String[] uris = uriList.split(",");
-        List<Bitmap> bmps = new ArrayList<Bitmap>();
+        List<Bitmap> bmps = new ArrayList<>();
         for (String uriString : uris)
         {
             Uri uri = Uri.parse(uriString);
@@ -73,9 +72,9 @@ public class PrintHandProvider {
 
     private static void checkPrinterStatus()
     {
-        if (Status=="Pending init") { setStatus("Initializing print service."); phh.initSdk(context); }
-        else if (phh.Status == "PrintHand not installed.") setStatus("PrintHand required to enable printing.  You may still checkin.");
-        else if (Status=="Initialized") { attachToPrinter(); }
+        if (Status.equals("Pending init")) { setStatus("Initializing print service."); phh.initSdk(context); }
+        else if (PrintHandHelper.Status.equals("PrintHand not installed.")) setStatus("PrintHand required to enable printing.  You may still checkin.");
+        else if (Status.equals("Initialized")) { attachToPrinter(); }
     }
 
     private static void attachToPrinter()
