@@ -80,7 +80,7 @@ public class BrotherProvider implements PrintProviderInterface {
         printSettings.setWorkPath(dir.toString());
 
         for (Bitmap bmp: bmps) {
-            PrintError printError =  printerDriver.printImage(bmps.get(0), printSettings);
+            PrintError printError =  printerDriver.printImage(bmp, printSettings);
 
             if (printError.getCode() != PrintError.ErrorCode.NoError) {
                 Log.d("", "Error - Print Image: " + printError.getCode());
@@ -95,43 +95,6 @@ public class BrotherProvider implements PrintProviderInterface {
 
 
     }
-
-
-
-
-    void printImage() {
-        Channel channel = Channel.newWifiChannel("192.168.1.53");
-
-        PrinterDriverGenerateResult result = PrinterDriverGenerator.openChannel(channel);
-        if (result.getError().getCode() != OpenChannelError.ErrorCode.NoError) {
-            Log.e("", "Error - Open Channel: " + result.getError().getCode());
-            return;
-        }
-
-        File dir = context.getExternalFilesDir(null); // getExternalFilesDir(null);
-        File file = new File(dir, "tv" + ".png");
-
-        PrinterDriver printerDriver = result.getDriver();
-        QLPrintSettings printSettings = new QLPrintSettings(PrinterModel.QL_1110NWB);
-
-        printSettings.setLabelSize(QLPrintSettings.LabelSize.DieCutW29H90);
-        printSettings.setAutoCut(true);
-        printSettings.setWorkPath(dir.toString());
-
-        PrintError printError =  printerDriver.printImage(file.toString(), printSettings);
-
-        if (printError.getCode() != PrintError.ErrorCode.NoError) {
-            Log.d("", "Error - Print Image: " + printError.getCode());
-        }
-        else {
-            Log.d("", "Success - Print Image");
-        }
-
-        printerDriver.closeChannel();
-    }
-
-
-
 
 
 }
