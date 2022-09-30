@@ -27,7 +27,7 @@ public class PrintHandProvider implements PrintProviderInterface {
         checkPrinterStatus();
     }
 
-    public void checkInit(Context c, String printerIP) {
+    public void checkInit(Context c, String ip, String model) {
         context = c;
         if (phh==null) init();
         checkPrinterStatus();

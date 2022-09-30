@@ -29,12 +29,12 @@ export const Header = (props: Props) => {
       console.log(CachedData.printer)
 
       NativeModules.PrinterHelper.bind(receiveNativeStatus);
-      NativeModules.PrinterHelper.checkInit(CachedData.printer?.ip || "");
+      NativeModules.PrinterHelper.checkInit(CachedData.printer?.ipAddress || "", CachedData.printer?.model || "");
       eventEmitter = new NativeEventEmitter(NativeModules.PrinterHelper);
       eventEmitter.addListener('StatusUpdated', (event: any) => {
         //console.log("PRINTER STATUS: ");
         //console.log(event.status);
-        if (event.status.indexOf("ready") > -1) CachedData.printer.ip = "ready";
+        if (event.status.indexOf("ready") > -1) CachedData.printer.ipAddress = "ready";
         setStatus(event.status);
       });
     }

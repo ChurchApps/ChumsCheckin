@@ -84,9 +84,9 @@ public class PrinterHelper extends  ReactContextBaseJavaModule  {
     }
 
     @ReactMethod
-    public void checkInit(String printerIP)
+    public void checkInit(String ip, String model)
     {
-        printProvider.checkInit(context, printerIP);
+        printProvider.checkInit(context, ip, model);
     }
 
     @ReactMethod

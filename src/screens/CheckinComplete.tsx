@@ -17,10 +17,10 @@ export const CheckinComplete = (props: Props) => {
   const loadData = () => {
     const promises: Promise<any>[] = [];
     promises.push(checkin());
-    if (CachedData.printer?.ip) print();
+    if (CachedData.printer?.ipAddress) print();
 
     Promise.all(promises).then(() => {
-      if (!CachedData.printer?.ip) startOver();
+      if (!CachedData.printer?.ipAddress) startOver();
     });
   }
 

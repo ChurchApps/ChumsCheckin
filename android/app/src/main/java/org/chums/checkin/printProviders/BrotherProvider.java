@@ -32,21 +32,23 @@ public class BrotherProvider implements PrintProviderInterface {
     static Context context = null;
     public static boolean readyToPrint=false;
     private static String printerIP = "";
+    private static String model = "QL-1110NWB";
 
     public String[] scan() {
         //return new String[]{"192.168.1.2", "192.168.1.3"};
 
         List<String> result = new ArrayList<>();
         Printer printers = new Printer();
-        NetPrinter[] printerList = printers.getNetPrinters("QL-1110NWB");
+        String[] models = new String[]{"QL-1110", "QL-1110NWB"};
+        NetPrinter[] printerList = printers.getNetPrinters(models);
 
         for (NetPrinter printer: printerList) {
-            result.add(printer.ipAddress);
+            result.add(printer.modelName + "~" + printer.ipAddress);
         }
         return result.toArray(new String[0]);
     }
 
-    public void checkInit(Context c, String ip) {
+    public void checkInit(Context c, String ip, String model) {
         printerIP = ip;
         context = c;
         if (!printerIP.equals("")) PrinterHelper.updateStatus(printerIP);
@@ -57,6 +59,23 @@ public class BrotherProvider implements PrintProviderInterface {
     public void configure()
     {
 
+    }
+
+    private QLPrintSettings getPrinterSettings() {
+        QLPrintSettings printSettings = new QLPrintSettings(PrinterModel.QL_1110NWB);
+        switch (model)
+        {
+            case "Brother QL-1100": printSettings = new QLPrintSettings(PrinterModel.QL_1100); break;
+            case "Brother QL-580N": printSettings = new QLPrintSettings(PrinterModel.QL_580N); break;
+            case "Brother QL-710W": printSettings = new QLPrintSettings(PrinterModel.QL_710W); break;
+            case "Brother QL-720NW": printSettings = new QLPrintSettings(PrinterModel.QL_720NW); break;
+            case "Brother QL-800": printSettings = new QLPrintSettings(PrinterModel.QL_800); break;
+            case "Brother QL-810W": printSettings = new QLPrintSettings(PrinterModel.QL_810W); break;
+            case "Brother QL-820NWB": printSettings = new QLPrintSettings(PrinterModel.QL_820NWB); break;
+            case "Brother QL-1115NWB": printSettings = new QLPrintSettings(PrinterModel.QL_1115NWB); break;
+        }
+
+        return printSettings;
     }
 
     public void printBitmaps(List<Bitmap> bmps)
@@ -72,7 +91,8 @@ public class BrotherProvider implements PrintProviderInterface {
         File dir = context.getExternalFilesDir(null);
 
         PrinterDriver printerDriver = result.getDriver();
-        QLPrintSettings printSettings = new QLPrintSettings(PrinterModel.QL_1110NWB);
+        QLPrintSettings printSettings = getPrinterSettings();
+//        QLPrintSettings printSettings = new QLPrintSettings(PrinterModel.QL_1110NWB);
 
         printSettings.setPrintOrientation(PrintImageSettings.Orientation.Landscape);
         printSettings.setLabelSize(QLPrintSettings.LabelSize.DieCutW29H90);
