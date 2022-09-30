@@ -46,61 +46,16 @@ export const CheckinComplete = (props: Props) => {
 
   const print = async () => {
     setShowPrint(true);
-    return LabelHelper.getAllLabels().then(async (labels) => {
-      console.log(labels);
-      setHtmlLabels(labels)
-      //if (htmlLabels.length > 0) await printBitmaps(htmlLabels);
-      //if (htmlLabels.length>0) loadNextLabel();
-    });
+    return LabelHelper.getAllLabels().then(async (labels) => { setHtmlLabels(labels) });
   }
 
-  React.useEffect(() => {
-    resetPrint();
-  }, []);
+  React.useEffect(() => { resetPrint(); }, []);
+  React.useEffect(() => { setPrintIndex((htmlLabels.length === 0) ? -1 : 0) }, [htmlLabels]);
+  React.useEffect(() => { if (printIndex < htmlLabels.length) loadNextLabel(); }, [printIndex]);
+  React.useEffect(() => { if (html) handleHtmlLoaded(); }, [html]);
+  const timeout = (ms: number) => { return new Promise(resolve => setTimeout(resolve, ms)); }
 
-  React.useEffect(() => {
-    console.log("htmlLabels.length = " + htmlLabels.length.toString())
-    setPrintIndex((htmlLabels.length === 0) ? -1 : 0)
-  }, [htmlLabels]);
-
-  React.useEffect(() => {
-    console.log("print index = " + printIndex)
-    if (printIndex < htmlLabels.length) loadNextLabel();
-  }, [printIndex]);
-
-  React.useEffect(() => {
-    if (html) handleHtmlLoaded();
-  }, [html]);
-
-  /*  
-    const printBitmaps = async (htmlLabels: string[]) => {
-      Utilities.trackEvent("Print");
-      setShowPrint(true);
-      for (let i = 0; i < htmlLabels.length; i++) {
-        const html = htmlLabels[i];
-        await printBitmap(html)
-      }
-    }
-  
-    const printBitmap = async (html: string) => {
-      setHtml(html);
-      await timeout(5000);
-      console.log("Starting capture")
-      const result = await captureRef(shotRef, { format: "jpg", quality: 1 });
-      console.log(html);
-      console.log(result.toString());
-      NativeModules.PrinterHelper.printUris(result);
-    }
-  */
-  const timeout = (ms: number) => {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  const resetPrint = () => {
-    setHtmlLabels([]);
-    setPrintIndex(-1);
-    setUris([]);
-  }
+  const resetPrint = () => { setHtmlLabels([]); setPrintIndex(-1); setUris([]); }
 
   const handleCaptureComplete = (uri: string) => {
     console.log("capture complete")
@@ -111,13 +66,10 @@ export const CheckinComplete = (props: Props) => {
       setPrintIndex(printIndex + 1);
       setUris(urisCopy);
     } else {
-      console.log("*****************SENDING TO PRINTER - " + urisCopy.length + " - PrintIndex: " + printIndex);
       NativeModules.PrinterHelper.printUris(urisCopy.toString());
       resetPrint();
       startOver();
-
     }
-
   }
 
   const handleHtmlLoaded = async () => {
@@ -126,15 +78,10 @@ export const CheckinComplete = (props: Props) => {
     captureRef(shotRef, { format: "jpg", quality: 1 }).then(async result => {
       await timeout(200);
       handleCaptureComplete(result);
-
-    })
-
+    });
   }
 
-  const loadNextLabel = () => {
-    console.log("loadNextLabel")
-    setHtml(htmlLabels[printIndex]);
-  }
+  const loadNextLabel = () => { setHtml(htmlLabels[printIndex]); }
 
   const checkin = async () => {
     const peopleIds: number[] = ArrayHelper.getUniqueValues(CachedData.householdMembers, "id");

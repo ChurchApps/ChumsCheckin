@@ -32,8 +32,8 @@ export const Header = (props: Props) => {
       NativeModules.PrinterHelper.checkInit(CachedData.printer?.ip || "");
       eventEmitter = new NativeEventEmitter(NativeModules.PrinterHelper);
       eventEmitter.addListener('StatusUpdated', (event: any) => {
-        console.log("PRINTER STATUS: ");
-        console.log(event.status);
+        //console.log("PRINTER STATUS: ");
+        //console.log(event.status);
         if (event.status.indexOf("ready") > -1) CachedData.printer.ip = "ready";
         setStatus(event.status);
       });
