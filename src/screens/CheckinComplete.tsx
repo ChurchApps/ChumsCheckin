@@ -1,25 +1,18 @@
 import React from 'react'
-import { View, Text, NativeModules } from 'react-native'
+import { View, Text } from 'react-native'
 import { Container } from 'native-base'
-import { WebView } from "react-native-webview"
 import { Header } from './components'
-import ViewShot, { captureRef } from "react-native-view-shot";
 import { screenNavigationProps, CachedData, ApiHelper, LabelHelper, Styles, StyleConstants, Utilities } from "../helpers"
 import { CommonActions } from '@react-navigation/native';
 import { ArrayHelper } from '../helpers/ArrayHelper'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen'
+import { PrintUI } from './components/PrintUI'
 
 interface Props { navigation: screenNavigationProps; }
 
 export const CheckinComplete = (props: Props) => {
-  const shotRef = React.useRef(null);
-  const [html, setHtml] = React.useState("");
-  const [showPrint, setShowPrint] = React.useState(false);
-
   const [htmlLabels, setHtmlLabels] = React.useState<string[]>([]);
-  const [printIndex, setPrintIndex] = React.useState(-1);
-  const [uris, setUris] = React.useState<string[]>([])
 
   const loadData = () => {
     const promises: Promise<any>[] = [];
@@ -34,6 +27,7 @@ export const CheckinComplete = (props: Props) => {
   const startOver = () => {
     CachedData.existingVisits = [];
     CachedData.pendingVisits = [];
+    setHtmlLabels([]);
     redirectToLookup();
   }
 
@@ -45,43 +39,14 @@ export const CheckinComplete = (props: Props) => {
   }
 
   const print = async () => {
-    setShowPrint(true);
-    return LabelHelper.getAllLabels().then(async (labels) => { setHtmlLabels(labels) });
-  }
-
-  React.useEffect(() => { resetPrint(); }, []);
-  React.useEffect(() => { setPrintIndex((htmlLabels.length === 0) ? -1 : 0) }, [htmlLabels]);
-  React.useEffect(() => { if (printIndex < htmlLabels.length) loadNextLabel(); }, [printIndex]);
-  React.useEffect(() => { if (html) handleHtmlLoaded(); }, [html]);
-  const timeout = (ms: number) => { return new Promise(resolve => setTimeout(resolve, ms)); }
-
-  const resetPrint = () => { setHtmlLabels([]); setPrintIndex(-1); setUris([]); }
-
-  const handleCaptureComplete = (uri: string) => {
-    console.log("capture complete")
-    const urisCopy = [...uris];
-    urisCopy.push(uri);
-
-    if (printIndex < htmlLabels.length - 1) {
-      setPrintIndex(printIndex + 1);
-      setUris(urisCopy);
-    } else {
-      NativeModules.PrinterHelper.printUris(urisCopy.toString());
-      resetPrint();
-      startOver();
-    }
-  }
-
-  const handleHtmlLoaded = async () => {
-    console.log("html loaded")
-    await timeout(200);
-    captureRef(shotRef, { format: "jpg", quality: 1 }).then(async result => {
-      await timeout(200);
-      handleCaptureComplete(result);
+    return LabelHelper.getAllLabels().then(async (labels) => {
+      setHtmlLabels(labels);
+      if (labels.length === 0) startOver();
     });
   }
 
-  const loadNextLabel = () => { setHtml(htmlLabels[printIndex]); }
+
+  const timeout = (ms: number) => { return new Promise(resolve => setTimeout(resolve, ms)); }
 
   const checkin = async () => {
     const peopleIds: number[] = ArrayHelper.getUniqueValues(CachedData.householdMembers, "id");
@@ -94,18 +59,8 @@ export const CheckinComplete = (props: Props) => {
 
 
   const getLabelView = () => {
-    if (showPrint) {
-      return (
-        <>
-          <Text style={Styles.H1}>Printing</Text>
-          <View style={{ flex: 1, }}>
-            <ViewShot ref={shotRef} style={Styles.viewShot}  >
-              <WebView source={{ html: html }} style={Styles.webView} />
-            </ViewShot>
-          </View>
-        </>
-      );
-    } else return <></>;
+    if (htmlLabels?.length > 0) return (<PrintUI htmlLabels={htmlLabels} onPrintComplete={startOver} />)
+    else return <></>;
   }
 
   React.useEffect(loadData, []);
