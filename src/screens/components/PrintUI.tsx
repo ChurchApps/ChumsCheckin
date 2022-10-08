@@ -14,12 +14,18 @@ export const PrintUI = (props: Props) => {
   const [html, setHtml] = React.useState("");
 
   const [printIndex, setPrintIndex] = React.useState(-1);
-  const [uris, setUris] = React.useState<string[]>([])
+  const [uris, setUris] = React.useState<string[]>([]);
+  const [firstTag, setFirstTag] = React.useState(true);
 
   React.useEffect(() => { resetPrint(); }, []);
   React.useEffect(() => { setPrintIndex((props.htmlLabels.length === 0) ? -1 : 0) }, [props.htmlLabels]);
   React.useEffect(() => { if (printIndex < props.htmlLabels.length) loadNextLabel(); }, [printIndex]);
-  React.useEffect(() => { if (html) handleHtmlLoaded(); }, [html]);
+  React.useEffect(() => {
+    if (html) {
+      if (firstTag) timeout(1500).then(handleHtmlLoaded)
+      else timeout(300).then(handleHtmlLoaded)
+    }
+  }, [html]);
   const timeout = (ms: number) => { return new Promise(resolve => setTimeout(resolve, ms)); }
 
   const resetPrint = () => { setPrintIndex(-1); setUris([]); }
@@ -40,10 +46,11 @@ export const PrintUI = (props: Props) => {
   }
 
   const handleHtmlLoaded = async () => {
+    if (firstTag) setFirstTag(false);
     console.log("html loaded")
-    await timeout(200);
+    //await timeout(500);
     captureRef(shotRef, { format: "jpg", quality: 1 }).then(async result => {
-      await timeout(200);
+      await timeout(500);
       handleCaptureComplete(result);
     });
   }
@@ -54,7 +61,7 @@ export const PrintUI = (props: Props) => {
   return (
     <>
       <Text style={Styles.H1}>Printing</Text>
-      <View style={{ flex: 1, opacity: 0 }}>
+      <View style={{ flex: 1, opacity: 1 }}>
         <ViewShot ref={shotRef} style={Styles.viewShot}  >
           <WebView source={{ html: html }} style={Styles.webView} />
         </ViewShot>

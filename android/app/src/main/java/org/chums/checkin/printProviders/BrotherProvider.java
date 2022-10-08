@@ -39,7 +39,7 @@ public class BrotherProvider implements PrintProviderInterface {
 
         List<String> result = new ArrayList<>();
         Printer printers = new Printer();
-        String[] models = new String[]{"QL-1110", "QL-1110NWB"};
+        String[] models = new String[]{"QL-1100", "QL-1110NWB", "QL-580N", "QL-710W", "QL-720NW", "QL-800", "QL-810W", "QL-820NWB", "QL-1115NWB"};
         NetPrinter[] printerList = printers.getNetPrinters(models);
 
         for (NetPrinter printer: printerList) {

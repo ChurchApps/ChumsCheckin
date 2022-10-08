@@ -40,6 +40,11 @@ export const Header = (props: Props) => {
     }
   }
 
+  const getVersion = () => {
+    var pkg = require('../../../package.json');
+    return "v" + pkg.version;
+  }
+
   React.useEffect(init, []);
 
   const isLandscape = () => {
@@ -63,7 +68,7 @@ export const Header = (props: Props) => {
     <View style={[Styles.headerLogoView, landscap && { maxHeight: props.logo ? '30%' : widthPercentageToDP('50%') }]}>
       <StatusBar backgroundColor="#08A1CD"></StatusBar>
       <Ripple style={Styles.printerStatus} onPress={() => { handleClick() }} >
-        <Text style={{ backgroundColor: "#09A1CD", color: "#FFF" }} >{status} - Configure Printer</Text>
+        <Text style={{ backgroundColor: "#09A1CD", color: "#FFF" }} >{getVersion()} - {status}</Text>
       </Ripple>
       <Image source={require('../../images/logo1.png')} style={[Styles.headerLogoIcon, landscap && { maxHeight: '40%', top: '10%' }]} />
     </View>
