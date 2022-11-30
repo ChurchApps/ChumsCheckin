@@ -34,7 +34,7 @@ export const Splash = (props: Props) => {
   const redirectToLogin = () => { props.navigation.dispatch(CommonActions.reset({ index: 0, routes: [{ name: "Login" }] })); }
 
   const attemptLogin = (email: string, password: string, churchId: string) => {
-    ApiHelper.postAnonymous("/users/login", { email: email, password: password }, "AccessApi").then((data: LoginResponseInterface) => {
+    ApiHelper.postAnonymous("/users/login", { email: email, password: password }, "MembershipApi").then((data: LoginResponseInterface) => {
       if (data.errors?.length > 0) redirectToLogin();
       else {
         AsyncStorage.multiSet([['@Login', 'true'], ['@Email', email], ['@Password', password]]);

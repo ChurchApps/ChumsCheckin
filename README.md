@@ -8,7 +8,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 ## Dev Setup Instructions
 
 ### CHUMS Setup
-1. **Install APIs** - This project dependings on the following APIs: [AccessApi](https://github.com/LiveChurchSolutions/AccessApi), [AttendanceApi](https://github.com/LiveChurchSolutions/AttendanceApi), [MembershipApi](https://github.com/LiveChurchSolutions/MembershipApi).  The easiest way to get these set up on your local machine is to use the [CHUMS Dev Docker Image](https://github.com/LiveChurchSolutions/Docker).  
+1. **Install APIs** - This project dependings on the following APIs: [AttendanceApi](https://github.com/LiveChurchSolutions/AttendanceApi), [MembershipApi](https://github.com/LiveChurchSolutions/MembershipApi).  The easiest way to get these set up on your local machine is to use the [CHUMS Dev Docker Image](https://github.com/LiveChurchSolutions/Docker).  
 2. **Register** - After getting the Docker container running, go to [http://localhost:3100](http://localhost:3100) to register an account on your local copy.  
 3. **Import Sample Data** - Log into [http://localhost:3101](http://localhost:3101) with the account you created and go to Settings -> Import Data.  Download the sample .zip and upload it to create sample data.
 

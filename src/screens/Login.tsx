@@ -23,7 +23,7 @@ export const Login = (props: Props) => {
     else {
       Utilities.trackEvent("Login attempt", { email: email });
       setIsLoading(true);
-      ApiHelper.postAnonymous("/users/login", { email: email, password: password }, "AccessApi").then((data: LoginResponseInterface) => {
+      ApiHelper.postAnonymous("/users/login", { email: email, password: password }, "MembershipApi").then((data: LoginResponseInterface) => {
         setIsLoading(false);
         if (data.errors?.length > 0) Utilities.snackBar(data.errors[0])
         else {
