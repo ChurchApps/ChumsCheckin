@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -14,16 +15,22 @@ import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
+import org.chums.checkin.printProviders.BrotherProvider;
+import org.chums.checkin.printProviders.PrintHandProvider;
+import org.chums.checkin.printProviders.PrintProviderInterface;
+
 import java.util.ArrayList;
 import java.util.List;
+import com.facebook.react.bridge.Promise;
 
 public class PrinterHelper extends  ReactContextBaseJavaModule  {
     public static String Status = "Pending init";
-    static PrintHandHelper phh;
-    static Context context = null;
     static Runnable statusChangeRunnable;
     public static boolean readyToPrint=false;
     static ReactContext reactContext = null;
+    //static PrintProviderInterface printProvider = new PrintHandProvider();
+    static PrintProviderInterface printProvider = new BrotherProvider();
+    static Context context = null;
 
     public PrinterHelper(ReactContext _reactContext) {
         reactContext = _reactContext;
@@ -41,27 +48,21 @@ public class PrinterHelper extends  ReactContextBaseJavaModule  {
         reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("StatusUpdated", params);
     }
 
-
-
-@ReactMethod
-    public void init()
-    {
-        System.out.println("Print Method call");
-        Runnable r = new Runnable() { @Override public void run() {
-
-            if (phh.Status=="Initialized") setStatus("Initialized");
-            else if (phh.Status == "PrintHand not installed.") setStatus("PrintHand required to enable printing.  You may still checkin.");
-            else if (phh.Status == "Printer not configured.") setStatus(phh.Status);
-            else if (phh.Status.contains("Printer ready")) {
-                setStatus(phh.Status);
-                readyToPrint=true;
-            }
-            checkPrinterStatus();
-        } };
-        phh = new PrintHandHelper(r);
+    @ReactMethod
+    public void scan(final Promise promise) {
+        promise.resolve(String.join(",", printProvider.scan()));
     }
 
-    public void setStatus(String status)
+/*
+    @ReactMethod
+    public String[] scan()
+    {
+        return printProvider.scan();
+    }
+  */
+
+
+    public static void updateStatus(String status)
     {
         Status = status;
         if (statusChangeRunnable!=null){
@@ -69,8 +70,6 @@ public class PrinterHelper extends  ReactContextBaseJavaModule  {
                 statusChangeRunnable.run();
             } catch (Exception e) {}
         }
-        //fire and event
-        checkPrinterStatus();
     }
 
     @ReactMethod
@@ -79,18 +78,22 @@ public class PrinterHelper extends  ReactContextBaseJavaModule  {
         // Runnable runnable
         Activity activity = reactContext.getCurrentActivity();
         context = (activity==null) ? reactContext : activity;
-        if (phh==null) init();
 
         statusChangeRunnable = new Runnable() { @Override public void run() {  sendStatusUpdate();  } };
         getStatus(statusChangeCallback);
-        checkPrinterStatus();
+    }
+
+    @ReactMethod
+    public void checkInit(String ip, String model)
+    {
+        printProvider.checkInit(context, ip, model);
     }
 
     @ReactMethod
     public void printUris(String uriList) //comma separated
     {
         String[] uris = uriList.split(",");
-        List<Bitmap> bmps = new ArrayList<Bitmap>();
+        List<Bitmap> bmps = new ArrayList<>();
         for (String uriString : uris)
         {
             Uri uri = Uri.parse(uriString);
@@ -100,32 +103,14 @@ public class PrinterHelper extends  ReactContextBaseJavaModule  {
             } catch (Exception ex)
             {  int a=0; }
         }
-        phh.print(bmps, context);
-    }
-
-    public void checkPrinterStatus()
-    {
-        if (Status=="Pending init") { setStatus("Initializing print service."); phh.initSdk(context); }
-        else if (phh.Status == "PrintHand not installed.") setStatus("PrintHand required to enable printing.  You may still checkin.");
-        else if (Status=="Initialized") { attachToPrinter(); }
-    }
-
-    private void attachToPrinter()
-    {
-        setStatus("Detecting printer.");
-        phh.attach(context);
+        if (bmps.size()>0) printProvider.printBitmaps(bmps);
     }
 
     @ReactMethod
     public void configure()
     {
-        try {
-            phh.configurePrinter();
-        } catch (Exception ex) {
-            setStatus("Please install PrintHand application.");
-        }
+        printProvider.configure();
     }
-
 
     @Override
     public String getName() {

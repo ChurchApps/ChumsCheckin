@@ -16,18 +16,18 @@ export const Household = (props: Props) => {
     Utilities.trackEvent("Household screen");
     props.navigation.addListener('focus', () => {
       setPendingVisits([...CachedData.pendingVisits]);
-    });    
+    });
   }
   const checkin = () => { props.navigation.navigate("CheckinComplete"); }
   React.useEffect(init, []);
 
   return (
-    <View style={{flex:1}}>
+    <View style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={Styles.fullWidthContainer}>
-            <Header />
-            <MemberList navigation={props.navigation} pendingVisits={pendingVisits} />
-          </View>
+        <View style={Styles.fullWidthContainer}>
+          <Header navigation={props.navigation} />
+          <MemberList navigation={props.navigation} pendingVisits={pendingVisits} />
+        </View>
       </ScrollView>
       <View style={[Styles.blockButtons]}>
         <Ripple style={[Styles.blockButton]} onPress={checkin}><Text style={Styles.blockButtonText}>CHECKIN</Text></Ripple>

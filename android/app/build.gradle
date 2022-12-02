@@ -133,9 +133,8 @@ android {
         applicationId "org.chums.checkin"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 6
-        versionName "1.15.0"
-
+        versionCode 13
+        versionName "1.20.0"
     }
     splits {
         abi {
@@ -201,6 +200,8 @@ dependencies {
 
     implementation 'com.dynamixsoftware.intentapi:intentAPI:12'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+    implementation files('libs/BrotherPrintLibrary.aar')
+
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'

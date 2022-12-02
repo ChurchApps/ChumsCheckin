@@ -1,5 +1,5 @@
 export interface ApiConfig { keyName: string, url: string, jwt: string, permisssions: RolePermissionInterface[] }
-export type ApiListType = "AccessApi" | "MembershipApi" | "AttendanceApi";
+export type ApiListType = "MembershipApi" | "AttendanceApi";
 
 export interface ApiInterface { name: string, keyName?: string, permissions: RolePermissionInterface[], jwt: string }
 export interface ApplicationInterface { name: string, keyName?: string, permissions: RolePermissionInterface[] }
@@ -28,3 +28,5 @@ export interface ServiceTimeInterface { id?: string, name?: string, groups?: Gro
 export interface SessionInterface { id?: string, groupId?: string, serviceTimeId?: string, sessionDate?: Date, displayName?: string }
 export interface VisitInterface { id?: string, personId?: string, serviceId?: string, groupId?: string, visitDate?: Date, visitSessions?: VisitSessionInterface[], person?: PersonInterface }
 export interface VisitSessionInterface { id?: string, visitId?: string, sessionId?: string, visit?: VisitInterface, session?: SessionInterface }
+
+export interface AvailablePrinter { ipAddress: string, model: string }
