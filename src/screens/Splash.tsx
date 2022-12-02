@@ -5,7 +5,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { CommonActions } from '@react-navigation/native';
 import { screenNavigationProps, ApiHelper, Styles, LoginResponseInterface, CachedData, Utilities } from "../helpers";
 
-
 type Props = { navigation: screenNavigationProps; };
 
 export const Splash = (props: Props) => {
@@ -39,9 +38,9 @@ export const Splash = (props: Props) => {
       else {
         AsyncStorage.multiSet([['@Login', 'true'], ['@Email', email], ['@Password', password]]);
         if (churchId) {
-          const church = data.churches.filter(church => church.id === churchId)[0]
-          CachedData.church = church
-          church.apis?.forEach(api => { ApiHelper.setPermissions(api.keyName || "", api.jwt, api.permissions) })
+          const userChurch = data.userChurches.filter(userChurch => userChurch.church.id === churchId)[0]
+          CachedData.userChurch = userChurch
+          userChurch.apis?.forEach(api => { ApiHelper.setPermissions(api.keyName || "", api.jwt, api.permissions) })
           props.navigation.dispatch(CommonActions.reset({ index: 0, routes: [{ name: "Services" }] }));
           return
         }

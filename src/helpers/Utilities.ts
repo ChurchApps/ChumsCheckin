@@ -15,7 +15,7 @@ export class Utilities {
     var pkg = require('../../package.json');
 
     const props = (data) ? data : {}
-    props.church = CachedData.church?.name;
+    props.church = CachedData.userChurch?.church?.name;
     props.appVersion = pkg.version;
     Analytics.trackEvent(name, props);
   }

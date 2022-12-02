@@ -5,7 +5,7 @@ import { Container } from 'native-base';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ripple from 'react-native-material-ripple';
 import { CommonActions } from "@react-navigation/native"
-import { ChurchInterface, StyleConstants, Styles, CachedData, ApiHelper, screenNavigationProps, Utilities, } from '../helpers';
+import { StyleConstants, Styles, CachedData, ApiHelper, screenNavigationProps, Utilities, LoginUserChurchInterface, } from '../helpers';
 import { Header } from './components';
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 }
 
 export function SelectChurch({ navigation }: Props) {
-  const [churches, setChurches] = React.useState<ChurchInterface[]>([]);
+  const [userChurches, setUserChurches] = React.useState<LoginUserChurchInterface[]>([]);
   const [isLoading, setLoading] = React.useState<boolean>(false);
   const [dimension, setDimension] = React.useState(Dimensions.get('window'));
 
@@ -21,8 +21,8 @@ export function SelectChurch({ navigation }: Props) {
     setLoading(true);
     Utilities.trackEvent("Select Church Screen");
     (async () => {
-      const churches = await AsyncStorage.getItem('@UserChurches');
-      setChurches(JSON.parse(churches || ''));
+      const userChurches = await AsyncStorage.getItem('@UserChurches');
+      setUserChurches(JSON.parse(userChurches || ''));
       setLoading(false);
     })();
   }, []);
@@ -40,17 +40,17 @@ export function SelectChurch({ navigation }: Props) {
   };
 
 
-  const select = async (church: ChurchInterface) => {
-    CachedData.church = church
-    church.apis?.forEach(api => ApiHelper.setPermissions(api.keyName || "", api.jwt, api.permissions))
-    await AsyncStorage.setItem("@SelectedChurchId", church.id?.toString() || "")
+  const select = async (userChurch: LoginUserChurchInterface) => {
+    CachedData.userChurch = userChurch
+    userChurch.apis?.forEach(api => ApiHelper.setPermissions(api.keyName || "", api.jwt, api.permissions))
+    await AsyncStorage.setItem("@SelectedChurchId", userChurch.church?.id?.toString() || "")
     navigation.dispatch(CommonActions.reset({ index: 0, routes: [{ name: "Services" }] }));
   }
 
-  const getRow = (church: ChurchInterface) => {
+  const getRow = (userChurch: LoginUserChurchInterface) => {
     return (
-      <Ripple style={[Styles.bigLinkButton, { width: wd('90%') }]} onPress={() => select(church)}>
-        <Text style={Styles.bigLinkButtonText}>{church.name}</Text>
+      <Ripple style={[Styles.bigLinkButton, { width: wd('90%') }]} onPress={() => select(userChurch)}>
+        <Text style={Styles.bigLinkButtonText}>{userChurch.church.name}</Text>
       </Ripple>
     );
   };
@@ -64,7 +64,7 @@ export function SelectChurch({ navigation }: Props) {
     />
   ) : (
     <FlatList
-      data={churches}
+      data={userChurches}
       renderItem={({ item }) => getRow(item)}
       keyExtractor={(item: any) => item.id.toString()}
     />

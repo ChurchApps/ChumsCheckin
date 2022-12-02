@@ -27,7 +27,7 @@ export const Login = (props: Props) => {
         setIsLoading(false);
         if (data.errors?.length > 0) Utilities.snackBar(data.errors[0])
         else {
-          const churches = data.churches?.filter(church => church.apis && church.apis?.length > 0)
+          const churches = data.userChurches?.filter(userChurch => userChurch.apis && userChurch.apis?.length > 0)
           AsyncStorage.multiSet([['@Login', 'true'], ['@Email', email], ['@Password', password], ["@UserChurches", JSON.stringify(churches)]]);
           setEmail("");
           setPassword("");
