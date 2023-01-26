@@ -55,6 +55,8 @@ export function SelectChurch({ navigation }: Props) {
     );
   };
 
+  console.log(JSON.stringify(userChurches))
+
   const churchList = isLoading ? (
     <ActivityIndicator
       size="large"
@@ -66,7 +68,7 @@ export function SelectChurch({ navigation }: Props) {
     <FlatList
       data={userChurches}
       renderItem={({ item }) => getRow(item)}
-      keyExtractor={(item: any) => item.id.toString()}
+      keyExtractor={(item: any) => item.church.id.toString()}
     />
   );
 
