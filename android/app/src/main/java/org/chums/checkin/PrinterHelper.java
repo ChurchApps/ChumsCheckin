@@ -27,7 +27,7 @@ public class PrinterHelper extends  ReactContextBaseJavaModule  {
     public static String Status = "Pending init";
     static Runnable statusChangeRunnable;
     public static boolean readyToPrint=false;
-    static ReactContext reactContext = null;
+    public static ReactContext reactContext = null;
     //static PrintProviderInterface printProvider = new PrintHandProvider();
     static PrintProviderInterface printProvider = new BrotherProvider();
     static Context context = null;
@@ -52,15 +52,6 @@ public class PrinterHelper extends  ReactContextBaseJavaModule  {
     public void scan(final Promise promise) {
         promise.resolve(String.join(",", printProvider.scan()));
     }
-
-/*
-    @ReactMethod
-    public String[] scan()
-    {
-        return printProvider.scan();
-    }
-  */
-
 
     public static void updateStatus(String status)
     {
@@ -116,4 +107,26 @@ public class PrinterHelper extends  ReactContextBaseJavaModule  {
     public String getName() {
         return "PrinterHelper";
     }
+
+    public static void logError(String source, String message) {
+        WritableMap payload = Arguments.createMap();
+        payload.putString("source", source);
+        payload.putString("message", message);
+
+        PrinterHelper.reactContext
+            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+            .emit("onError", payload);
+    }
+
+    public static void logEvent(String eventType, String source, String message) {
+        WritableMap payload = Arguments.createMap();
+        payload.putString("eventType", eventType);
+        payload.putString("source", source);
+        payload.putString("message", message);
+
+        PrinterHelper.reactContext
+                .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                .emit("onEvent", payload);
+    }
+
 }

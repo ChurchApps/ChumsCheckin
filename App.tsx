@@ -6,6 +6,7 @@ import { Splash, Lookup, Services, Login, Household, SelectGroup, AddGuest, Scre
 import { EnvironmentHelper } from './src/helpers'
 import { Printers } from './src/screens/Printers'
 import CodePush from 'react-native-code-push';
+import { ErrorHelper } from './src/helpers/ErrorHelper'
 
 const CODE_PUSH_OPTIONS = {
   checkFrequency: CodePush.CheckFrequency.ON_APP_START
@@ -15,7 +16,11 @@ EnvironmentHelper.init();
 const stack = createStackNavigator<ScreenList>();
 const App = () => {
 
-  useEffect(() => { CodePush.sync({ installMode: CodePush.InstallMode.IMMEDIATE }, syncWithCodePush); }, []);
+  useEffect(() => {
+    CodePush.sync({ installMode: CodePush.InstallMode.IMMEDIATE }, syncWithCodePush);
+    ErrorHelper.init();
+  }, []);
+
   const syncWithCodePush = (status: CodePush.SyncStatus) => {
     switch (status) {
       case CodePush.SyncStatus.AWAITING_USER_ACTION: console.log("AWAITING_USER_ACTION"); break;

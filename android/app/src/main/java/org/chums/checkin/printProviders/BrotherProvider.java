@@ -26,6 +26,8 @@ import com.brother.sdk.lmprinter.OpenChannelError;
 import com.brother.sdk.lmprinter.PrinterDriver;
 import com.brother.sdk.lmprinter.PrinterDriverGenerateResult;
 import com.brother.sdk.lmprinter.PrinterDriverGenerator;
+import com.microsoft.appcenter.AppCenter;
+import com.microsoft.appcenter.analytics.Analytics;
 
 
 public class BrotherProvider implements PrintProviderInterface {
@@ -45,6 +47,8 @@ public class BrotherProvider implements PrintProviderInterface {
         for (NetPrinter printer: printerList) {
             result.add(printer.modelName + "~" + printer.ipAddress);
         }
+
+        PrinterHelper.logEvent("Scan","BrotherProvider.java", "Scan - " + String.valueOf(result.size()));
         return result.toArray(new String[0]);
     }
 
@@ -84,7 +88,7 @@ public class BrotherProvider implements PrintProviderInterface {
 
         PrinterDriverGenerateResult result = PrinterDriverGenerator.openChannel(channel);
         if (result.getError().getCode() != OpenChannelError.ErrorCode.NoError) {
-            Log.e("", "Error - Open Channel: " + result.getError().getCode());
+            PrinterHelper.logError("BrotherProvider.java", "Error - Open Channel: " + result.getError().getCode());
             return;
         }
 
@@ -103,10 +107,11 @@ public class BrotherProvider implements PrintProviderInterface {
             PrintError printError =  printerDriver.printImage(bmp, printSettings);
 
             if (printError.getCode() != PrintError.ErrorCode.NoError) {
-                Log.d("", "Error - Print Image: " + printError.getCode());
+
+                PrinterHelper.logError("BrotherProvider.java", "Error - Print Image: " + printError.getCode());
             }
             else {
-                Log.d("", "Success - Print Image");
+                PrinterHelper.logEvent("Print","BrotherProvider.java", "Success - Print Image");
             }
         }
 
