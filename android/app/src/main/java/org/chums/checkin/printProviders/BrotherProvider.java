@@ -34,7 +34,7 @@ public class BrotherProvider implements PrintProviderInterface {
     static Context context = null;
     public static boolean readyToPrint=false;
     private static String printerIP = "";
-    private static String model = "QL-1110NWB";
+    private static String printerModel = "QL-1110NWB";
 
     public String[] scan() {
         //return new String[]{"192.168.1.2", "192.168.1.3"};
@@ -54,9 +54,11 @@ public class BrotherProvider implements PrintProviderInterface {
 
     public void checkInit(Context c, String ip, String model) {
         printerIP = ip;
+        printerModel = model;
         context = c;
         if (!printerIP.equals("")) PrinterHelper.updateStatus(printerIP);
         else PrinterHelper.updateStatus("No Printer");
+        PrinterHelper.logEvent("Model Selected","BrotherProvider.java", "Printer Model - " + printerModel);
     }
 
 
@@ -67,7 +69,7 @@ public class BrotherProvider implements PrintProviderInterface {
 
     private QLPrintSettings getPrinterSettings() {
         QLPrintSettings printSettings = new QLPrintSettings(PrinterModel.QL_1110NWB);
-        switch (model)
+        switch (printerModel)
         {
             case "Brother QL-1100": printSettings = new QLPrintSettings(PrinterModel.QL_1100); break;
             case "Brother QL-580N": printSettings = new QLPrintSettings(PrinterModel.QL_580N); break;
@@ -107,7 +109,7 @@ public class BrotherProvider implements PrintProviderInterface {
             PrintError printError =  printerDriver.printImage(bmp, printSettings);
 
             if (printError.getCode() != PrintError.ErrorCode.NoError) {
-
+                printError.getErrorRecoverySuggestion();
                 PrinterHelper.logError("BrotherProvider.java", "Error - Print Image: " + printError.getCode());
             }
             else {

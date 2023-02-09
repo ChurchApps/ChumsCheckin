@@ -41,6 +41,7 @@ export const Printers = (props: Props) => {
 
     CachedData.printer = printer;
     await AsyncStorage.setItem("@Printer", JSON.stringify(CachedData.printer));
+    console.log(JSON.stringify(CachedData.printer))
 
     //NativeModules.PrinterHelper.bind(receiveNativeStatus);
     NativeModules.PrinterHelper.checkInit(CachedData.printer?.ipAddress || "", CachedData.printer?.model || "");
