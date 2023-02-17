@@ -133,8 +133,8 @@ android {
         applicationId "org.chums.checkin"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 14
-        versionName "1.21.0"
+        versionCode 15
+        versionName "1.22.0"
     }
     splits {
         abi {
