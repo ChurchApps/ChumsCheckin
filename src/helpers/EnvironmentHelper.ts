@@ -1,4 +1,4 @@
-import { CONTENT_ROOT, ACCESS_API, MEMBERSHIP_API, ATTENDANCE_API, STAGE } from "@env"
+import { CONTENT_ROOT, ACCESS_API, MEMBERSHIP_API, ATTENDANCE_API, STAGE } from "@env";
 import { ApiHelper } from "./ApiHelper";
 export class EnvironmentHelper {
   private static MembershipApi = "";
@@ -8,7 +8,7 @@ export class EnvironmentHelper {
 
   static init = () => {
     let stage = STAGE;
-    stage = "prod";
+    //stage = "prod";
     switch (stage) {
       case "staging": EnvironmentHelper.initStaging(); break;
       case "prod": EnvironmentHelper.initProd(); break;
@@ -21,9 +21,10 @@ export class EnvironmentHelper {
   }
 
   static initDev = () => {
-    EnvironmentHelper.MembershipApi = MEMBERSHIP_API || "";
-    EnvironmentHelper.AttendanceApi = ATTENDANCE_API || "";
-    EnvironmentHelper.ContentRoot = CONTENT_ROOT || "";
+    this.initStaging();
+    EnvironmentHelper.MembershipApi = MEMBERSHIP_API || EnvironmentHelper.MembershipApi;
+    EnvironmentHelper.AttendanceApi = ATTENDANCE_API || EnvironmentHelper.AttendanceApi;
+    EnvironmentHelper.ContentRoot = CONTENT_ROOT || EnvironmentHelper.ContentRoot;
   }
 
   //NOTE: None of these values are secret.

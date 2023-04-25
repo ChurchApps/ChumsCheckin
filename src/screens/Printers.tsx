@@ -1,21 +1,21 @@
-import React from 'react'
-import { View, Text, ScrollView, NativeModules, FlatList, PixelRatio, Dimensions, AsyncStorage } from 'react-native'
-import Ripple from 'react-native-material-ripple';
-import { RouteProp } from '@react-navigation/native';
-import { ScreenList } from './ScreenList'
-import { Header } from './components'
-import { AvailablePrinter, CachedData, screenNavigationProps, Styles } from "../helpers"
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import CodePush from 'react-native-code-push';
-import { PrintUI } from './components/PrintUI';
+import React from "react";
+import { View, Text, ScrollView, NativeModules, FlatList, PixelRatio, Dimensions, AsyncStorage, Alert } from "react-native";
+import Ripple from "react-native-material-ripple";
+import { RouteProp } from "@react-navigation/native";
+import { ScreenList } from "./ScreenList";
+import { Header } from "./components";
+import { AvailablePrinter, CachedData, screenNavigationProps, Styles } from "../helpers";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import CodePush from "react-native-code-push";
+import { PrintUI } from "./components/PrintUI";
 
-type ProfileScreenRouteProp = RouteProp<ScreenList, 'Household'>;
+type ProfileScreenRouteProp = RouteProp<ScreenList, "Household">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
 
 export const Printers = (props: Props) => {
   const [printers, setPrinters] = React.useState<AvailablePrinter[]>([{ model: "No Printer", ipAddress: "No Printer" }]);
   const [selectedPrinter, setSelectedPrinter] = React.useState<AvailablePrinter>({ model: "No Printer", ipAddress: "No Printer" });
-  const [dimension, setDimension] = React.useState(Dimensions.get('window'));
+  const [dimension, setDimension] = React.useState(Dimensions.get("window"));
   const [htmlLabels, setHtmlLabels] = React.useState<string[]>([]);
 
   const init = async () => {
@@ -33,22 +33,22 @@ export const Printers = (props: Props) => {
     });
     return null;
 
-  }
+  };
 
   const saveSelectedPrinter = async () => {
     let printer = selectedPrinter;
-    if (printer.model === "No Printer") printer = { model: "none", ipAddress: "" };
+    if (printer.model === "No Printer") {printer = { model: "none", ipAddress: "" };}
 
     CachedData.printer = printer;
     await AsyncStorage.setItem("@Printer", JSON.stringify(CachedData.printer));
-    console.log(JSON.stringify(CachedData.printer))
+    console.log(JSON.stringify(CachedData.printer));
 
     //NativeModules.PrinterHelper.bind(receiveNativeStatus);
     NativeModules.PrinterHelper.checkInit(CachedData.printer?.ipAddress || "", CachedData.printer?.model || "");
 
-  }
+  };
 
-  React.useEffect(() => { init() }, []);
+  React.useEffect(() => { init(); }, []);
 
   const wd = (number: string) => {
     let givenWidth = typeof number === "number" ? number : parseFloat(number);
@@ -60,35 +60,35 @@ export const Printers = (props: Props) => {
     const style = (printer.ipAddress === selectedPrinter.ipAddress) ? { backgroundColor: "#DDFFDD" } : {};
     return (
       <View>
-        <Ripple style={[Styles.flatlistMainView, { width: wd('90%'), padding: wd("3%") }, style]} onPress={() => { setSelectedPrinter(printer) }}>
-          <View style={[{ justifyContent: 'center', alignItems: 'center' }]} >
-            <Text style={[Styles.personName, { alignSelf: 'flex-start' }]} numberOfLines={1}>{printer.ipAddress}</Text>
-            <Text style={[Styles.groupName, { alignSelf: 'flex-start' }]} numberOfLines={1}>{printer.model}</Text>
+        <Ripple style={[Styles.flatlistMainView, { width: wd("90%"), padding: wd("3%") }, style]} onPress={() => { setSelectedPrinter(printer); }}>
+          <View style={[{ justifyContent: "center", alignItems: "center" }]}>
+            <Text style={[Styles.personName, { alignSelf: "flex-start" }]} numberOfLines={1}>{printer.ipAddress}</Text>
+            <Text style={[Styles.groupName, { alignSelf: "flex-start" }]} numberOfLines={1}>{printer.model}</Text>
           </View>
         </Ripple>
       </View>
-    )
-  }
+    );
+  };
 
   const testPrint = () => {
-    if (selectedPrinter.model === "No Printer") alert("No printer selected");
+    if (selectedPrinter.model === "No Printer") {Alert.alert("No printer selected");}
     else {
       saveSelectedPrinter();
-      setHtmlLabels(["<b>Hello World</b>"])
+      setHtmlLabels(["<b>Hello World</b>"]);
     }
-  }
+  };
 
   const getLabelView = () => {
-    if (htmlLabels?.length > 0) return (<PrintUI htmlLabels={htmlLabels} onPrintComplete={() => { setHtmlLabels([]) }} />)
-    else return <View style={[Styles.blockButtons]}>
+    if (htmlLabels?.length > 0) {return (<PrintUI htmlLabels={htmlLabels} onPrintComplete={() => { setHtmlLabels([]); }} />);}
+    else {return <View style={[Styles.blockButtons]}>
       <Ripple style={[Styles.blockButton, { backgroundColor: "#FFFFFF" }]} onPress={testPrint}><Text style={[Styles.blockButtonText, { color: "#08A1CD" }]}>Test Print</Text></Ripple>
-    </View>;
-  }
+    </View>;}
+  };
 
   return (
     <View style={{ flex: 1 }}>
       <Header navigation={props.navigation} />
-      <Text style={{ ...Styles.H1, marginLeft: wp('5%') }}>Select a printer:</Text>
+      <Text style={{ ...Styles.H1, marginLeft: wp("5%") }}>Select a printer:</Text>
       <View style={Styles.fullWidthContainer}>
         <FlatList data={printers as any[]} renderItem={getPrinterRow} keyExtractor={(printer: string) => printer} />
       </View>
@@ -98,5 +98,5 @@ export const Printers = (props: Props) => {
         <Ripple style={[Styles.blockButton]} onPress={() => { saveSelectedPrinter(); CodePush.restartApp(); }}><Text style={Styles.blockButtonText}>Done</Text></Ripple>
       </View>
     </View>
-  )
-}
+  );
+};
