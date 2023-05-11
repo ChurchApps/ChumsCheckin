@@ -24,7 +24,7 @@ export interface GenericSettingInterface { id?: string, churchId?: string, keyNa
 export interface GroupServiceTimeInterface { id?: string, groupId?: string, serviceTimeId?: string, serviceTime?: ServiceTimeInterface }
 export interface GroupInterface { id?: string, name?: string, categoryName?: string, parentPickup?: boolean }
 export interface NameInterface { first?: string, middle?: string, last?: string, nick?: string, display?: string }
-export interface PersonInterface { id?: string, name: NameInterface, membershipStatus?: string, gender?: string, birthDate?: Date, maritalStatus?: string, anniversary?: Date, photo?: string, photoUpdated?: Date, householdId?: string, householdRole?: string, userId?: string }
+export interface PersonInterface { id?: string, name: NameInterface, membershipStatus?: string, gender?: string, birthDate?: Date, maritalStatus?: string, anniversary?: Date, photo?: string, photoUpdated?: Date, householdId?: string, householdRole?: string, userId?: string, nameTagNotes?:string }
 export interface ServiceInterface { id?: string, campusId?: string, name?: string }
 export interface ServiceTimeInterface { id?: string, name?: string, groups?: GroupInterface[] }
 export interface SessionInterface { id?: string, groupId?: string, serviceTimeId?: string, sessionDate?: Date, displayName?: string }

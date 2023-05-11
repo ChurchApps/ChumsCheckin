@@ -22,18 +22,19 @@ export class LabelHelper {
         return fs.readFileAssets("labels/" + fileName);
     }
 
-    private static replaceValues(html: string, visit: VisitInterface, childVisits: VisitInterface[], pickupCode: string) {
+    private static replaceValues(html: string, visit: VisitInterface, childVisits: VisitInterface[], pickupCode: string, allergies : string) {
         const person: PersonInterface = Utilities.getById(CachedData.householdMembers, visit.personId || "");
         var isChild: boolean = false;
         childVisits.forEach(cv => { if (cv.personId === person.id) isChild = true; });
         var result = html.replace(/\[Name\]/g, person.name.display || "");
         result = result.replace(/\[Sessions\]/g, VisitSessionHelper.getDisplaySessions(visit.visitSessions || []).replace(/ ,/g, "<br/>"));
         result = result.replace(/\[PickupCode\]/g, (isChild) ? pickupCode : "");
+        result = result.replace(/\[Allergies\]/g, (allergies) ? allergies : "");
         return result;
     }
 
 
-    private static replaceValuesPickup(html: string, childVisits: VisitInterface[], pickupCode: string) {
+    private static replaceValuesPickup(html: string, childVisits: VisitInterface[], pickupCode: string, allergies : string) {
         var childList: string[] = [];
         childVisits.forEach(cv => {
             const person: PersonInterface = Utilities.getById(CachedData.householdMembers, cv.personId || "");
@@ -43,6 +44,7 @@ export class LabelHelper {
         childList.forEach(child => { childBullets += "<li>" + child + "</li>" });
         var result = html.replace(/\[Children\]/g, childBullets);
         result = result.replace(/\[PickupCode\]/g, pickupCode);
+        result = result.replace(/\[Allergies\]/g, (allergies) ? allergies : "");
         return result;
     }
 
@@ -66,16 +68,13 @@ export class LabelHelper {
         const childVisits: VisitInterface[] = LabelHelper.getChildVisits();
         const labelTemplate = await this.readHtml("1_1x3_5.html");
         const pickupTemplate = await this.readHtml("pickup_1_1x3_5.html");
+        const allergiesTags = CachedData.userChurch?.person.nameTagNotes ?? "";
         const result: string[] = [];
 
-
-
-        CachedData.pendingVisits.forEach(pv => { result.push(this.replaceValues(labelTemplate, pv, childVisits, pickupCode)); });
-        if (childVisits.length > 0) result.push(this.replaceValuesPickup(pickupTemplate, childVisits, pickupCode));
+        CachedData.pendingVisits.forEach(pv => { result.push(this.replaceValues(labelTemplate, pv, childVisits, pickupCode, allergiesTags)); });
+        if (childVisits.length > 0) result.push(this.replaceValuesPickup(pickupTemplate, childVisits, pickupCode, allergiesTags));
         return result;
     }
-
-
 }
 
 
