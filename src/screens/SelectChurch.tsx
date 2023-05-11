@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { Text, SafeAreaView, FlatList, ActivityIndicator, Dimensions, PixelRatio, ScrollView } from 'react-native';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { Container } from 'native-base';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Ripple from 'react-native-material-ripple';
-import { CommonActions } from "@react-navigation/native"
-import { StyleConstants, Styles, CachedData, ApiHelper, screenNavigationProps, Utilities, LoginUserChurchInterface, } from '../helpers';
-import { Header } from './components';
+import * as React from "react";
+import { Text, SafeAreaView, FlatList, ActivityIndicator, Dimensions, PixelRatio, ScrollView } from "react-native";
+import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { Container } from "native-base";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Ripple from "react-native-material-ripple";
+import { CommonActions } from "@react-navigation/native";
+import { StyleConstants, Styles, CachedData, ApiHelper, screenNavigationProps, Utilities, LoginUserChurchInterface, } from "../helpers";
+import { Header } from "./components";
 
 interface Props {
   navigation: screenNavigationProps
@@ -15,23 +15,23 @@ interface Props {
 export function SelectChurch({ navigation }: Props) {
   const [userChurches, setUserChurches] = React.useState<LoginUserChurchInterface[]>([]);
   const [isLoading, setLoading] = React.useState<boolean>(false);
-  const [dimension, setDimension] = React.useState(Dimensions.get('window'));
+  const [dimension, setDimension] = React.useState(Dimensions.get("window"));
 
   React.useEffect(() => {
     setLoading(true);
     Utilities.trackEvent("Select Church Screen");
     (async () => {
-      const userChurches = await AsyncStorage.getItem('@UserChurches');
-      setUserChurches(JSON.parse(userChurches || ''));
+      const userChurches = await AsyncStorage.getItem("@UserChurches");
+      setUserChurches(JSON.parse(userChurches || ""));
       setLoading(false);
     })();
   }, []);
 
   React.useEffect(() => {
-    Dimensions.addEventListener('change', () => {
-      const dim = Dimensions.get('screen')
+    Dimensions.addEventListener("change", () => {
+      const dim = Dimensions.get("screen");
       setDimension(dim);
-    })
+    });
   }, []);
 
   const wd = (number: string) => {
@@ -41,28 +41,26 @@ export function SelectChurch({ navigation }: Props) {
 
 
   const select = async (userChurch: LoginUserChurchInterface) => {
-    CachedData.userChurch = userChurch
-    userChurch.apis?.forEach(api => ApiHelper.setPermissions(api.keyName || "", api.jwt, api.permissions))
-    await AsyncStorage.setItem("@SelectedChurchId", userChurch.church?.id?.toString() || "")
+    CachedData.userChurch = userChurch;
+    userChurch.apis?.forEach(api => ApiHelper.setPermissions(api.keyName || "", api.jwt, api.permissions));
+    await AsyncStorage.setItem("@SelectedChurchId", userChurch.church?.id?.toString() || "");
     navigation.dispatch(CommonActions.reset({ index: 0, routes: [{ name: "Services" }] }));
-  }
-
-  const getRow = (userChurch: LoginUserChurchInterface) => {
-    return (
-      <Ripple style={[Styles.bigLinkButton, { width: wd('90%') }]} onPress={() => select(userChurch)}>
-        <Text style={Styles.bigLinkButtonText}>{userChurch.church.name}</Text>
-      </Ripple>
-    );
   };
 
-  console.log(JSON.stringify(userChurches))
+  const getRow = (userChurch: LoginUserChurchInterface) => (
+    <Ripple style={[Styles.bigLinkButton, { width: wd("90%") }]} onPress={() => select(userChurch)}>
+      <Text style={Styles.bigLinkButtonText}>{userChurch.church.name}</Text>
+    </Ripple>
+  );
+
+  console.log(JSON.stringify(userChurches));
 
   const churchList = isLoading ? (
     <ActivityIndicator
       size="large"
       color={StyleConstants.baseColor1}
       animating={isLoading}
-      style={{ marginTop: '25%' }}
+      style={{ marginTop: "25%" }}
     />
   ) : (
     <FlatList
@@ -77,7 +75,7 @@ export function SelectChurch({ navigation }: Props) {
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header navigation={navigation} />
         <SafeAreaView style={Styles.fullWidthContainer}>
-          <Text style={{ ...Styles.H1, marginLeft: wp('5%') }}>
+          <Text style={{ ...Styles.H1, marginLeft: wp("5%") }}>
             Select a Church:
           </Text>
           {churchList}
