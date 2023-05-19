@@ -22,29 +22,33 @@ export class LabelHelper {
     return fs.readFileAssets("labels/" + fileName);
 }
 
-private static replaceValues(html: string, visit: VisitInterface, childVisits: VisitInterface[], pickupCode: string, allergies : string) {
+private static replaceValues(html: string, visit: VisitInterface, childVisits: VisitInterface[], pickupCode: string) {
     const person: PersonInterface = Utilities.getById(CachedData.householdMembers, visit.personId || "");
     let isChild: boolean = false;
     childVisits.forEach(cv => { if (cv.personId === person.id) isChild = true; });
     let result = html.replace(/\[Name\]/g, person.name.display || "");
     result = result.replace(/\[Sessions\]/g, VisitSessionHelper.getDisplaySessions(visit.visitSessions || []).replace(/ ,/g, "<br/>"));
     result = result.replace(/\[PickupCode\]/g, (isChild) ? pickupCode : "");
-    result = result.replace(/\[Allergies\]/g, (allergies) ? allergies : "");
+    result = result.replace(/\[Allergies\]/g, (person.nameTagNotes) ? person.nameTagNotes : "");
     return result;
 }
 
 
-private static replaceValuesPickup(html: string, childVisits: VisitInterface[], pickupCode: string, allergies : string) {
+private static replaceValuesPickup(html: string, childVisits: VisitInterface[], pickupCode: string) {
     let childList: string[] = [];
+    let allergiesList : string[] = [];
     childVisits.forEach(cv => {
         const person: PersonInterface = Utilities.getById(CachedData.householdMembers, cv.personId || "");
         childList.push(person.name.display + " - " + VisitSessionHelper.getPickupSessions(cv.visitSessions || []));
+        allergiesList.push(person.nameTagNotes ?? "");
     });
     let childBullets = "";
+    let allergiesBullets = "";
     childList.forEach(child => { childBullets += "<li>" + child + "</li>" });
+    allergiesList.forEach(child => { allergiesBullets += "<li>" + child + "</li>" });
     let result = html.replace(/\[Children\]/g, childBullets);
     result = result.replace(/\[PickupCode\]/g, pickupCode);
-    result = result.replace(/\[Allergies\]/g, (allergies) ? allergies : "");
+    result = result.replace(/\[Allergies\]/g, allergiesBullets);
     return result;
 }
 
@@ -68,11 +72,10 @@ private static getChildVisits() {
         const childVisits: VisitInterface[] = LabelHelper.getChildVisits();
         const labelTemplate = await this.readHtml("1_1x3_5.html");
         const pickupTemplate = await this.readHtml("pickup_1_1x3_5.html");
-        const allergiesTags = CachedData.userChurch?.person.nameTagNotes ?? "";
         const result: string[] = [];
 
-        CachedData.pendingVisits.forEach(pv => { result.push(this.replaceValues(labelTemplate, pv, childVisits, pickupCode, allergiesTags)); });
-        if (childVisits.length > 0) result.push(this.replaceValuesPickup(pickupTemplate, childVisits, pickupCode, allergiesTags));
+        CachedData.pendingVisits.forEach(pv => { result.push(this.replaceValues(labelTemplate, pv, childVisits, pickupCode)); });
+        if (childVisits.length > 0) result.push(this.replaceValuesPickup(pickupTemplate, childVisits, pickupCode));
         return result;
     }
 }
