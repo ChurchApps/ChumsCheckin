@@ -18,6 +18,7 @@ export const CheckinComplete = (props: Props) => {
     const promises: Promise<any>[] = [];
     promises.push(checkin());
     if (CachedData.printer?.ipAddress) {print();}
+    //print();
 
     Promise.all(promises).then(() => {
       if (!CachedData.printer?.ipAddress) {startOver();}
