@@ -20,7 +20,6 @@ export const Lookup = (props: Props) => {
   const [dimension, setDimension] = React.useState(Dimensions.get("window"));
 
   const loadHouseholdMembers = async () => {
-    console.log("/people/household/" + CachedData.householdId);
     CachedData.householdMembers = await ApiHelper.get("/people/household/" + CachedData.householdId, "MembershipApi");
     loadExistingVisits();
   };

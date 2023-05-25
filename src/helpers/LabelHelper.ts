@@ -20,43 +20,44 @@ export class LabelHelper {
   private static readHtml(fileName: string) {
     //*** IMPORTANT: This is reading from /android/app/src/main/assets rather than the /assets folder.  I'd like to change this but am not sure how. */
     return fs.readFileAssets("labels/" + fileName);
-}
+  }
 
-private static replaceValues(html: string, visit: VisitInterface, childVisits: VisitInterface[], pickupCode: string) {
+  private static replaceValues(html: string, visit: VisitInterface, childVisits: VisitInterface[], pickupCode: string) {
     const person: PersonInterface = Utilities.getById(CachedData.householdMembers, visit.personId || "");
     let isChild: boolean = false;
-    childVisits.forEach(cv => { if (cv.personId === person.id) isChild = true; });
+    childVisits.forEach(cv => { if (cv.personId === person.id) {isChild = true;} });
     let result = html.replace(/\[Name\]/g, person.name.display || "");
     result = result.replace(/\[Sessions\]/g, VisitSessionHelper.getDisplaySessions(visit.visitSessions || []).replace(/ ,/g, "<br/>"));
     result = result.replace(/\[PickupCode\]/g, (isChild) ? pickupCode : "");
-    result = result.replace(/\[Allergies\]/g, (person.nameTagNotes) ? person.nameTagNotes : "");
+    result = result.replace(/\[Allergies\]/g, (person.nametagNotes) ? person.nametagNotes : "");
+    console.log(result);
     return result;
-}
+  }
 
 
-private static replaceValuesPickup(html: string, childVisits: VisitInterface[], pickupCode: string) {
+  private static replaceValuesPickup(html: string, childVisits: VisitInterface[], pickupCode: string) {
     let childList: string[] = [];
     let allergiesList : string[] = [];
     childVisits.forEach(cv => {
-        const person: PersonInterface = Utilities.getById(CachedData.householdMembers, cv.personId || "");
-        childList.push(person.name.display + " - " + VisitSessionHelper.getPickupSessions(cv.visitSessions || []));
-        allergiesList.push(person.nameTagNotes ?? "");
+      const person: PersonInterface = Utilities.getById(CachedData.householdMembers, cv.personId || "");
+      childList.push(person.name.display + " - " + VisitSessionHelper.getPickupSessions(cv.visitSessions || []));
+      allergiesList.push(person.nametagNotes ?? "");
     });
     let childBullets = "";
     let allergiesBullets = "";
-    childList.forEach(child => { childBullets += "<li>" + child + "</li>" });
-    allergiesList.forEach(child => { allergiesBullets += "<li>" + child + "</li>" });
+    childList.forEach(child => { childBullets += "<li>" + child + "</li>"; });
+    allergiesList.forEach(child => { allergiesBullets += "<li>" + child + "</li>"; });
     let result = html.replace(/\[Children\]/g, childBullets);
     result = result.replace(/\[PickupCode\]/g, pickupCode);
     result = result.replace(/\[Allergies\]/g, allergiesBullets);
     return result;
-}
+  }
 
 
-private static getChildVisits() {
+  private static getChildVisits() {
     const result: VisitInterface[] = [];
     CachedData.pendingVisits.forEach(pv => {
-        let isChild = false;
+      let isChild = false;
             pv.visitSessions?.forEach(vs => {
               const serviceTime: ServiceTimeInterface = Utilities.getById(CachedData.serviceTimes, vs.session?.serviceTimeId || "");
               const group: GroupInterface = Utilities.getById(serviceTime.groups || [], vs.session?.groupId || "");
@@ -67,17 +68,17 @@ private static getChildVisits() {
     return result;
   }
 
-    public static async getAllLabels() {
-        const pickupCode = LabelHelper.generatePickupCode();
-        const childVisits: VisitInterface[] = LabelHelper.getChildVisits();
-        const labelTemplate = await this.readHtml("1_1x3_5.html");
-        const pickupTemplate = await this.readHtml("pickup_1_1x3_5.html");
-        const result: string[] = [];
+  public static async getAllLabels() {
+    const pickupCode = LabelHelper.generatePickupCode();
+    const childVisits: VisitInterface[] = LabelHelper.getChildVisits();
+    const labelTemplate = await this.readHtml("1_1x3_5.html");
+    const pickupTemplate = await this.readHtml("pickup_1_1x3_5.html");
+    const result: string[] = [];
 
-        CachedData.pendingVisits.forEach(pv => { result.push(this.replaceValues(labelTemplate, pv, childVisits, pickupCode)); });
-        if (childVisits.length > 0) result.push(this.replaceValuesPickup(pickupTemplate, childVisits, pickupCode));
-        return result;
-    }
+    CachedData.pendingVisits.forEach(pv => { result.push(this.replaceValues(labelTemplate, pv, childVisits, pickupCode)); });
+    if (childVisits.length > 0) {result.push(this.replaceValuesPickup(pickupTemplate, childVisits, pickupCode));}
+    return result;
+  }
 }
 
 
