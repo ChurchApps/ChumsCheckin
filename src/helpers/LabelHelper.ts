@@ -75,7 +75,10 @@ export class LabelHelper {
     const pickupTemplate = await this.readHtml("pickup_1_1x3_5.html");
     const result: string[] = [];
 
-    CachedData.pendingVisits.forEach(pv => { result.push(this.replaceValues(labelTemplate, pv, childVisits, pickupCode)); });
+    CachedData.pendingVisits.forEach(pv => {
+      if (pv.visitSessions && pv.visitSessions.length > 0) {result.push(this.replaceValues(labelTemplate, pv, childVisits, pickupCode));}
+    });
+
     if (childVisits.length > 0) {result.push(this.replaceValuesPickup(pickupTemplate, childVisits, pickupCode));}
     return result;
   }
