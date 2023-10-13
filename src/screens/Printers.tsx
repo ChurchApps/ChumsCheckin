@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, ScrollView, NativeModules, FlatList, PixelRatio, Dimensions, AsyncStorage, Alert } from "react-native";
+import { View, Text, ScrollView, NativeModules, FlatList, PixelRatio, Dimensions, Alert } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ripple from "react-native-material-ripple";
 import { RouteProp } from "@react-navigation/native";
 import { ScreenList } from "./ScreenList";

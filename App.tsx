@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
+import { NativeBaseProvider } from "native-base";
 import { createStackNavigator } from "@react-navigation/stack";
 import { CheckinComplete } from "./src/screens/CheckinComplete";
 import { Splash, Lookup, Services, Login, Household, SelectGroup, AddGuest, ScreenList, SelectChurch } from "./src/screens";
@@ -37,6 +38,7 @@ const App = () => {
   };
 
   return (
+    <NativeBaseProvider>
     <NavigationContainer>
       <stack.Navigator screenOptions={{ headerShown: false, animationEnabled: false }}>
         <stack.Screen name="Splash" component={Splash} />
@@ -51,6 +53,7 @@ const App = () => {
         <stack.Screen name="Printers" component={Printers} />
       </stack.Navigator>
     </NavigationContainer>
+    </NativeBaseProvider>
   );
 };
 
