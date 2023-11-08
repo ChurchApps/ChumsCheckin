@@ -40,7 +40,7 @@ export const Splash = (props: Props) => {
       else {
         AsyncStorage.multiSet([["@Login", "true"], ["@Email", email], ["@Password", password]]);
         if (churchId) {
-          const userChurch = data.userChurches.filter(userChurch => userChurch.church.id === churchId)[0];
+          const userChurch = data.userChurches.filter(userchurch => userchurch.church.id === churchId)[0];
           CachedData.userChurch = userChurch;
           userChurch.apis?.forEach(api => { ApiHelper.setPermissions(api.keyName || "", api.jwt, api.permissions); });
           props.navigation.dispatch(CommonActions.reset({ index: 0, routes: [{ name: "Services" }] }));
@@ -51,7 +51,7 @@ export const Splash = (props: Props) => {
     });
   };
 
-  React.useEffect(loadData, []);
+  React.useEffect(loadData, []);  //eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Container>

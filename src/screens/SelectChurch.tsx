@@ -21,8 +21,8 @@ export function SelectChurch({ navigation }: Props) {
     setLoading(true);
     Utilities.trackEvent("Select Church Screen");
     (async () => {
-      const userChurches = await AsyncStorage.getItem("@UserChurches");
-      setUserChurches(JSON.parse(userChurches || ""));
+      const userChurch = await AsyncStorage.getItem("@UserChurches");
+      setUserChurches(JSON.parse(userChurch || ""));
       setLoading(false);
     })();
   }, []);
@@ -55,20 +55,22 @@ export function SelectChurch({ navigation }: Props) {
 
   console.log(JSON.stringify(userChurches));
 
-  const churchList = isLoading ? (
-    <ActivityIndicator
-      size="large"
-      color={StyleConstants.baseColor1}
-      animating={isLoading}
-      style={{ marginTop: "25%" }}
-    />
-  ) : (
-    <FlatList
-      data={userChurches}
-      renderItem={({ item }) => getRow(item)}
-      keyExtractor={(item: any) => item.church.id.toString()}
-    />
-  );
+  const churchList = isLoading
+    ? (
+      <ActivityIndicator
+        size="large"
+        color={StyleConstants.baseColor1}
+        animating={isLoading}
+        style={{ marginTop: "25%" }}
+      />
+    )
+    : (
+      <FlatList
+        data={userChurches}
+        renderItem={({ item }) => getRow(item)}
+        keyExtractor={(item: any) => item.church.id.toString()}
+      />
+    );
 
   return (
     <Container style={{ backgroundColor: StyleConstants.ghostWhite }}>

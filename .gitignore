@@ -109,6 +109,7 @@ local.properties
 
 # Package files
 *.jar
+!gradle/wrapper/gradle-wrapper.jar
 
 # Maven
 target/

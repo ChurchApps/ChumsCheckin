@@ -59,7 +59,7 @@ export const Login = (props: Props) => {
             <Text style={{ ...Styles.H1, marginTop: wp("6%") }}>Welcome.  Please Log in.</Text>
             <View style={[Styles.textInputView, { width: wd("90%") }]}>
               <Icon name={"email"} color={StyleConstants.baseColor} style={Styles.inputIcon} size={wp("4.5%")} />
-              <TextInput placeholder={"Email"} placeholderTextColor={"lightgray"} style={[Styles.textInputStyle, { width: wd("80%") }]} autoCompleteType="email" keyboardType="email-address" autoCapitalize="none" value={email} onChangeText={(value) => setEmail(value)} />
+              <TextInput placeholder={"Email"} placeholderTextColor={"lightgray"} style={[Styles.textInputStyle, { width: wd("80%") }]} autoComplete="email" keyboardType="email-address" autoCapitalize="none" value={email} onChangeText={(value) => setEmail(value)} />
             </View>
             <View style={[Styles.textInputView, { width: wd("90%") }]}>
               <Icon name={"key"} color={StyleConstants.baseColor} style={Styles.inputIcon} size={wp("4.5%")} />

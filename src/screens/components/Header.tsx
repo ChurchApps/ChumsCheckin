@@ -30,7 +30,7 @@ export const Header = (props: Props) => {
 
       NativeModules.PrinterHelper.bind(receiveNativeStatus);
       NativeModules.PrinterHelper.checkInit(CachedData.printer?.ipAddress || "", CachedData.printer?.model || "");
-      eventEmitter = new NativeEventEmitter(NativeModules.PrinterHelper);
+      eventEmitter = new NativeEventEmitter(NativeModules.PrinterHelper);  //eslint-disable-line react-hooks/exhaustive-deps
       eventEmitter.addListener("StatusUpdated", (event: any) => {
         //console.log("PRINTER STATUS: ");
         //console.log(event.status);

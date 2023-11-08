@@ -31,7 +31,7 @@ export const SelectGroup = (props: Props) => {
     setGroupTree(gt);
   };
 
-  const handleCategoryClick = (value: number) => { setSelectedCategory((selectedCategory == value) ? -1 : value); };
+  const handleCategoryClick = (value: number) => { setSelectedCategory((selectedCategory === value) ? -1 : value); };
   const handleNone = () => { selectGroup("", "NONE"); };
 
   const selectGroup = (id: string, name: string) => {
@@ -62,8 +62,8 @@ export const SelectGroup = (props: Props) => {
     );
   };
 
-  const getExpanded = (selectedCategory: number, category: GroupCategoryInterface) => {
-    if (selectedCategory !== category.key) {return null;}
+  const getExpanded = (selectedcategory: number, category: GroupCategoryInterface) => {
+    if (selectedcategory !== category.key) {return null;}
     else {
       const result: JSX.Element[] = [];
       category.items.forEach(g => {
@@ -75,7 +75,7 @@ export const SelectGroup = (props: Props) => {
     }
   };
 
-  React.useEffect(buildTree, []);
+  React.useEffect(buildTree, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Container>
