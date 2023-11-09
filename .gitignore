@@ -107,9 +107,6 @@ local.properties
 # Log files
 *.log
 
-# Package files
-*.jar
-!gradle/wrapper/gradle-wrapper.jar
 
 # Maven
 target/
