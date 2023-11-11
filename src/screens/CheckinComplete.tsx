@@ -61,7 +61,7 @@ export const CheckinComplete = (props: Props) => {
     else {return <></>;}
   };
 
-  React.useEffect(loadData, []);
+  React.useEffect(loadData, []);  //eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Container style={{ backgroundColor: StyleConstants.ghostWhite }}>

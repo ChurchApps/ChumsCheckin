@@ -18,7 +18,7 @@ export const Household = (props: Props) => {
     });
   };
   const checkin = () => { props.navigation.navigate("CheckinComplete"); };
-  React.useEffect(init, []);
+  React.useEffect(init, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <View style={{ flex: 1 }}>

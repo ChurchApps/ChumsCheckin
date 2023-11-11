@@ -4,6 +4,7 @@
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
 .vscode/.react/
+keystore.jks
 
 *.bat
 
@@ -107,8 +108,6 @@ local.properties
 # Log files
 *.log
 
-# Package files
-*.jar
 
 # Maven
 target/

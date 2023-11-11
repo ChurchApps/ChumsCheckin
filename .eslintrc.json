@@ -5,6 +5,7 @@
   ],
   "rules": {
     "comma-dangle": "off",
+    "radix": 0,
     "eol-last": ["warn", "always"],
     "quote-props": ["error", "as-needed"],
     "quotes": [2, "double", { "avoidEscape": true }],
@@ -16,6 +17,7 @@
     "arrow-body-style": ["warn", "as-needed"],
     "react/jsx-tag-spacing": ["warn", { "beforeSelfClosing": "always", "beforeClosing": "never" }],
     "no-multiple-empty-lines": "off",
+    "no-useless-escape": 0,
     "jsx-quotes": ["warn", "prefer-double"],
     "@typescript-eslint/no-unused-vars": "off",
     "react-native/no-inline-styles": 0,

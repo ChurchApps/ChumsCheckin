@@ -151,13 +151,14 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
-        /*
         release {
-            storeFile file('churchapps_pkcs12.keystore')
-            storePassword System.console().readLine("\nKeystore password:")
-            keyAlias System.console().readLine("\nAlias: ")
-            keyPassword System.console().readLine("\nAlias password: ")
-        }*/
+          if (project.hasProperty('CHURCHAPPS_STORE_FILE')) {
+              storeFile file(CHURCHAPPS_STORE_FILE)
+              storePassword CHURCHAPPS_STORE_PASSWORD
+              keyAlias CHURCHAPPS_KEY_ALIAS
+              keyPassword CHURCHAPPS_KEY_PASSWORD
+          }
+        }
     }
     buildTypes {
         debug {

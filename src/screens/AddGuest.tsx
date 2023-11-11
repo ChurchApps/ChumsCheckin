@@ -1,6 +1,6 @@
 import React from "react";
 import { TextInput, View, Text, ScrollView } from "react-native";
-import { Container, Content } from "native-base";
+import { Container } from "native-base";
 import Ripple from "react-native-material-ripple";
 import { Header } from "./components";
 import { ApiHelper, Utilities, screenNavigationProps, CachedData, Styles, StyleConstants, PersonInterface } from "../helpers";
@@ -21,8 +21,8 @@ export const AddGuest = (props: Props) => {
     });}
   };
 
-  const getOrCreatePerson = async (firstName: string, lastName: string) => {
-    const fullName = firstName + " " + lastName;
+  const getOrCreatePerson = async (firstname: string, lastname: string) => {
+    const fullName = firstname + " " + lastname;
     let person: PersonInterface | null = await searchForGuest(fullName);
     if (person === null) {
       person = {
