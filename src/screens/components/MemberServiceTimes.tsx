@@ -4,7 +4,7 @@ import Ripple from "react-native-material-ripple";
 import { CachedData,  screenNavigationProps, VisitHelper, VisitSessionHelper, Styles, StyleConstants, Utilities } from "../../helpers";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { widthPercentageToDP as wp} from "react-native-responsive-screen";
-import { PersonInterface, VisitInterface, ServiceTimeInterface, VisitSessionInterface, GroupInterface } from "@churchapps/mobilehelper";
+import { PersonInterface, VisitInterface, ServiceTimeInterface, VisitSessionInterface, GroupInterface, ArrayHelper } from "@churchapps/mobilehelper";
 
 interface Props { person: PersonInterface, selectedMemberId: string, navigation: screenNavigationProps, pendingVisits: VisitInterface[] }
 
@@ -18,7 +18,7 @@ export const MemberServiceTimes = (props: Props) => {
     let selectedGroupName = "NONE";
     if (stSessions.length > 0) {
       const groupId = stSessions[0].session?.groupId || "";
-      const group: GroupInterface = Utilities.getById(serviceTime.groups || [], groupId);
+      const group: GroupInterface = ArrayHelper.getOne(serviceTime.groups || [], "id", groupId);
       selectedGroupName = group?.name || "Error";
     }
     return (<View key={serviceTime.id} style={Styles.expandedRow}>

@@ -5,7 +5,7 @@ import Ripple from "react-native-material-ripple";
 import { Header } from "./components";
 import { screenNavigationProps, CachedData, Styles, StyleConstants, Utilities } from "../helpers";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { ApiHelper, ArrayHelper, GroupInterface, GroupServiceTimeInterface } from "@churchapps/mobilehelper";
+import { ApiHelper, AppCenterHelper, ArrayHelper, GroupInterface, GroupServiceTimeInterface } from "@churchapps/mobilehelper";
 
 interface Props { navigation: screenNavigationProps }
 
@@ -16,7 +16,7 @@ export const Services = (props: Props) => {
 
   const loadData = () => {
     setIsLoading(true);
-    Utilities.trackEvent("Services Screen");
+    AppCenterHelper.trackEvent("Services Screen");
     ApiHelper.get("/services", "AttendanceApi").then(data => {
       setServices(data); setIsLoading(false);
     });

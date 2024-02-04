@@ -7,7 +7,7 @@ import { CommonActions } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { PrintUI } from "./components/PrintUI";
-import { ApiHelper, ArrayHelper } from "@churchapps/mobilehelper";
+import { ApiHelper, AppCenterHelper, ArrayHelper } from "@churchapps/mobilehelper";
 
 interface Props { navigation: screenNavigationProps; }
 
@@ -50,7 +50,7 @@ export const CheckinComplete = (props: Props) => {
     const peopleIds: number[] = ArrayHelper.getUniqueValues(CachedData.householdMembers, "id");
     const url = "/visits/checkin?serviceId=" + CachedData.serviceId + "&peopleIds=" + escape(peopleIds.join(","));
     return ApiHelper.post(url, CachedData.pendingVisits, "AttendanceApi").then(data => {
-      Utilities.trackEvent("Checkin Complete");
+      AppCenterHelper.trackEvent("Checkin Complete");
       props.navigation.navigate("CheckinComplete");
     });
   };

@@ -7,7 +7,7 @@ import Ripple from "react-native-material-ripple";
 import { CommonActions } from "@react-navigation/native";
 import { StyleConstants, Styles, CachedData, screenNavigationProps, Utilities } from "../helpers";
 import { Header } from "./components";
-import { ApiHelper, LoginUserChurchInterface } from "@churchapps/mobilehelper";
+import { ApiHelper, AppCenterHelper, LoginUserChurchInterface } from "@churchapps/mobilehelper";
 
 interface Props {
   navigation: screenNavigationProps
@@ -20,7 +20,7 @@ export function SelectChurch({ navigation }: Props) {
 
   React.useEffect(() => {
     setLoading(true);
-    Utilities.trackEvent("Select Church Screen");
+    AppCenterHelper.trackEvent("Select Church Screen");
     (async () => {
       const userChurch = await AsyncStorage.getItem("@UserChurches");
       setUserChurches(JSON.parse(userChurch || ""));

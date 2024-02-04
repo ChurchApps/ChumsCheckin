@@ -8,7 +8,7 @@ import { Header } from "./components";
 import { screenNavigationProps, VisitHelper, VisitSessionHelper, CachedData, Styles, StyleConstants, Utilities } from "../helpers";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { GroupInterface } from "@churchapps/mobilehelper";
+import { AppCenterHelper, GroupInterface } from "@churchapps/mobilehelper";
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "SelectGroup">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
@@ -36,7 +36,7 @@ export const SelectGroup = (props: Props) => {
   const handleNone = () => { selectGroup("", "NONE"); };
 
   const selectGroup = (id: string, name: string) => {
-    Utilities.trackEvent("Select Group", name);
+    AppCenterHelper.trackEvent("Select Group", name);
     const personId = props.route.params.personId;
     let visit = VisitHelper.getByPersonId(CachedData.pendingVisits, personId);
     if (visit === null) {

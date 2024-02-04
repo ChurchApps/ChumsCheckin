@@ -5,7 +5,7 @@ import Ripple from "react-native-material-ripple";
 import { CachedData, EnvironmentHelper, screenNavigationProps, Utilities, VisitHelper, Styles } from "../../helpers";
 import { MemberServiceTimes } from "./MemberServiceTimes";
 import { widthPercentageToDP as wp} from "react-native-responsive-screen";
-import { VisitInterface, PersonInterface, VisitSessionInterface, ServiceTimeInterface, GroupInterface } from "@churchapps/mobilehelper";
+import { VisitInterface, PersonInterface, VisitSessionInterface, ServiceTimeInterface, GroupInterface, ArrayHelper } from "@churchapps/mobilehelper";
 
 interface Props { navigation: screenNavigationProps, pendingVisits: VisitInterface[] }
 
@@ -23,8 +23,8 @@ export const MemberList = (props: Props) => {
       else {
         const groups: JSX.Element[] = [];
         visit?.visitSessions?.forEach((vs: VisitSessionInterface, index) => {
-          const st: ServiceTimeInterface | null = Utilities.getById(CachedData.serviceTimes, vs.session?.serviceTimeId || "");
-          const group: GroupInterface = Utilities.getById(st?.groups || [], vs.session?.groupId || "");
+          const st: ServiceTimeInterface | null = ArrayHelper.getOne(CachedData.serviceTimes, "id", vs.session?.serviceTimeId || "");
+          const group: GroupInterface = ArrayHelper.getOne(st?.groups || [], "id", vs.session?.groupId || "");
           let name = group.name || "none";
           if (st != null) {name = (st.name || "") + " - " + name;}
           // if (groups.length > 0) groups.push(<Text key={vs.id?.toString() + "comma"} style={{ color: StyleConstants.grayColor }}>, </Text>);

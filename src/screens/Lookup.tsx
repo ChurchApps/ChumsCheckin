@@ -7,7 +7,7 @@ import { ScreenList } from "./ScreenList";
 import { Header } from "./components";
 import { EnvironmentHelper, Utilities, screenNavigationProps, CachedData, Styles, StyleConstants } from "../helpers";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { ApiHelper, ArrayHelper, PersonInterface } from "@churchapps/mobilehelper";
+import { ApiHelper, AppCenterHelper, ArrayHelper, PersonInterface, Utils } from "@churchapps/mobilehelper";
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Lookup">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
@@ -41,16 +41,16 @@ export const Lookup = (props: Props) => {
   };
 
   const handleSearch = () => {
-    if (phone === "") {Utilities.snackBar("Please enter phone number");}
+    if (phone === "") {Utils.snackBar("Please enter phone number");}
     else {
       Keyboard.dismiss();
       setHasSearched(true);
       setIsLoading(true);
-      Utilities.trackEvent("Search");
+      AppCenterHelper.trackEvent("Search");
       ApiHelper.get("/people/search/phone?number=" + phone, "MembershipApi").then(data => {
         setIsLoading(false);
         setPeople(data);
-        if (data.length === 0) {Utilities.snackBar("No matches found");}
+        if (data.length === 0) {Utils.snackBar("No matches found");}
       });
     }
   };

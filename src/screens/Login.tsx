@@ -7,7 +7,7 @@ import { Header } from "./components";
 import { Utilities, screenNavigationProps, Styles, StyleConstants } from "../helpers";
 import Icon from "react-native-vector-icons/Fontisto";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { ApiHelper, LoginResponseInterface } from "@churchapps/mobilehelper";
+import { ApiHelper, AppCenterHelper, LoginResponseInterface, Utils } from "@churchapps/mobilehelper";
 
 interface Props { navigation: screenNavigationProps }
 
@@ -18,21 +18,21 @@ export const Login = (props: Props) => {
   const [dimension, setDimension] = useState(Dimensions.get("window"));
 
   const login = () => {
-    if (email === "") {Utilities.snackBar("Please enter your email address");}
-    else if (!Utilities.validateEmail(email)) {Utilities.snackBar("Please enter valid email");}
-    else if (password === "") {Utilities.snackBar("Please enter your password");}
+    if (email === "") {Utils.snackBar("Please enter your email address");}
+    else if (!Utilities.validateEmail(email)) {Utils.snackBar("Please enter valid email");}
+    else if (password === "") {Utils.snackBar("Please enter your password");}
     else {
-      Utilities.trackEvent("Login attempt", { email: email });
+      AppCenterHelper.trackEvent("Login attempt", { email: email });
       setIsLoading(true);
       ApiHelper.postAnonymous("/users/login", { email: email, password: password }, "MembershipApi").then((data: LoginResponseInterface) => {
         setIsLoading(false);
-        if (data.errors?.length > 0) {Utilities.snackBar(data.errors[0]);}
+        if (data.errors?.length > 0) {Utils.snackBar(data.errors[0]);}
         else {
           const churches = data.userChurches?.filter(userChurch => userChurch.apis && userChurch.apis?.length > 0);
           AsyncStorage.multiSet([["@Login", "true"], ["@Email", email], ["@Password", password], ["@UserChurches", JSON.stringify(churches)]]);
           setEmail("");
           setPassword("");
-          Utilities.trackEvent("Login success", { email: email });
+          AppCenterHelper.trackEvent("Login success", { email: email });
           props.navigation.dispatch(CommonActions.reset({ index: 0, routes: [{ name: "SelectChurch" }] }));
         }
       });

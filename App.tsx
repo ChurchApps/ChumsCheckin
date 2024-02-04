@@ -7,7 +7,8 @@ import { Splash, Lookup, Services, Login, Household, SelectGroup, AddGuest, Scre
 import { EnvironmentHelper } from "./src/helpers";
 import { Printers } from "./src/screens/Printers";
 import CodePush from "react-native-code-push";
-import { ErrorHelper } from "./src/helpers/ErrorHelper";
+import { ErrorHelper } from "@churchapps/mobilehelper";
+
 
 const CODE_PUSH_OPTIONS = {
   checkFrequency: CodePush.CheckFrequency.ON_APP_START
@@ -39,20 +40,20 @@ const App = () => {
 
   return (
     <NativeBaseProvider>
-    <NavigationContainer>
-      <stack.Navigator screenOptions={{ headerShown: false, animationEnabled: false }}>
-        <stack.Screen name="Splash" component={Splash} />
-        <stack.Screen name="Login" component={Login} />
-        <stack.Screen name="Services" component={Services} />
-        <stack.Screen name="Lookup" component={Lookup} />
-        <stack.Screen name="Household" component={Household} />
-        <stack.Screen name="AddGuest" component={AddGuest} />
-        <stack.Screen name="CheckinComplete" component={CheckinComplete} />
-        <stack.Screen name="SelectGroup" component={SelectGroup} />
-        <stack.Screen name="SelectChurch" component={SelectChurch} />
-        <stack.Screen name="Printers" component={Printers} />
-      </stack.Navigator>
-    </NavigationContainer>
+      <NavigationContainer>
+        <stack.Navigator screenOptions={{ headerShown: false, animationEnabled: false }}>
+          <stack.Screen name="Splash" component={Splash} />
+          <stack.Screen name="Login" component={Login} />
+          <stack.Screen name="Services" component={Services} />
+          <stack.Screen name="Lookup" component={Lookup} />
+          <stack.Screen name="Household" component={Household} />
+          <stack.Screen name="AddGuest" component={AddGuest} />
+          <stack.Screen name="CheckinComplete" component={CheckinComplete} />
+          <stack.Screen name="SelectGroup" component={SelectGroup} />
+          <stack.Screen name="SelectChurch" component={SelectChurch} />
+          <stack.Screen name="Printers" component={Printers} />
+        </stack.Navigator>
+      </NavigationContainer>
     </NativeBaseProvider>
   );
 };
