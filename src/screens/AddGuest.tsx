@@ -3,7 +3,8 @@ import { TextInput, View, Text, ScrollView } from "react-native";
 import { Container } from "native-base";
 import Ripple from "react-native-material-ripple";
 import { Header } from "./components";
-import { ApiHelper, Utilities, screenNavigationProps, CachedData, Styles, StyleConstants, PersonInterface } from "../helpers";
+import { Utilities, screenNavigationProps, CachedData, Styles, StyleConstants, PersonInterface } from "../helpers";
+import { ApiHelper } from "@churchapps/mobilehelper";
 
 interface Props { navigation: screenNavigationProps }
 

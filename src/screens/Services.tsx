@@ -3,9 +3,9 @@ import { Text, FlatList, ActivityIndicator, SafeAreaView, Dimensions, PixelRatio
 import { Container } from "native-base";
 import Ripple from "react-native-material-ripple";
 import { Header } from "./components";
-import { ApiHelper, screenNavigationProps, CachedData, Styles, StyleConstants, GroupInterface, GroupServiceTimeInterface, Utilities } from "../helpers";
-import { ArrayHelper } from "../helpers/ArrayHelper";
+import { screenNavigationProps, CachedData, Styles, StyleConstants, GroupInterface, GroupServiceTimeInterface, Utilities } from "../helpers";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { ApiHelper, ArrayHelper } from "@churchapps/mobilehelper";
 
 interface Props { navigation: screenNavigationProps }
 

@@ -1,4 +1,3 @@
-export { ApiHelper } from "./ApiHelper";
 export * from "./Interfaces";
 export { CachedData } from "./CachedData";
 export { EnvironmentHelper } from "./EnvironmentHelper";
