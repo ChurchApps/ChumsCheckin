@@ -3,8 +3,8 @@ import Snackbar from "react-native-snackbar";
 import { StyleConstants } from "./Styles";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { ScreenList } from "../screens";
-import Analytics from "appcenter-analytics";
 import { CachedData } from "./CachedData";
+import { AppCenterHelper } from "@churchapps/mobilehelper";
 
 
 export type screenNavigationProps = StackNavigationProp<ScreenList, "Login">
@@ -17,7 +17,7 @@ export class Utilities {
     const props = (data) ? data : {};
     props.church = CachedData.userChurch?.church?.name;
     props.appVersion = pkg.version;
-    Analytics.trackEvent(name, props);
+    AppCenterHelper.trackEvent(name, props);
   }
 
   public static snackBar(message: string) {

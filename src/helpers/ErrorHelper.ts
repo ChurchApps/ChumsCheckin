@@ -1,15 +1,15 @@
-import Analytics from "appcenter-analytics";
 import { DeviceEventEmitter } from "react-native";
 import { setJSExceptionHandler, setNativeExceptionHandler } from "react-native-exception-handler";
+import { AppCenterHelper } from "@churchapps/mobilehelper";
 
 export class ErrorHelper {
 
   static logEvent(eventType: string, source: string, message: string) {
-    Analytics.trackEvent(eventType, { source, message });
+    AppCenterHelper.trackEvent(eventType, { source, message });
   }
 
   static logError(source: string, message: string) {
-    Analytics.trackEvent("Error", { source, message });
+    AppCenterHelper.trackEvent("Error", { source, message });
   }
 
   static onJavaError(event: any) {

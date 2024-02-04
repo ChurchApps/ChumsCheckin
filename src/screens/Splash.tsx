@@ -4,6 +4,7 @@ import { Container } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CommonActions } from "@react-navigation/native";
 import { screenNavigationProps, ApiHelper, Styles, LoginResponseInterface, CachedData, Utilities } from "../helpers";
+import { PushNotificationHelper } from "@churchapps/mobilehelper";
 
 type Props = { navigation: screenNavigationProps; };
 
@@ -11,6 +12,7 @@ export const Splash = (props: Props) => {
 
   const loadData = () => {
     Utilities.trackEvent("Splash Screen");
+    PushNotificationHelper.registerUserDevice("ChumsCheckin");
     setTimeout(access, 1000);
   };
 
