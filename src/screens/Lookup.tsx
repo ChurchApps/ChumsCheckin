@@ -5,9 +5,9 @@ import Ripple from "react-native-material-ripple";
 import { RouteProp } from "@react-navigation/native";
 import { ScreenList } from "./ScreenList";
 import { Header } from "./components";
-import { EnvironmentHelper, Utilities, screenNavigationProps, PersonInterface, CachedData, Styles, StyleConstants } from "../helpers";
+import { EnvironmentHelper, Utilities, screenNavigationProps, CachedData, Styles, StyleConstants } from "../helpers";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { ApiHelper, ArrayHelper } from "@churchapps/mobilehelper";
+import { ApiHelper, ArrayHelper, PersonInterface } from "@churchapps/mobilehelper";
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Lookup">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }

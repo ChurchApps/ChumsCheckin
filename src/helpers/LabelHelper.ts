@@ -1,8 +1,8 @@
 import fs from "react-native-fs";
-import { GroupInterface, PersonInterface, ServiceTimeInterface, VisitInterface } from "./Interfaces";
 import { CachedData } from "./CachedData";
 import { Utilities } from "./Utilities";
 import { VisitSessionHelper } from "./VisitSessionHelper";
+import { VisitInterface, PersonInterface, ServiceTimeInterface, GroupInterface } from "@churchapps/mobilehelper";
 
 export class LabelHelper {
 
@@ -58,12 +58,12 @@ export class LabelHelper {
     const result: VisitInterface[] = [];
     CachedData.pendingVisits.forEach(pv => {
       let isChild = false;
-            pv.visitSessions?.forEach(vs => {
-              const serviceTime: ServiceTimeInterface = Utilities.getById(CachedData.serviceTimes, vs.session?.serviceTimeId || "");
-              const group: GroupInterface = Utilities.getById(serviceTime.groups || [], vs.session?.groupId || "");
-              if (group.parentPickup) {isChild = true;}
-            });
-            if (isChild) {result.push(pv);}
+      pv.visitSessions?.forEach(vs => {
+        const serviceTime: ServiceTimeInterface = Utilities.getById(CachedData.serviceTimes, vs.session?.serviceTimeId || "");
+        const group: GroupInterface = Utilities.getById(serviceTime.groups || [], vs.session?.groupId || "");
+        if (group.parentPickup) {isChild = true;}
+      });
+      if (isChild) {result.push(pv);}
     });
     return result;
   }

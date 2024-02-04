@@ -4,7 +4,8 @@ import Ripple from "react-native-material-ripple";
 import { RouteProp } from "@react-navigation/native";
 import { ScreenList } from "./ScreenList";
 import { Header, MemberList } from "./components";
-import { screenNavigationProps, CachedData, VisitInterface, Styles, Utilities } from "../helpers";
+import { screenNavigationProps, CachedData, Styles, Utilities } from "../helpers";
+import { VisitInterface } from "@churchapps/mobilehelper";
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Household">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }

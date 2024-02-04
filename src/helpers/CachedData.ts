@@ -1,4 +1,5 @@
-import { PersonInterface, ServiceTimeInterface, VisitInterface, GroupServiceTimeInterface, GroupInterface, AvailablePrinter, LoginUserChurchInterface } from "./Interfaces";
+import { VisitInterface, LoginUserChurchInterface, PersonInterface, ServiceTimeInterface, GroupServiceTimeInterface, GroupInterface } from "@churchapps/mobilehelper";
+import { AvailablePrinter } from "./Interfaces";
 
 export class CachedData {
   static pendingVisits: VisitInterface[] = [];
@@ -14,6 +15,6 @@ export class CachedData {
   static groups: GroupInterface[] = [];
 
 
-  static printer: AvailablePrinter = { model: "none", ipAddress: "" }
+  static printer: AvailablePrinter = { model: "none", ipAddress: "" };
 }
 

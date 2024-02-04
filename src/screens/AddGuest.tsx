@@ -3,8 +3,8 @@ import { TextInput, View, Text, ScrollView } from "react-native";
 import { Container } from "native-base";
 import Ripple from "react-native-material-ripple";
 import { Header } from "./components";
-import { Utilities, screenNavigationProps, CachedData, Styles, StyleConstants, PersonInterface } from "../helpers";
-import { ApiHelper } from "@churchapps/mobilehelper";
+import { Utilities, screenNavigationProps, CachedData, Styles, StyleConstants } from "../helpers";
+import { ApiHelper, PersonInterface } from "@churchapps/mobilehelper";
 
 interface Props { navigation: screenNavigationProps }
 
@@ -28,7 +28,8 @@ export const AddGuest = (props: Props) => {
     if (person === null) {
       person = {
         householdId: CachedData.householdId,
-        name: { display: fullName, first: firstName, last: lastName }
+        name: { display: fullName, first: firstName, last: lastName },
+        contactInfo: {}
       };
       const data = await ApiHelper.post("/people", [person], "MembershipApi");
       person.id = data[0].id;

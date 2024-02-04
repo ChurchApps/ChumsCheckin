@@ -2,9 +2,10 @@ import React from "react";
 import { View, Text, FlatList, Image, Dimensions, PixelRatio } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Ripple from "react-native-material-ripple";
-import { CachedData, EnvironmentHelper, PersonInterface, screenNavigationProps, ServiceTimeInterface, Utilities, VisitHelper, VisitInterface, Styles, GroupInterface, VisitSessionInterface } from "../../helpers";
+import { CachedData, EnvironmentHelper, screenNavigationProps, Utilities, VisitHelper, Styles } from "../../helpers";
 import { MemberServiceTimes } from "./MemberServiceTimes";
 import { widthPercentageToDP as wp} from "react-native-responsive-screen";
+import { VisitInterface, PersonInterface, VisitSessionInterface, ServiceTimeInterface, GroupInterface } from "@churchapps/mobilehelper";
 
 interface Props { navigation: screenNavigationProps, pendingVisits: VisitInterface[] }
 

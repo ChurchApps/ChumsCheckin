@@ -5,9 +5,10 @@ import Ripple from "react-native-material-ripple";
 import { RouteProp } from "@react-navigation/native";
 import { ScreenList } from "./ScreenList";
 import { Header } from "./components";
-import { screenNavigationProps, VisitHelper, VisitSessionHelper, CachedData, Styles, StyleConstants, GroupInterface, Utilities } from "../helpers";
+import { screenNavigationProps, VisitHelper, VisitSessionHelper, CachedData, Styles, StyleConstants, Utilities } from "../helpers";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { GroupInterface } from "@churchapps/mobilehelper";
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "SelectGroup">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
