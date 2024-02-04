@@ -4,8 +4,7 @@ import { Container } from "native-base";
 import Ripple from "react-native-material-ripple";
 import { Header } from "./components";
 import { screenNavigationProps, CachedData, Styles, StyleConstants, Utilities } from "../helpers";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { ApiHelper, AppCenterHelper, ArrayHelper, GroupInterface, GroupServiceTimeInterface } from "@churchapps/mobilehelper";
+import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper, GroupInterface, GroupServiceTimeInterface } from "@churchapps/mobilehelper";
 
 interface Props { navigation: screenNavigationProps }
 
@@ -81,7 +80,7 @@ export const Services = (props: Props) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header navigation={props.navigation} />
         <SafeAreaView style={Styles.fullWidthContainer}>
-          <Text style={{ ...Styles.H1, marginLeft: wp("5%") }}>Select a service:</Text>
+          <Text style={{ ...Styles.H1, marginLeft: DimensionHelper.wp("5%") }}>Select a service:</Text>
           {getResults()}
         </SafeAreaView>
       </ScrollView>

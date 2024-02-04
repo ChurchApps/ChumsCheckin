@@ -1,13 +1,12 @@
 import * as React from "react";
 import { Text, SafeAreaView, FlatList, ActivityIndicator, Dimensions, PixelRatio, ScrollView } from "react-native";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { Container } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ripple from "react-native-material-ripple";
 import { CommonActions } from "@react-navigation/native";
 import { StyleConstants, Styles, CachedData, screenNavigationProps, Utilities } from "../helpers";
 import { Header } from "./components";
-import { ApiHelper, AppCenterHelper, LoginUserChurchInterface } from "@churchapps/mobilehelper";
+import { ApiHelper, AppCenterHelper, DimensionHelper, LoginUserChurchInterface } from "@churchapps/mobilehelper";
 
 interface Props {
   navigation: screenNavigationProps
@@ -78,7 +77,7 @@ export function SelectChurch({ navigation }: Props) {
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header navigation={navigation} />
         <SafeAreaView style={Styles.fullWidthContainer}>
-          <Text style={{ ...Styles.H1, marginLeft: wp("5%") }}>
+          <Text style={{ ...Styles.H1, marginLeft: DimensionHelper.wp("5%") }}>
             Select a Church:
           </Text>
           {churchList}

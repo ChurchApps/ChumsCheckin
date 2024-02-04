@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Image, StatusBar, Text, NativeModules, NativeEventEmitter, Platform, Dimensions } from "react-native";
 import Ripple from "react-native-material-ripple";
-import { widthPercentageToDP } from "react-native-responsive-screen";
 import { CachedData, screenNavigationProps, Styles } from "../../helpers";
+import { DimensionHelper } from "@churchapps/mobilehelper";
 
 interface Props {
   navigation: screenNavigationProps,
@@ -65,7 +65,7 @@ export const Header = (props: Props) => {
   }, [landscap]);
 
   return (
-    <View style={[Styles.headerLogoView, landscap && { maxHeight: props.logo ? "30%" : widthPercentageToDP("50%") }]}>
+    <View style={[Styles.headerLogoView, landscap && { maxHeight: props.logo ? "30%" : DimensionHelper.wp("50%") }]}>
       <StatusBar backgroundColor="#08A1CD" />
       <Ripple style={Styles.printerStatus} onPress={() => { handleClick(); }}>
         <Text style={{ backgroundColor: "#09A1CD", color: "#FFF" }}>{getVersion()} - {status}</Text>

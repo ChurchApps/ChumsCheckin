@@ -2,10 +2,9 @@ import React from "react";
 import { View, Text, FlatList, Image, Dimensions, PixelRatio } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Ripple from "react-native-material-ripple";
-import { CachedData, EnvironmentHelper, screenNavigationProps, Utilities, VisitHelper, Styles } from "../../helpers";
+import { CachedData, EnvironmentHelper, screenNavigationProps, VisitHelper, Styles } from "../../helpers";
 import { MemberServiceTimes } from "./MemberServiceTimes";
-import { widthPercentageToDP as wp} from "react-native-responsive-screen";
-import { VisitInterface, PersonInterface, VisitSessionInterface, ServiceTimeInterface, GroupInterface, ArrayHelper } from "@churchapps/mobilehelper";
+import { VisitInterface, PersonInterface, VisitSessionInterface, ServiceTimeInterface, GroupInterface, ArrayHelper, DimensionHelper } from "@churchapps/mobilehelper";
 
 interface Props { navigation: screenNavigationProps, pendingVisits: VisitInterface[] }
 
@@ -54,7 +53,7 @@ export const MemberList = (props: Props) => {
     return (
       <View>
         <Ripple style={[Styles.flatlistMainView,{width:wd("90%")}]} onPress={() => { handleMemberClick(person.id || ""); }}>
-          <Icon name={(selectedMemberId === person.id) ? "angle-down" : "angle-right"} style={Styles.flatlistDropIcon} size={wp("6%")} />
+          <Icon name={(selectedMemberId === person.id) ? "angle-down" : "angle-right"} style={Styles.flatlistDropIcon} size={DimensionHelper.wp("6%")} />
           <Image source={{ uri: EnvironmentHelper.ContentRoot + person.photo }} style={Styles.personPhoto} />
           <View style={{ justifyContent: "center", alignItems: "center"}}>
             <Text style={[Styles.personName, { alignSelf: "flex-start" }]} numberOfLines={1}>{person.name.display}</Text>

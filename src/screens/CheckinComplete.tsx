@@ -2,12 +2,11 @@ import React from "react";
 import { View, Text } from "react-native";
 import { Container } from "native-base";
 import { Header } from "./components";
-import { screenNavigationProps, CachedData, LabelHelper, Styles, StyleConstants, Utilities } from "../helpers";
+import { screenNavigationProps, CachedData, LabelHelper, Styles, StyleConstants } from "../helpers";
 import { CommonActions } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { PrintUI } from "./components/PrintUI";
-import { ApiHelper, AppCenterHelper, ArrayHelper } from "@churchapps/mobilehelper";
+import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper } from "@churchapps/mobilehelper";
 
 interface Props { navigation: screenNavigationProps; }
 
@@ -67,7 +66,7 @@ export const CheckinComplete = (props: Props) => {
     <Container style={{ backgroundColor: StyleConstants.ghostWhite }}>
       <Header navigation={props.navigation} />
       <View style={[Styles.mainContainer, { justifyContent: "center" }]}>
-        <Icon name={"check-circle"} style={{ fontSize: wp("20%"), color: StyleConstants.greenColor, alignSelf: "center" }} size={wp("20%")} />
+        <Icon name={"check-circle"} style={{ fontSize: DimensionHelper.wp("20%"), color: StyleConstants.greenColor, alignSelf: "center" }} size={DimensionHelper.wp("20%")} />
         <Text style={[Styles.H1, { alignSelf: "center" }]}>Checkin Complete.</Text>
         {getLabelView()}
       </View>

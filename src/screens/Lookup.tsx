@@ -5,9 +5,8 @@ import Ripple from "react-native-material-ripple";
 import { RouteProp } from "@react-navigation/native";
 import { ScreenList } from "./ScreenList";
 import { Header } from "./components";
-import { EnvironmentHelper, Utilities, screenNavigationProps, CachedData, Styles, StyleConstants } from "../helpers";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { ApiHelper, AppCenterHelper, ArrayHelper, PersonInterface, Utils } from "@churchapps/mobilehelper";
+import { EnvironmentHelper, screenNavigationProps, CachedData, Styles, StyleConstants } from "../helpers";
+import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper, PersonInterface, Utils } from "@churchapps/mobilehelper";
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Lookup">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
@@ -88,7 +87,7 @@ export const Lookup = (props: Props) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header navigation={props.navigation} />
         <SafeAreaView style={Styles.fullWidthContainer}>
-          <Text style={{ ...Styles.H1, marginLeft: wp("5%") }}>Search by phone number:</Text>
+          <Text style={{ ...Styles.H1, marginLeft: DimensionHelper.wp("5%") }}>Search by phone number:</Text>
           <View style={[Styles.searchView, { width: wd("90%") }]}>
             <TextInput placeholder="Enter mobile no" onChangeText={(value) => { setPhone(value); }} keyboardType="numeric" style={Styles.searchTextInput} />
             <Ripple style={Styles.searchButton} onPress={handleSearch}>

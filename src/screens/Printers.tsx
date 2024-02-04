@@ -6,9 +6,9 @@ import { RouteProp } from "@react-navigation/native";
 import { ScreenList } from "./ScreenList";
 import { Header } from "./components";
 import { AvailablePrinter, CachedData, screenNavigationProps, Styles } from "../helpers";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import CodePush from "react-native-code-push";
 import { PrintUI } from "./components/PrintUI";
+import { DimensionHelper } from "@churchapps/mobilehelper";
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Household">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
@@ -89,7 +89,7 @@ export const Printers = (props: Props) => {
   return (
     <View style={{ flex: 1 }}>
       <Header navigation={props.navigation} />
-      <Text style={{ ...Styles.H1, marginLeft: wp("5%") }}>Select a printer:</Text>
+      <Text style={{ ...Styles.H1, marginLeft: DimensionHelper.wp("5%") }}>Select a printer:</Text>
       <View style={Styles.fullWidthContainer}>
         <FlatList data={printers as any[]} renderItem={getPrinterRow} keyExtractor={(printer: string) => printer} />
       </View>

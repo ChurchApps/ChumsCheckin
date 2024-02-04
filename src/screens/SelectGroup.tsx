@@ -7,8 +7,7 @@ import { ScreenList } from "./ScreenList";
 import { Header } from "./components";
 import { screenNavigationProps, VisitHelper, VisitSessionHelper, CachedData, Styles, StyleConstants, Utilities } from "../helpers";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { AppCenterHelper, GroupInterface } from "@churchapps/mobilehelper";
+import { AppCenterHelper, DimensionHelper, GroupInterface } from "@churchapps/mobilehelper";
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "SelectGroup">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
@@ -55,8 +54,8 @@ export const SelectGroup = (props: Props) => {
     return (
       <View>
         <Ripple style={Styles.flatlistMainView} onPress={() => { handleCategoryClick(item.key); }}>
-          <Icon name={(selectedCategory === item.key) ? "angle-down" : "angle-right"} style={Styles.flatlistDropIcon} size={wp("6%")} />
-          <Text style={[Styles.bigLinkButtonText, { margin: wp("3%") }]}>{item.name}</Text>
+          <Icon name={(selectedCategory === item.key) ? "angle-down" : "angle-right"} style={Styles.flatlistDropIcon} size={DimensionHelper.wp("6%")} />
+          <Text style={[Styles.bigLinkButtonText, { margin: DimensionHelper.wp("3%") }]}>{item.name}</Text>
         </Ripple>
         {getExpanded(selectedCategory, item)}
       </View>
@@ -68,8 +67,8 @@ export const SelectGroup = (props: Props) => {
     else {
       const result: JSX.Element[] = [];
       category.items.forEach(g => {
-        result.push(<Ripple key={g.id?.toString()} style={[Styles.expandedRow, { justifyContent: "flex-start", width: wp("80%") }]} onPress={() => selectGroup(g.id || "", g.name || "")}>
-          <Text style={[Styles.bigLinkButtonText, { marginLeft: "5%", fontFamily: StyleConstants.RobotoRegular, marginVertical: wp("1%") }]}>{g.name}</Text>
+        result.push(<Ripple key={g.id?.toString()} style={[Styles.expandedRow, { justifyContent: "flex-start", width: DimensionHelper.wp("80%") }]} onPress={() => selectGroup(g.id || "", g.name || "")}>
+          <Text style={[Styles.bigLinkButtonText, { marginLeft: "5%", fontFamily: StyleConstants.RobotoRegular, marginVertical: DimensionHelper.wp("1%") }]}>{g.name}</Text>
         </Ripple>);
       });
       return result;

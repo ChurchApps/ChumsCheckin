@@ -1,10 +1,9 @@
 import React from "react";
 import { View, Text } from "react-native";
 import Ripple from "react-native-material-ripple";
-import { CachedData,  screenNavigationProps, VisitHelper, VisitSessionHelper, Styles, StyleConstants, Utilities } from "../../helpers";
+import { CachedData,  screenNavigationProps, VisitHelper, VisitSessionHelper, Styles, StyleConstants } from "../../helpers";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { widthPercentageToDP as wp} from "react-native-responsive-screen";
-import { PersonInterface, VisitInterface, ServiceTimeInterface, VisitSessionInterface, GroupInterface, ArrayHelper } from "@churchapps/mobilehelper";
+import { PersonInterface, VisitInterface, ServiceTimeInterface, VisitSessionInterface, GroupInterface, ArrayHelper, DimensionHelper } from "@churchapps/mobilehelper";
 
 interface Props { person: PersonInterface, selectedMemberId: string, navigation: screenNavigationProps, pendingVisits: VisitInterface[] }
 
@@ -23,7 +22,7 @@ export const MemberServiceTimes = (props: Props) => {
     }
     return (<View key={serviceTime.id} style={Styles.expandedRow}>
       <View style={Styles.serviceTimeView}>
-        <Icon name={"clock-o"} style={Styles.timeIcon} size={wp("5%")} />
+        <Icon name={"clock-o"} style={Styles.timeIcon} size={DimensionHelper.wp("5%")} />
         <Text style={Styles.serviceTimeText}>{serviceTime.name}</Text>
       </View>
       <Ripple style={[Styles.serviceTimeButton, buttonStyle]} onPress={() => { handleServiceTimeClick(serviceTime, props.person); }}>
