@@ -14,7 +14,6 @@ interface Props {
 export function SelectChurch({ navigation }: Props) {
   const [userChurches, setUserChurches] = React.useState<LoginUserChurchInterface[]>([]);
   const [isLoading, setLoading] = React.useState<boolean>(false);
-  const [dimension, setDimension] = React.useState(Dimensions.get("window"));
 
   React.useEffect(() => {
     setLoading(true);
@@ -26,28 +25,17 @@ export function SelectChurch({ navigation }: Props) {
     })();
   }, []);
 
-  React.useEffect(() => {
-    Dimensions.addEventListener("change", () => {
-      const dim = Dimensions.get("screen");
-      setDimension(dim);
-    });
-  }, []);
-
-  const wd = (number: string) => {
-    let givenWidth = typeof number === "number" ? number : parseFloat(number);
-    return PixelRatio.roundToNearestPixel((dimension.width * givenWidth) / 100);
-  };
-
-
   const select = async (userChurch: LoginUserChurchInterface) => {
     CachedData.userChurch = userChurch;
     userChurch.apis?.forEach(api => ApiHelper.setPermissions(api.keyName || "", api.jwt, api.permissions));
     await AsyncStorage.setItem("@SelectedChurchId", userChurch.church?.id?.toString() || "");
+    CachedData.churchAppearance = await ApiHelper.getAnonymous("/settings/public/" + userChurch.church.id, "MembershipApi");
+    await AsyncStorage.setItem("@ChurchAppearance", JSON.stringify(CachedData.churchAppearance));
     navigation.dispatch(CommonActions.reset({ index: 0, routes: [{ name: "Services" }] }));
   };
 
   const getRow = (userChurch: LoginUserChurchInterface) => (
-    <Ripple style={[Styles.bigLinkButton, { width: wd("90%") }]} onPress={() => select(userChurch)}>
+    <Ripple style={[Styles.bigLinkButton, { width: DimensionHelper.wp("90%") }]} onPress={() => select(userChurch)}>
       <Text style={Styles.bigLinkButtonText}>{userChurch.church.name}</Text>
     </Ripple>
   );
@@ -55,35 +43,16 @@ export function SelectChurch({ navigation }: Props) {
   console.log(JSON.stringify(userChurches));
 
   const churchList = isLoading
-    ? (
-      <ActivityIndicator
-        size="large"
-        color={StyleConstants.baseColor1}
-        animating={isLoading}
-        style={{ marginTop: "25%" }}
-      />
-    )
-    : (
-      <FlatList
-        data={userChurches}
-        renderItem={({ item }) => getRow(item)}
-        keyExtractor={(item: any) => item.church.id.toString()}
-      />
-    );
-
+    ? (<ActivityIndicator size="large" color={StyleConstants.baseColor1} animating={isLoading} style={{ marginTop: "25%" }} />)
+    : (<FlatList data={userChurches} renderItem={({ item }) => getRow(item)} keyExtractor={(item: any) => item.church.id.toString()} />);
 
   return (
     <View style={{ backgroundColor: StyleConstants.ghostWhite }}>
-
-
       <Header navigation={navigation} />
-
       <Text style={{ ...Styles.H1, marginLeft: DimensionHelper.wp("5%") }}>
             Select a Church:
       </Text>
       {churchList}
-
-
     </View>
   );
 }

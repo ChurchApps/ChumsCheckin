@@ -94,5 +94,5 @@ export const Styles = StyleSheet.create({
 
   //WhiteLogo
   headerLogoView: { borderBottomLeftRadius: DimensionHelper.wp("8%"), borderBottomRightRadius: DimensionHelper.wp("8%"), marginBottom: DimensionHelper.wp("2.5%"), backgroundColor: "white", shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.3, shadowRadius: DimensionHelper.wp("1.5%"), shadowColor: StyleConstants.blueColor, elevation: 5 },
-  headerLogoIcon: { maxWidth:DimensionHelper.wp("50%"), maxHeight: "60%", marginBottom: DimensionHelper.wp("2%"), marginTop: DimensionHelper.wp("4%"), resizeMode: "contain", alignSelf: "center" },
+  headerLogoIcon: { width:DimensionHelper.wp("100%"), height:DimensionHelper.hp(16), marginBottom: DimensionHelper.wp("2%"), marginTop: DimensionHelper.wp("4%"), resizeMode: "contain", alignSelf: "center" },
 });

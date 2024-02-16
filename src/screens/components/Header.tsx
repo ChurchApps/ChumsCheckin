@@ -6,12 +6,12 @@ import { DimensionHelper } from "@churchapps/mobilehelper";
 
 interface Props {
   navigation: screenNavigationProps,
-  logo?: any
+  logo?: boolean
 }
 
 export const Header = (props: Props) => {
   const [status, setStatus] = React.useState("");
-  const [landscap, setLandscap] = React.useState(false);
+  const [landscape, setLandscape] = React.useState(false);
 
   let eventEmitter: NativeEventEmitter;
 
@@ -54,23 +54,32 @@ export const Header = (props: Props) => {
 
   React.useEffect(() => {
     Dimensions.addEventListener("change", () => {
-      isLandscape() ? setLandscap(true) : setLandscap(false);
+      isLandscape() ? setLandscape(true) : setLandscape(false);
     });
   }, []);
 
   React.useEffect(() => {
     Dimensions.addEventListener("change", () => {
-      isLandscape() ? setLandscap(true) : setLandscap(false);
+      isLandscape() ? setLandscape(true) : setLandscape(false);
     });
-  }, [landscap]);
+  }, [landscape]);
+
+  const getLogoUrl = () => {
+    if (CachedData.churchAppearance?.logoLight)
+    {
+      console.log("LOGO URL: " + CachedData.churchAppearance?.logoLight);
+      return { uri: CachedData.churchAppearance?.logoLight };
+    }
+    else { return require("../../images/logo1.png"); }
+  };
 
   return (
-    <View style={[Styles.headerLogoView, landscap && { maxHeight: props.logo ? "30%" : DimensionHelper.wp("50%") }]}>
+    <View style={[Styles.headerLogoView, landscape && { maxHeight: props.logo ? "30%" : DimensionHelper.wp("50%") }]}>
       <StatusBar backgroundColor="#08A1CD" />
       <Ripple style={Styles.printerStatus} onPress={() => { handleClick(); }}>
         <Text style={{ backgroundColor: "#09A1CD", color: "#FFF" }}>{getVersion()} - {status}</Text>
       </Ripple>
-      <Image source={require("../../images/logo1.png")} style={[Styles.headerLogoIcon, landscap && { maxHeight: "40%", top: "10%" }]} />
+      <Image source={{uri:"https://content.churchapps.org/Hchi650pfrH/settings/logoLight.png?dt=1651187192911"}} style={[Styles.headerLogoIcon, landscape && { maxHeight: "40%", top: "10%" }]} />
     </View>
   );
 };
