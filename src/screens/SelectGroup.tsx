@@ -20,13 +20,17 @@ export const SelectGroup = (props: Props) => {
     let category = "";
     let gt: GroupCategoryInterface[] = [];
 
+    console.log("Service Time", props.route.params.serviceTime.groups);
     const sortedGroups = props.route.params.serviceTime?.groups?.sort((a, b) => ((a.categoryName || "") > (b.categoryName || "")) ? 1 : -1);
+    console.log("Sorted Groups", sortedGroups);
 
     sortedGroups?.forEach(g => {
       if (g.categoryName !== category) {gt.push({ key: gt.length, name: g.categoryName || "", items: [] });}
       gt[gt.length - 1].items.push(g);
       category = g.categoryName || "";
     });
+
+    console.log("Group Tree", gt);
     setGroupTree(gt);
   };
 
@@ -49,6 +53,7 @@ export const SelectGroup = (props: Props) => {
 
 
   const getRow = (data: any) => {
+    console.log("GET ROW", data);
     const item: GroupCategoryInterface = data.item;
     return (
       <View>
@@ -79,8 +84,9 @@ export const SelectGroup = (props: Props) => {
   return (
     <View>
       <Header navigation={props.navigation} />
+      <FlatList data={groupTree} renderItem={getRow} keyExtractor={(item: GroupCategoryInterface) => item.name} />
       <View style={Styles.fullWidthContainer}>
-        <FlatList data={groupTree} renderItem={getRow} keyExtractor={(item: GroupCategoryInterface) => item.name} />
+
         <View style={Styles.blockButtons}>
           <Ripple style={[Styles.blockButton, { backgroundColor: StyleConstants.redColor }]} onPress={handleNone}>
             <Text style={Styles.blockButtonText}>NONE</Text>
