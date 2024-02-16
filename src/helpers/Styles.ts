@@ -65,7 +65,7 @@ export const Styles = StyleSheet.create({
   blockButtonText: { color: StyleConstants.whiteColor, fontSize: StyleConstants.smallFont, marginTop: (StyleConstants.deviceWidth * 0.13 - StyleConstants.smallFont) * 0.5 },
 
   //Splash
-  splashMaincontainer: { alignItems: "center", justifyContent: "center", flex: 1, },
+  splashMaincontainer: { alignItems: "center", justifyContent: "center", flex: 1, paddingTop:DimensionHelper.hp("45%") },
 
   //Lookup
   searchView: { width: DimensionHelper.wp("90%"), height: DimensionHelper.wp("15%"), alignSelf: "center", flexDirection: "row", marginVertical: DimensionHelper.wp("2%"), shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.2, shadowRadius: DimensionHelper.wp("1.5%") },
