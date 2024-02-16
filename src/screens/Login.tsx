@@ -34,6 +34,9 @@ export const Login = (props: Props) => {
           AppCenterHelper.trackEvent("Login success", { email: email });
           props.navigation.dispatch(CommonActions.reset({ index: 0, routes: [{ name: "SelectChurch" }] }));
         }
+      }).catch((error) => {
+        setIsLoading(false);
+        Utils.snackBar("Login failed.");
       });
     }
   };
@@ -52,26 +55,23 @@ export const Login = (props: Props) => {
 
   return (
     <View style={{ flex: 1, backgroundColor: StyleConstants.ghostWhite }}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <SafeAreaView style={{ flex: 1 }}>
-          <Header navigation={props.navigation} logo={true} />
-          <View style={Styles.mainContainer}>
-            <Text style={{ ...Styles.H1, marginTop: DimensionHelper.wp("6%") }}>Welcome.  Please Log in.</Text>
-            <View style={[Styles.textInputView, { width: wd("90%") }]}>
-              <Icon name={"email"} color={StyleConstants.baseColor} style={Styles.inputIcon} size={DimensionHelper.wp("4.5%")} />
-              <TextInput placeholder={"Email"} placeholderTextColor={"lightgray"} style={[Styles.textInputStyle, { width: wd("80%") }]} autoComplete="email" keyboardType="email-address" autoCapitalize="none" value={email} onChangeText={(value) => setEmail(value)} />
-            </View>
-            <View style={[Styles.textInputView, { width: wd("90%") }]}>
-              <Icon name={"key"} color={StyleConstants.baseColor} style={Styles.inputIcon} size={DimensionHelper.wp("4.5%")} />
-              <TextInput placeholder={"Password"} placeholderTextColor={"lightgray"} style={[Styles.textInputStyle, { width: wd("80%") }]} secureTextEntry={true} autoCapitalize="none" autoCorrect={false} keyboardType="default" value={password} onChangeText={(value) => { setPassword(value); }} />
-            </View>
-            <Ripple style={[Styles.bigButton, { marginTop: DimensionHelper.wp("6%"), width: wd("90%") }]} onPress={login}>
-              <ActivityIndicator size="small" color="#FFFFFF" animating={isLoading} style={{ display: (isLoading) ? "flex" : "none" }} />
-              <Text style={[Styles.bigButtonText, { display: (isLoading) ? "none" : "flex" }]}>LOGIN</Text>
-            </Ripple>
-          </View>
-        </SafeAreaView>
-      </ScrollView>
+
+      <Header navigation={props.navigation} logo={true} />
+      <View style={Styles.mainContainer}>
+        <Text style={{ ...Styles.H1, marginTop: DimensionHelper.wp("6%") }}>Welcome.  Please Log in.</Text>
+        <View style={[Styles.textInputView, { width: wd("90%") }]}>
+          <Icon name={"email"} color={StyleConstants.baseColor} style={Styles.inputIcon} size={DimensionHelper.wp("4.5%")} />
+          <TextInput placeholder={"Email"} placeholderTextColor={"lightgray"} style={[Styles.textInputStyle, { width: wd("80%") }]} autoComplete="email" keyboardType="email-address" autoCapitalize="none" value={email} onChangeText={(value) => setEmail(value)} />
+        </View>
+        <View style={[Styles.textInputView, { width: wd("90%") }]}>
+          <Icon name={"key"} color={StyleConstants.baseColor} style={Styles.inputIcon} size={DimensionHelper.wp("4.5%")} />
+          <TextInput placeholder={"Password"} placeholderTextColor={"lightgray"} style={[Styles.textInputStyle, { width: wd("80%") }]} secureTextEntry={true} autoCapitalize="none" autoCorrect={false} keyboardType="default" value={password} onChangeText={(value) => { setPassword(value); }} />
+        </View>
+        <Ripple style={[Styles.bigButton, { marginTop: DimensionHelper.wp("6%"), width: wd("90%") }]} onPress={login}>
+          <ActivityIndicator size="small" color="#FFFFFF" animating={isLoading} style={{ display: (isLoading) ? "flex" : "none" }} />
+          <Text style={[Styles.bigButtonText, { display: (isLoading) ? "none" : "flex" }]}>LOGIN</Text>
+        </Ripple>
+      </View>
     </View>
   );
 };

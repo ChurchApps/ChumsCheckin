@@ -75,15 +75,15 @@ export function SelectChurch({ navigation }: Props) {
   return (
     <View style={{ backgroundColor: StyleConstants.ghostWhite }}>
 
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Header navigation={navigation} />
-        <SafeAreaView style={Styles.fullWidthContainer}>
-          <Text style={{ ...Styles.H1, marginLeft: DimensionHelper.wp("5%") }}>
+
+      <Header navigation={navigation} />
+
+      <Text style={{ ...Styles.H1, marginLeft: DimensionHelper.wp("5%") }}>
             Select a Church:
-          </Text>
-          {churchList}
-        </SafeAreaView>
-      </ScrollView>
+      </Text>
+      {churchList}
+
+
     </View>
   );
 }

@@ -83,19 +83,15 @@ export const Lookup = (props: Props) => {
 
   return (
     <View style={{ backgroundColor: StyleConstants.ghostWhite }}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Header navigation={props.navigation} />
-        <SafeAreaView style={Styles.fullWidthContainer}>
-          <Text style={{ ...Styles.H1, marginLeft: DimensionHelper.wp("5%") }}>Search by phone number:</Text>
-          <View style={[Styles.searchView, { width: wd("90%") }]}>
-            <TextInput placeholder="Enter mobile no" onChangeText={(value) => { setPhone(value); }} keyboardType="numeric" style={Styles.searchTextInput} />
-            <Ripple style={Styles.searchButton} onPress={handleSearch}>
-              <Text style={[Styles.searchButtonText]}>Search</Text>
-            </Ripple>
-          </View>
-          {getResults()}
-        </SafeAreaView>
-      </ScrollView>
+      <Header navigation={props.navigation} />
+      <Text style={{ ...Styles.H1, marginLeft: DimensionHelper.wp("5%") }}>Search by phone number:</Text>
+      <View style={[Styles.searchView, { width: wd("90%") }]}>
+        <TextInput placeholder="Enter mobile no" onChangeText={(value) => { setPhone(value); }} keyboardType="numeric" style={Styles.searchTextInput} />
+        <Ripple style={Styles.searchButton} onPress={handleSearch}>
+          <Text style={[Styles.searchButtonText]}>Search</Text>
+        </Ripple>
+      </View>
+      {getResults()}
     </View>
   );
 };

@@ -76,13 +76,9 @@ export const Services = (props: Props) => {
 
   return (
     <View style={{ backgroundColor: StyleConstants.ghostWhite }}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Header navigation={props.navigation} />
-        <SafeAreaView style={Styles.fullWidthContainer}>
-          <Text style={{ ...Styles.H1, marginLeft: DimensionHelper.wp("5%") }}>Select a service:</Text>
-          {getResults()}
-        </SafeAreaView>
-      </ScrollView>
+      <Header navigation={props.navigation} />
+      <Text style={{ ...Styles.H1, marginLeft: DimensionHelper.wp("5%") }}>Select a service:</Text>
+      {getResults()}
     </View>
   );
 };
