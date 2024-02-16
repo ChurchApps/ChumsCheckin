@@ -1,8 +1,8 @@
 import fs from "react-native-fs";
-import { GroupInterface, PersonInterface, ServiceTimeInterface, VisitInterface } from "./Interfaces";
 import { CachedData } from "./CachedData";
 import { Utilities } from "./Utilities";
 import { VisitSessionHelper } from "./VisitSessionHelper";
+import { VisitInterface, PersonInterface, ServiceTimeInterface, GroupInterface, ArrayHelper } from "@churchapps/mobilehelper";
 
 export class LabelHelper {
 
@@ -23,7 +23,7 @@ export class LabelHelper {
   }
 
   private static replaceValues(html: string, visit: VisitInterface, childVisits: VisitInterface[], pickupCode: string) {
-    const person: PersonInterface = Utilities.getById(CachedData.householdMembers, visit.personId || "");
+    const person: PersonInterface = ArrayHelper.getOne(CachedData.householdMembers, "id", visit.personId || "");
     let isChild: boolean = false;
     childVisits.forEach(cv => { if (cv.personId === person.id) {isChild = true;} });
     let result = html.replace(/\[Name\]/g, person.name.display || "");
@@ -39,7 +39,7 @@ export class LabelHelper {
     let childList: string[] = [];
     let allergiesList : string[] = [];
     childVisits.forEach(cv => {
-      const person: PersonInterface = Utilities.getById(CachedData.householdMembers, cv.personId || "");
+      const person: PersonInterface = ArrayHelper.getOne(CachedData.householdMembers, "id", cv.personId || "");
       childList.push(person.name.display + " - " + VisitSessionHelper.getPickupSessions(cv.visitSessions || []));
       allergiesList.push(person.nametagNotes ?? "");
     });
@@ -58,12 +58,12 @@ export class LabelHelper {
     const result: VisitInterface[] = [];
     CachedData.pendingVisits.forEach(pv => {
       let isChild = false;
-            pv.visitSessions?.forEach(vs => {
-              const serviceTime: ServiceTimeInterface = Utilities.getById(CachedData.serviceTimes, vs.session?.serviceTimeId || "");
-              const group: GroupInterface = Utilities.getById(serviceTime.groups || [], vs.session?.groupId || "");
-              if (group.parentPickup) {isChild = true;}
-            });
-            if (isChild) {result.push(pv);}
+      pv.visitSessions?.forEach(vs => {
+        const serviceTime: ServiceTimeInterface = ArrayHelper.getOne(CachedData.serviceTimes, "id", vs.session?.serviceTimeId || "");
+        const group: GroupInterface = ArrayHelper.getOne(serviceTime.groups || [], "id", vs.session?.groupId || "");
+        if (group.parentPickup) {isChild = true;}
+      });
+      if (isChild) {result.push(pv);}
     });
     return result;
   }

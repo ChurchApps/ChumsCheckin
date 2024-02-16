@@ -1,25 +1,29 @@
 import React from "react";
 import { Image, View } from "react-native";
-import { Container } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CommonActions } from "@react-navigation/native";
-import { screenNavigationProps, ApiHelper, Styles, LoginResponseInterface, CachedData, Utilities } from "../helpers";
+import { screenNavigationProps, Styles, CachedData, Utilities } from "../helpers";
+import { ApiHelper, AppCenterHelper, LoginResponseInterface, PushNotificationHelper } from "@churchapps/mobilehelper";
 
 type Props = { navigation: screenNavigationProps; };
 
 export const Splash = (props: Props) => {
 
   const loadData = () => {
-    Utilities.trackEvent("Splash Screen");
+    AppCenterHelper.trackEvent("Splash Screen");
+    PushNotificationHelper.registerUserDevice("ChumsCheckin");
     setTimeout(access, 1000);
   };
 
   const access = async () => {
-    await AsyncStorage.multiGet(["@Login", "@Email", "@Password", "@SelectedChurchId", "@Printer"]).then(response => {
+    await AsyncStorage.multiGet(["@Login", "@Email", "@Password", "@SelectedChurchId", "@Printer", "@ChurchAppearance"]).then(response => {
 
       const printerJSON = response[4][1];
       console.log("********", "PRINTER JSON IS: ", printerJSON);
       if (printerJSON) {CachedData.printer = JSON.parse(printerJSON);}
+
+      const appearanceJson = response[5][1];
+      if (appearanceJson) { CachedData.churchAppearance = JSON.parse(appearanceJson); }
 
       const login = response[0][1] === "true";
       if (login) {
@@ -54,11 +58,11 @@ export const Splash = (props: Props) => {
   React.useEffect(loadData, []);  //eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Container>
+    <View>
       <View style={Styles.splashMaincontainer}>
         <Image source={require("../images/logo1.png")} style={Styles.headerImage} resizeMode="contain" />
       </View>
-    </Container>
+    </View>
   );
 
 };

@@ -1,11 +1,9 @@
 import React from "react";
-import { Text, FlatList, ActivityIndicator, SafeAreaView, Dimensions, PixelRatio, ScrollView } from "react-native";
-import { Container } from "native-base";
+import { Text, FlatList, ActivityIndicator, SafeAreaView, Dimensions, PixelRatio, ScrollView, View } from "react-native";
 import Ripple from "react-native-material-ripple";
 import { Header } from "./components";
-import { ApiHelper, screenNavigationProps, CachedData, Styles, StyleConstants, GroupInterface, GroupServiceTimeInterface, Utilities } from "../helpers";
-import { ArrayHelper } from "../helpers/ArrayHelper";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { screenNavigationProps, CachedData, Styles, StyleConstants, Utilities } from "../helpers";
+import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper, GroupInterface, GroupServiceTimeInterface } from "@churchapps/mobilehelper";
 
 interface Props { navigation: screenNavigationProps }
 
@@ -16,7 +14,7 @@ export const Services = (props: Props) => {
 
   const loadData = () => {
     setIsLoading(true);
-    Utilities.trackEvent("Services Screen");
+    AppCenterHelper.trackEvent("Services Screen");
     ApiHelper.get("/services", "AttendanceApi").then(data => {
       setServices(data); setIsLoading(false);
     });
@@ -77,14 +75,10 @@ export const Services = (props: Props) => {
   React.useEffect(loadData, []);
 
   return (
-    <Container style={{ backgroundColor: StyleConstants.ghostWhite }}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Header navigation={props.navigation} />
-        <SafeAreaView style={Styles.fullWidthContainer}>
-          <Text style={{ ...Styles.H1, marginLeft: wp("5%") }}>Select a service:</Text>
-          {getResults()}
-        </SafeAreaView>
-      </ScrollView>
-    </Container>
+    <View style={{ backgroundColor: StyleConstants.ghostWhite }}>
+      <Header navigation={props.navigation} />
+      <Text style={{ ...Styles.H1, marginLeft: DimensionHelper.wp("5%") }}>Select a service:</Text>
+      {getResults()}
+    </View>
   );
 };

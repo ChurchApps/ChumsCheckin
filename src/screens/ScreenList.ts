@@ -1,5 +1,5 @@
+import { ServiceTimeInterface } from "@churchapps/mobilehelper";
 
-import { ServiceTimeInterface } from "../helpers";
 
 export type ScreenList = {
   Login: undefined,

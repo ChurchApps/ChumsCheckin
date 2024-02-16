@@ -1,13 +1,12 @@
 import React from "react";
 import { View, Text, FlatList } from "react-native";
-import { Container } from "native-base";
 import Ripple from "react-native-material-ripple";
 import { RouteProp } from "@react-navigation/native";
 import { ScreenList } from "./ScreenList";
 import { Header } from "./components";
-import { screenNavigationProps, VisitHelper, VisitSessionHelper, CachedData, Styles, StyleConstants, GroupInterface, Utilities } from "../helpers";
+import { screenNavigationProps, VisitHelper, VisitSessionHelper, CachedData, Styles, StyleConstants, Utilities } from "../helpers";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { AppCenterHelper, DimensionHelper, GroupInterface } from "@churchapps/mobilehelper";
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "SelectGroup">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
@@ -21,13 +20,17 @@ export const SelectGroup = (props: Props) => {
     let category = "";
     let gt: GroupCategoryInterface[] = [];
 
+    console.log("Service Time", props.route.params.serviceTime.groups);
     const sortedGroups = props.route.params.serviceTime?.groups?.sort((a, b) => ((a.categoryName || "") > (b.categoryName || "")) ? 1 : -1);
+    console.log("Sorted Groups", sortedGroups);
 
     sortedGroups?.forEach(g => {
       if (g.categoryName !== category) {gt.push({ key: gt.length, name: g.categoryName || "", items: [] });}
       gt[gt.length - 1].items.push(g);
       category = g.categoryName || "";
     });
+
+    console.log("Group Tree", gt);
     setGroupTree(gt);
   };
 
@@ -35,7 +38,7 @@ export const SelectGroup = (props: Props) => {
   const handleNone = () => { selectGroup("", "NONE"); };
 
   const selectGroup = (id: string, name: string) => {
-    Utilities.trackEvent("Select Group", name);
+    AppCenterHelper.trackEvent("Select Group", name);
     const personId = props.route.params.personId;
     let visit = VisitHelper.getByPersonId(CachedData.pendingVisits, personId);
     if (visit === null) {
@@ -50,12 +53,13 @@ export const SelectGroup = (props: Props) => {
 
 
   const getRow = (data: any) => {
+    console.log("GET ROW", data);
     const item: GroupCategoryInterface = data.item;
     return (
       <View>
         <Ripple style={Styles.flatlistMainView} onPress={() => { handleCategoryClick(item.key); }}>
-          <Icon name={(selectedCategory === item.key) ? "angle-down" : "angle-right"} style={Styles.flatlistDropIcon} size={wp("6%")} />
-          <Text style={[Styles.bigLinkButtonText, { margin: wp("3%") }]}>{item.name}</Text>
+          <Icon name={(selectedCategory === item.key) ? "angle-down" : "angle-right"} style={Styles.flatlistDropIcon} size={DimensionHelper.wp("6%")} />
+          <Text style={[Styles.bigLinkButtonText, { margin: DimensionHelper.wp("3%") }]}>{item.name}</Text>
         </Ripple>
         {getExpanded(selectedCategory, item)}
       </View>
@@ -67,8 +71,8 @@ export const SelectGroup = (props: Props) => {
     else {
       const result: JSX.Element[] = [];
       category.items.forEach(g => {
-        result.push(<Ripple key={g.id?.toString()} style={[Styles.expandedRow, { justifyContent: "flex-start", width: wp("80%") }]} onPress={() => selectGroup(g.id || "", g.name || "")}>
-          <Text style={[Styles.bigLinkButtonText, { marginLeft: "5%", fontFamily: StyleConstants.RobotoRegular, marginVertical: wp("1%") }]}>{g.name}</Text>
+        result.push(<Ripple key={g.id?.toString()} style={[Styles.expandedRow, { justifyContent: "flex-start", width: DimensionHelper.wp("80%") }]} onPress={() => selectGroup(g.id || "", g.name || "")}>
+          <Text style={[Styles.bigLinkButtonText, { marginLeft: "5%", fontFamily: StyleConstants.RobotoRegular, marginVertical: DimensionHelper.wp("1%") }]}>{g.name}</Text>
         </Ripple>);
       });
       return result;
@@ -78,17 +82,18 @@ export const SelectGroup = (props: Props) => {
   React.useEffect(buildTree, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Container>
+    <View>
       <Header navigation={props.navigation} />
+      <FlatList data={groupTree} renderItem={getRow} keyExtractor={(item: GroupCategoryInterface) => item.name} />
       <View style={Styles.fullWidthContainer}>
-        <FlatList data={groupTree} renderItem={getRow} keyExtractor={(item: GroupCategoryInterface) => item.name} />
+
         <View style={Styles.blockButtons}>
           <Ripple style={[Styles.blockButton, { backgroundColor: StyleConstants.redColor }]} onPress={handleNone}>
             <Text style={Styles.blockButtonText}>NONE</Text>
           </Ripple>
         </View>
       </View>
-    </Container>
+    </View>
   );
 
 };

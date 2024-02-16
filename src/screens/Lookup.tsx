@@ -1,13 +1,11 @@
 import React from "react";
 import { TextInput, View, Text, Image, FlatList, ActivityIndicator, Keyboard, SafeAreaView, ScrollView, Dimensions, PixelRatio } from "react-native";
-import { Container } from "native-base";
 import Ripple from "react-native-material-ripple";
 import { RouteProp } from "@react-navigation/native";
 import { ScreenList } from "./ScreenList";
 import { Header } from "./components";
-import { EnvironmentHelper, ApiHelper, Utilities, screenNavigationProps, PersonInterface, CachedData, Styles, StyleConstants } from "../helpers";
-import { ArrayHelper } from "../helpers/ArrayHelper";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import { EnvironmentHelper, screenNavigationProps, CachedData, Styles, StyleConstants } from "../helpers";
+import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper, PersonInterface, Utils } from "@churchapps/mobilehelper";
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Lookup">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
@@ -41,16 +39,16 @@ export const Lookup = (props: Props) => {
   };
 
   const handleSearch = () => {
-    if (phone === "") {Utilities.snackBar("Please enter phone number");}
+    if (phone === "") {Utils.snackBar("Please enter phone number");}
     else {
       Keyboard.dismiss();
       setHasSearched(true);
       setIsLoading(true);
-      Utilities.trackEvent("Search");
+      AppCenterHelper.trackEvent("Search");
       ApiHelper.get("/people/search/phone?number=" + phone, "MembershipApi").then(data => {
         setIsLoading(false);
         setPeople(data);
-        if (data.length === 0) {Utilities.snackBar("No matches found");}
+        if (data.length === 0) {Utils.snackBar("No matches found");}
       });
     }
   };
@@ -84,20 +82,16 @@ export const Lookup = (props: Props) => {
   };
 
   return (
-    <Container style={{ backgroundColor: StyleConstants.ghostWhite }}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Header navigation={props.navigation} />
-        <SafeAreaView style={Styles.fullWidthContainer}>
-          <Text style={{ ...Styles.H1, marginLeft: wp("5%") }}>Search by phone number:</Text>
-          <View style={[Styles.searchView, { width: wd("90%") }]}>
-            <TextInput placeholder="Enter mobile no" onChangeText={(value) => { setPhone(value); }} keyboardType="numeric" style={Styles.searchTextInput} />
-            <Ripple style={Styles.searchButton} onPress={handleSearch}>
-              <Text style={[Styles.searchButtonText]}>Search</Text>
-            </Ripple>
-          </View>
-          {getResults()}
-        </SafeAreaView>
-      </ScrollView>
-    </Container>
+    <View style={{ backgroundColor: StyleConstants.ghostWhite }}>
+      <Header navigation={props.navigation} />
+      <Text style={{ ...Styles.H1, marginLeft: DimensionHelper.wp("5%") }}>Search by phone number:</Text>
+      <View style={[Styles.searchView, { width: wd("90%") }]}>
+        <TextInput placeholder="Enter mobile no" onChangeText={(value) => { setPhone(value); }} keyboardType="numeric" style={Styles.searchTextInput} />
+        <Ripple style={Styles.searchButton} onPress={handleSearch}>
+          <Text style={[Styles.searchButtonText]}>Search</Text>
+        </Ripple>
+      </View>
+      {getResults()}
+    </View>
   );
 };

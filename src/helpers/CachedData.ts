@@ -1,4 +1,6 @@
-import { PersonInterface, ServiceTimeInterface, VisitInterface, GroupServiceTimeInterface, GroupInterface, AvailablePrinter, LoginUserChurchInterface } from "./Interfaces";
+import { VisitInterface, LoginUserChurchInterface, PersonInterface, ServiceTimeInterface, GroupServiceTimeInterface, GroupInterface } from "@churchapps/mobilehelper";
+import { AppearanceInterface, AvailablePrinter } from "./Interfaces";
+import { Appearance } from "react-native";
 
 export class CachedData {
   static pendingVisits: VisitInterface[] = [];
@@ -13,7 +15,9 @@ export class CachedData {
   static groupServiceTimes: GroupServiceTimeInterface[] = [];
   static groups: GroupInterface[] = [];
 
+  static churchAppearance: AppearanceInterface | null = null;
 
-  static printer: AvailablePrinter = { model: "none", ipAddress: "" }
+
+  static printer: AvailablePrinter = { model: "none", ipAddress: "" };
 }
 

@@ -7,7 +7,8 @@ import { Splash, Lookup, Services, Login, Household, SelectGroup, AddGuest, Scre
 import { EnvironmentHelper } from "./src/helpers";
 import { Printers } from "./src/screens/Printers";
 import CodePush from "react-native-code-push";
-import { ErrorHelper } from "./src/helpers/ErrorHelper";
+import { ErrorHelper } from "@churchapps/mobilehelper";
+
 
 const CODE_PUSH_OPTIONS = {
   checkFrequency: CodePush.CheckFrequency.ON_APP_START
@@ -38,7 +39,7 @@ const App = () => {
   };
 
   return (
-    <NativeBaseProvider>
+
     <NavigationContainer>
       <stack.Navigator screenOptions={{ headerShown: false, animationEnabled: false }}>
         <stack.Screen name="Splash" component={Splash} />
@@ -53,9 +54,10 @@ const App = () => {
         <stack.Screen name="Printers" component={Printers} />
       </stack.Navigator>
     </NavigationContainer>
-    </NativeBaseProvider>
+
   );
 };
 
 export default CodePush(CODE_PUSH_OPTIONS)(App);
 //export default createNavigation
+//export default App;

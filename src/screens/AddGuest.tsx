@@ -1,9 +1,9 @@
 import React from "react";
 import { TextInput, View, Text, ScrollView } from "react-native";
-import { Container } from "native-base";
 import Ripple from "react-native-material-ripple";
 import { Header } from "./components";
-import { ApiHelper, Utilities, screenNavigationProps, CachedData, Styles, StyleConstants, PersonInterface } from "../helpers";
+import { screenNavigationProps, CachedData, Styles, StyleConstants } from "../helpers";
+import { ApiHelper, AppCenterHelper, PersonInterface, Utils } from "@churchapps/mobilehelper";
 
 interface Props { navigation: screenNavigationProps }
 
@@ -12,10 +12,10 @@ export const AddGuest = (props: Props) => {
   const [lastName, setLastName] = React.useState("");
 
   const addGuest = () => {
-    if (firstName === "") {Utilities.snackBar("Please enter first name");}
-    else if (lastName === "") {Utilities.snackBar("Please enter last name");}
+    if (firstName === "") {Utils.snackBar("Please enter first name");}
+    else if (lastName === "") {Utils.snackBar("Please enter last name");}
     else {getOrCreatePerson(firstName, lastName).then(person => {
-      Utilities.trackEvent("Add Guest", { name: firstName + " " + lastName });
+      AppCenterHelper.trackEvent("Add Guest", { name: firstName + " " + lastName });
       CachedData.householdMembers.push(person);
       props.navigation.navigate("Household");
     });}
@@ -27,7 +27,8 @@ export const AddGuest = (props: Props) => {
     if (person === null) {
       person = {
         householdId: CachedData.householdId,
-        name: { display: fullName, first: firstName, last: lastName }
+        name: { display: fullName, first: firstName, last: lastName },
+        contactInfo: {}
       };
       const data = await ApiHelper.post("/people", [person], "MembershipApi");
       person.id = data[0].id;
@@ -36,7 +37,7 @@ export const AddGuest = (props: Props) => {
   };
 
   const searchForGuest = async (fullName: string) => {
-    Utilities.trackEvent("Search for Guest", { name: fullName });
+    AppCenterHelper.trackEvent("Search for Guest", { name: fullName });
     let result: PersonInterface | null = null;
     const url = "/people/search?term=" + escape(fullName);
     let people: PersonInterface[] = await ApiHelper.get(url, "MembershipApi");
@@ -47,7 +48,7 @@ export const AddGuest = (props: Props) => {
   const cancelGuest = () => { props.navigation.goBack(); };
 
   return (
-    <Container>
+    <View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header navigation={props.navigation} />
         <View style={Styles.mainContainer}>
@@ -61,6 +62,6 @@ export const AddGuest = (props: Props) => {
         <Ripple style={[Styles.blockButton, { backgroundColor: StyleConstants.yellowColor }]} onPress={cancelGuest}><Text style={Styles.blockButtonText}>CANCEL</Text></Ripple>
         <Ripple style={[Styles.blockButton, { backgroundColor: StyleConstants.greenColor }]} onPress={addGuest}><Text style={Styles.blockButtonText}>ADD</Text></Ripple>
       </View>
-    </Container>
+    </View>
   );
 };
