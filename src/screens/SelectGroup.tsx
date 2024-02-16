@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Text, FlatList } from "react-native";
-import { Container } from "native-base";
 import Ripple from "react-native-material-ripple";
 import { RouteProp } from "@react-navigation/native";
 import { ScreenList } from "./ScreenList";
@@ -78,7 +77,7 @@ export const SelectGroup = (props: Props) => {
   React.useEffect(buildTree, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Container>
+    <View>
       <Header navigation={props.navigation} />
       <View style={Styles.fullWidthContainer}>
         <FlatList data={groupTree} renderItem={getRow} keyExtractor={(item: GroupCategoryInterface) => item.name} />
@@ -88,7 +87,7 @@ export const SelectGroup = (props: Props) => {
           </Ripple>
         </View>
       </View>
-    </Container>
+    </View>
   );
 
 };

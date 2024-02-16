@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { Container } from "native-base";
 import { Header } from "./components";
 import { screenNavigationProps, CachedData, LabelHelper, Styles, StyleConstants } from "../helpers";
 import { CommonActions } from "@react-navigation/native";
@@ -63,14 +62,14 @@ export const CheckinComplete = (props: Props) => {
   React.useEffect(loadData, []);  //eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Container style={{ backgroundColor: StyleConstants.ghostWhite }}>
+    <View style={{ backgroundColor: StyleConstants.ghostWhite }}>
       <Header navigation={props.navigation} />
       <View style={[Styles.mainContainer, { justifyContent: "center" }]}>
         <Icon name={"check-circle"} style={{ fontSize: DimensionHelper.wp("20%"), color: StyleConstants.greenColor, alignSelf: "center" }} size={DimensionHelper.wp("20%")} />
         <Text style={[Styles.H1, { alignSelf: "center" }]}>Checkin Complete.</Text>
         {getLabelView()}
       </View>
-    </Container>
+    </View>
   );
 
 };

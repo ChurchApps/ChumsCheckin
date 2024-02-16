@@ -1,6 +1,5 @@
 import * as React from "react";
-import { Text, SafeAreaView, FlatList, ActivityIndicator, Dimensions, PixelRatio, ScrollView } from "react-native";
-import { Container } from "native-base";
+import { Text, SafeAreaView, FlatList, ActivityIndicator, Dimensions, PixelRatio, ScrollView, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ripple from "react-native-material-ripple";
 import { CommonActions } from "@react-navigation/native";
@@ -72,8 +71,10 @@ export function SelectChurch({ navigation }: Props) {
       />
     );
 
+
   return (
-    <Container style={{ backgroundColor: StyleConstants.ghostWhite }}>
+    <View style={{ backgroundColor: StyleConstants.ghostWhite }}>
+
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header navigation={navigation} />
         <SafeAreaView style={Styles.fullWidthContainer}>
@@ -83,6 +84,6 @@ export function SelectChurch({ navigation }: Props) {
           {churchList}
         </SafeAreaView>
       </ScrollView>
-    </Container>
+    </View>
   );
 }

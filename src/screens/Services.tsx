@@ -1,6 +1,5 @@
 import React from "react";
-import { Text, FlatList, ActivityIndicator, SafeAreaView, Dimensions, PixelRatio, ScrollView } from "react-native";
-import { Container } from "native-base";
+import { Text, FlatList, ActivityIndicator, SafeAreaView, Dimensions, PixelRatio, ScrollView, View } from "react-native";
 import Ripple from "react-native-material-ripple";
 import { Header } from "./components";
 import { screenNavigationProps, CachedData, Styles, StyleConstants, Utilities } from "../helpers";
@@ -76,7 +75,7 @@ export const Services = (props: Props) => {
   React.useEffect(loadData, []);
 
   return (
-    <Container style={{ backgroundColor: StyleConstants.ghostWhite }}>
+    <View style={{ backgroundColor: StyleConstants.ghostWhite }}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header navigation={props.navigation} />
         <SafeAreaView style={Styles.fullWidthContainer}>
@@ -84,6 +83,6 @@ export const Services = (props: Props) => {
           {getResults()}
         </SafeAreaView>
       </ScrollView>
-    </Container>
+    </View>
   );
 };

@@ -39,24 +39,25 @@ const App = () => {
   };
 
   return (
-    <NativeBaseProvider>
-      <NavigationContainer>
-        <stack.Navigator screenOptions={{ headerShown: false, animationEnabled: false }}>
-          <stack.Screen name="Splash" component={Splash} />
-          <stack.Screen name="Login" component={Login} />
-          <stack.Screen name="Services" component={Services} />
-          <stack.Screen name="Lookup" component={Lookup} />
-          <stack.Screen name="Household" component={Household} />
-          <stack.Screen name="AddGuest" component={AddGuest} />
-          <stack.Screen name="CheckinComplete" component={CheckinComplete} />
-          <stack.Screen name="SelectGroup" component={SelectGroup} />
-          <stack.Screen name="SelectChurch" component={SelectChurch} />
-          <stack.Screen name="Printers" component={Printers} />
-        </stack.Navigator>
-      </NavigationContainer>
-    </NativeBaseProvider>
+
+    <NavigationContainer>
+      <stack.Navigator screenOptions={{ headerShown: false, animationEnabled: false }}>
+        <stack.Screen name="Splash" component={Splash} />
+        <stack.Screen name="Login" component={Login} />
+        <stack.Screen name="Services" component={Services} />
+        <stack.Screen name="Lookup" component={Lookup} />
+        <stack.Screen name="Household" component={Household} />
+        <stack.Screen name="AddGuest" component={AddGuest} />
+        <stack.Screen name="CheckinComplete" component={CheckinComplete} />
+        <stack.Screen name="SelectGroup" component={SelectGroup} />
+        <stack.Screen name="SelectChurch" component={SelectChurch} />
+        <stack.Screen name="Printers" component={Printers} />
+      </stack.Navigator>
+    </NavigationContainer>
+
   );
 };
 
 export default CodePush(CODE_PUSH_OPTIONS)(App);
 //export default createNavigation
+//export default App;

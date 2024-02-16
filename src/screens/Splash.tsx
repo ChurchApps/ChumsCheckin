@@ -1,6 +1,5 @@
 import React from "react";
 import { Image, View } from "react-native";
-import { Container } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CommonActions } from "@react-navigation/native";
 import { screenNavigationProps, Styles, CachedData, Utilities } from "../helpers";
@@ -56,11 +55,11 @@ export const Splash = (props: Props) => {
   React.useEffect(loadData, []);  //eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Container>
+    <View>
       <View style={Styles.splashMaincontainer}>
         <Image source={require("../images/logo1.png")} style={Styles.headerImage} resizeMode="contain" />
       </View>
-    </Container>
+    </View>
   );
 
 };

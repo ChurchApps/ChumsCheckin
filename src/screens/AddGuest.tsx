@@ -1,6 +1,5 @@
 import React from "react";
 import { TextInput, View, Text, ScrollView } from "react-native";
-import { Container } from "native-base";
 import Ripple from "react-native-material-ripple";
 import { Header } from "./components";
 import { screenNavigationProps, CachedData, Styles, StyleConstants } from "../helpers";
@@ -49,7 +48,7 @@ export const AddGuest = (props: Props) => {
   const cancelGuest = () => { props.navigation.goBack(); };
 
   return (
-    <Container>
+    <View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header navigation={props.navigation} />
         <View style={Styles.mainContainer}>
@@ -63,6 +62,6 @@ export const AddGuest = (props: Props) => {
         <Ripple style={[Styles.blockButton, { backgroundColor: StyleConstants.yellowColor }]} onPress={cancelGuest}><Text style={Styles.blockButtonText}>CANCEL</Text></Ripple>
         <Ripple style={[Styles.blockButton, { backgroundColor: StyleConstants.greenColor }]} onPress={addGuest}><Text style={Styles.blockButtonText}>ADD</Text></Ripple>
       </View>
-    </Container>
+    </View>
   );
 };

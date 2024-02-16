@@ -1,6 +1,5 @@
 import React from "react";
 import { TextInput, View, Text, Image, FlatList, ActivityIndicator, Keyboard, SafeAreaView, ScrollView, Dimensions, PixelRatio } from "react-native";
-import { Container } from "native-base";
 import Ripple from "react-native-material-ripple";
 import { RouteProp } from "@react-navigation/native";
 import { ScreenList } from "./ScreenList";
@@ -83,7 +82,7 @@ export const Lookup = (props: Props) => {
   };
 
   return (
-    <Container style={{ backgroundColor: StyleConstants.ghostWhite }}>
+    <View style={{ backgroundColor: StyleConstants.ghostWhite }}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header navigation={props.navigation} />
         <SafeAreaView style={Styles.fullWidthContainer}>
@@ -97,6 +96,6 @@ export const Lookup = (props: Props) => {
           {getResults()}
         </SafeAreaView>
       </ScrollView>
-    </Container>
+    </View>
   );
 };
