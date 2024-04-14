@@ -79,7 +79,7 @@ export const Header = (props: Props) => {
       <Ripple style={Styles.printerStatus} onPress={() => { handleClick(); }}>
         <Text style={{ backgroundColor: "#09A1CD", color: "#FFF" }}>{getVersion()} - {status}</Text>
       </Ripple>
-      <Image source={{uri:"https://content.churchapps.org/Hchi650pfrH/settings/logoLight.png?dt=1651187192911"}} style={[Styles.headerLogoIcon, landscape && { maxHeight: "40%", top: "10%" }]} />
+      <Image source={getLogoUrl()} style={[Styles.headerLogoIcon, landscape && { maxHeight: "40%", top: "10%" }]} />
     </View>
   );
 };
