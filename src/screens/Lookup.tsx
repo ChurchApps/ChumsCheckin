@@ -102,7 +102,7 @@ export const Lookup = (props: Props) => {
       <Header navigation={props.navigation} />
       <Text style={{ ...Styles.H1, marginLeft: DimensionHelper.wp("5%") }}>Search by phone number:</Text>
       <View style={[Styles.searchView, { width: wd("90%") }]}>
-        <TextInput placeholder="Enter mobile no or last four digits" onChangeText={(value) => { setPhone(value); }} keyboardType="numeric" style={Styles.searchTextInput} />
+        <TextInput placeholder="Enter last four digits of mobile number" onChangeText={(value) => { setPhone(value); }} keyboardType="numeric" style={Styles.searchTextInput} />
         <Ripple style={Styles.searchButton} onPress={handleSearch}>
           <Text style={[Styles.searchButtonText]}>Search</Text>
         </Ripple>
