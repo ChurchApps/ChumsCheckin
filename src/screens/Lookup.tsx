@@ -39,13 +39,29 @@ export const Lookup = (props: Props) => {
   };
 
   const handleSearch = () => {
-    if (phone === "") {Utils.snackBar("Please enter phone number");}
+    const nonNumericPattern = /[^\d]/;
+    if (nonNumericPattern.test(phone)) {
+      Utils.snackBar("Please enter valid numbers.");
+      return;
+    }
+
+    const cleanedPhone = phone.replace(/\D/g, '');
+    if (phone === "") {Utils.snackBar("Please enter phone number or last four digits");}
     else {
       Keyboard.dismiss();
       setHasSearched(true);
       setIsLoading(true);
       AppCenterHelper.trackEvent("Search");
-      ApiHelper.get("/people/search/phone?number=" + phone, "MembershipApi").then(data => {
+
+      if (cleanedPhone.length < 4) {
+        Utils.snackBar("Please enter at least four digits.");
+        setIsLoading(false);
+        return;
+      }
+
+      const searchQuery = cleanedPhone.length > 4 ? cleanedPhone : cleanedPhone.slice(-4);
+      // console.log("searchQuery ", searchQuery)
+      ApiHelper.get("/people/search/phone?number=" + searchQuery, "MembershipApi").then(data => {
         setIsLoading(false);
         setPeople(data);
         if (data.length === 0) {Utils.snackBar("No matches found");}
@@ -86,7 +102,7 @@ export const Lookup = (props: Props) => {
       <Header navigation={props.navigation} />
       <Text style={{ ...Styles.H1, marginLeft: DimensionHelper.wp("5%") }}>Search by phone number:</Text>
       <View style={[Styles.searchView, { width: wd("90%") }]}>
-        <TextInput placeholder="Enter mobile no" onChangeText={(value) => { setPhone(value); }} keyboardType="numeric" style={Styles.searchTextInput} />
+        <TextInput placeholder="Enter last four digits of mobile number" onChangeText={(value) => { setPhone(value); }} keyboardType="numeric" style={Styles.searchTextInput} />
         <Ripple style={Styles.searchButton} onPress={handleSearch}>
           <Text style={[Styles.searchButtonText]}>Search</Text>
         </Ripple>
