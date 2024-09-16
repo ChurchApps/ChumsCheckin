@@ -54,7 +54,7 @@ export const Lookup = (props: Props) => {
       AppCenterHelper.trackEvent("Search");
 
       if (cleanedPhone.length < 4) {
-        Utils.snackBar("Please enter alteast four digits.");
+        Utils.snackBar("Please enter at least four digits.");
         setIsLoading(false);
         return;
       }
