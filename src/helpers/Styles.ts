@@ -69,7 +69,7 @@ export const Styles = StyleSheet.create({
 
   //Lookup
   searchView: { width: DimensionHelper.wp("90%"), height: DimensionHelper.wp("15%"), alignSelf: "center", flexDirection: "row", marginVertical: DimensionHelper.wp("2%"), shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.2, shadowRadius: DimensionHelper.wp("1.5%") },
-  searchTextInput: { backgroundColor: StyleConstants.whiteColor, flex: 1, paddingHorizontal: "3%", fontSize: StyleConstants.fontSize1, borderTopLeftRadius: DimensionHelper.wp("2%"), borderBottomLeftRadius: DimensionHelper.wp("2%"), elevation: 5 },
+  searchTextInput: { backgroundColor: StyleConstants.whiteColor, flex: 1, paddingHorizontal: "3%", fontSize: StyleConstants.smallFont, borderTopLeftRadius: DimensionHelper.wp("2%"), borderBottomLeftRadius: DimensionHelper.wp("2%"), elevation: 5 },
   searchButton: { backgroundColor: StyleConstants.baseColor, flex: 0.3, justifyContent: "center", alignItems: "center", paddingHorizontal: "5%", borderTopRightRadius: DimensionHelper.wp("2%"), borderBottomRightRadius: DimensionHelper.wp("2%"), elevation: 5 },
   searchButtonText: { color: StyleConstants.whiteColor, fontSize: StyleConstants.fontSize, fontFamily: StyleConstants.RobotoMedium },
   flatlistMainView: { width: DimensionHelper.wp("90%"), backgroundColor: "white", alignSelf: "center", justifyContent: "flex-start", alignItems: "center", marginVertical: DimensionHelper.wp("2%"), borderRadius: DimensionHelper.wp("2%"), shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.2, shadowRadius: DimensionHelper.wp("1.5%"), elevation: 5, flexDirection: "row" },
