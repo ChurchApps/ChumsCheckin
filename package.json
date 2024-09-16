@@ -1,6 +1,6 @@
 {
   "name": "chums-checkin",
-  "version": "1.25.1",
+  "version": "1.25.2",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
