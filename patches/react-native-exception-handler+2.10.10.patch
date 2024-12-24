@@ -1,0 +1,177 @@
+diff --git a/node_modules/react-native-exception-handler/android/build.gradle b/node_modules/react-native-exception-handler/android/build.gradle
+index c1dca20..df5c427 100644
+--- a/node_modules/react-native-exception-handler/android/build.gradle
++++ b/node_modules/react-native-exception-handler/android/build.gradle
+@@ -25,6 +25,7 @@ def getExtValue(rootProject,key,defaultValue ) {
+ android {
+     compileSdkVersion getExtValue(rootProject,'compileSdkVersion',23)
+     buildToolsVersion getExtValue(rootProject,'buildToolsVersion', "23.0.1")
++    namespace 'com.masteratul.exceptionhandler'
+ 
+     defaultConfig {
+         minSdkVersion getExtValue(rootProject,'minSdkVersion', 16)
+diff --git a/node_modules/react-native-exception-handler/android/build/intermediates/aar_metadata/debug/writeDebugAarMetadata/aar-metadata.properties b/node_modules/react-native-exception-handler/android/build/intermediates/aar_metadata/debug/writeDebugAarMetadata/aar-metadata.properties
+new file mode 100644
+index 0000000..1211b1e
+--- /dev/null
++++ b/node_modules/react-native-exception-handler/android/build/intermediates/aar_metadata/debug/writeDebugAarMetadata/aar-metadata.properties
+@@ -0,0 +1,6 @@
++aarFormatVersion=1.0
++aarMetadataVersion=1.0
++minCompileSdk=1
++minCompileSdkExtension=0
++minAndroidGradlePluginVersion=1.0.0
++coreLibraryDesugaringEnabled=false
+diff --git a/node_modules/react-native-exception-handler/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties b/node_modules/react-native-exception-handler/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties
+new file mode 100644
+index 0000000..a49d85b
+--- /dev/null
++++ b/node_modules/react-native-exception-handler/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties
+@@ -0,0 +1,2 @@
++#Fri Nov 15 16:53:01 PKT 2024
++Chums.react-native-exception-handler-main-6\:/layout/default_error_screen.xml=/Users/devminified/Documents/ChumsCheckin/node_modules/react-native-exception-handler/android/build/intermediates/packaged_res/debug/packageDebugResources/layout/default_error_screen.xml
+diff --git a/node_modules/react-native-exception-handler/android/build/intermediates/incremental/debug/packageDebugResources/merged.dir/values/values.xml b/node_modules/react-native-exception-handler/android/build/intermediates/incremental/debug/packageDebugResources/merged.dir/values/values.xml
+new file mode 100644
+index 0000000..dcab911
+--- /dev/null
++++ b/node_modules/react-native-exception-handler/android/build/intermediates/incremental/debug/packageDebugResources/merged.dir/values/values.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="show_error_details"><u>SHOW ERROR DETAILS</u></string>
++</resources>
+\ No newline at end of file
+diff --git a/node_modules/react-native-exception-handler/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml b/node_modules/react-native-exception-handler/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml
+new file mode 100644
+index 0000000..cf0cea5
+--- /dev/null
++++ b/node_modules/react-native-exception-handler/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/devminified/Documents/ChumsCheckin/node_modules/react-native-exception-handler/android/src/main/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main" generated-set="main$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/devminified/Documents/ChumsCheckin/node_modules/react-native-exception-handler/android/src/main/res"><file name="default_error_screen" path="/Users/devminified/Documents/ChumsCheckin/node_modules/react-native-exception-handler/android/src/main/res/layout/default_error_screen.xml" qualifiers="" type="layout"/><file path="/Users/devminified/Documents/ChumsCheckin/node_modules/react-native-exception-handler/android/src/main/res/values/strings.xml" qualifiers=""><string name="show_error_details"><u>SHOW ERROR DETAILS</u></string></file></source></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/devminified/Documents/ChumsCheckin/node_modules/react-native-exception-handler/android/src/debug/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug" generated-set="debug$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/devminified/Documents/ChumsCheckin/node_modules/react-native-exception-handler/android/src/debug/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/devminified/Documents/ChumsCheckin/node_modules/react-native-exception-handler/android/build/generated/res/resValues/debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated" generated-set="generated$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/devminified/Documents/ChumsCheckin/node_modules/react-native-exception-handler/android/build/generated/res/resValues/debug"/></dataSet><mergedItems/></merger>
+\ No newline at end of file
+diff --git a/node_modules/react-native-exception-handler/android/build/intermediates/navigation_json/debug/extractDeepLinksDebug/navigation.json b/node_modules/react-native-exception-handler/android/build/intermediates/navigation_json/debug/extractDeepLinksDebug/navigation.json
+new file mode 100644
+index 0000000..0637a08
+--- /dev/null
++++ b/node_modules/react-native-exception-handler/android/build/intermediates/navigation_json/debug/extractDeepLinksDebug/navigation.json
+@@ -0,0 +1 @@
++[]
+\ No newline at end of file
+diff --git a/node_modules/react-native-exception-handler/android/build/intermediates/nested_resources_validation_report/debug/generateDebugResources/nestedResourcesValidationReport.txt b/node_modules/react-native-exception-handler/android/build/intermediates/nested_resources_validation_report/debug/generateDebugResources/nestedResourcesValidationReport.txt
+new file mode 100644
+index 0000000..08f4ebe
+--- /dev/null
++++ b/node_modules/react-native-exception-handler/android/build/intermediates/nested_resources_validation_report/debug/generateDebugResources/nestedResourcesValidationReport.txt
+@@ -0,0 +1 @@
++0 Warning/Error
+\ No newline at end of file
+diff --git a/node_modules/react-native-exception-handler/android/build/intermediates/packaged_res/debug/packageDebugResources/layout/default_error_screen.xml b/node_modules/react-native-exception-handler/android/build/intermediates/packaged_res/debug/packageDebugResources/layout/default_error_screen.xml
+new file mode 100644
+index 0000000..056c9aa
+--- /dev/null
++++ b/node_modules/react-native-exception-handler/android/build/intermediates/packaged_res/debug/packageDebugResources/layout/default_error_screen.xml
+@@ -0,0 +1,80 @@
++<?xml version="1.0" encoding="utf-8"?>
++<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:fillViewport="true"
++    android:background="#FFF"
++    android:orientation="vertical"
++    android:visibility="visible">
++    <LinearLayout
++        android:padding="20dp"
++        android:layout_width="match_parent"
++        android:orientation="vertical"
++        android:layout_height="wrap_content">
++        <TextView
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:textSize="20sp"
++            android:gravity="center"
++            android:textStyle="bold"
++            android:textColor="#000"
++            android:padding="10dp"
++            android:text="Critical Error Occured !"/>
++        <ImageView
++            android:tint="#F00"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:adjustViewBounds="true"
++            android:maxWidth="50dp"
++            android:maxHeight="50dp"
++            android:scaleType="fitCenter"
++            android:src="@android:drawable/ic_dialog_info"/>
++
++        <TextView
++            android:id="@+id/textView"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:gravity="center"
++            android:textColor="#000"
++            android:padding="10dp"
++            android:text="This is embarrassing. We sincerely apologize for this." />
++        <LinearLayout
++            android:layout_width="match_parent"
++            android:gravity="bottom"
++            android:paddingTop="10dp"
++            android:layout_height="wrap_content">
++            <Button
++                android:id="@+id/eh_restart_button"
++                android:layout_weight="1"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:text="RELAUNCH"/>
++            <Button
++                android:id="@+id/eh_quit_button"
++                android:layout_weight="1"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:text="QUIT"/>
++        </LinearLayout>
++        <Button
++            android:id="@+id/eh_show_details_button"
++            android:layout_width="match_parent"
++            android:layout_height="25dp"
++            android:text="SHOW DETAILS"
++            android:textSize="10sp"
++            android:background="@android:color/transparent"
++            android:textStyle="bold"
++            android:gravity="center"/>
++        <TextView
++            android:id="@+id/eh_stack_trace_text_view"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:background="#EEE"
++            android:text=""
++            android:visibility="gone"/>
++
++    </LinearLayout>
++
++
++</ScrollView>
+diff --git a/node_modules/react-native-exception-handler/android/build/intermediates/packaged_res/debug/packageDebugResources/values/values.xml b/node_modules/react-native-exception-handler/android/build/intermediates/packaged_res/debug/packageDebugResources/values/values.xml
+new file mode 100644
+index 0000000..dcab911
+--- /dev/null
++++ b/node_modules/react-native-exception-handler/android/build/intermediates/packaged_res/debug/packageDebugResources/values/values.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <string name="show_error_details"><u>SHOW ERROR DETAILS</u></string>
++</resources>
+\ No newline at end of file
+diff --git a/node_modules/react-native-exception-handler/android/src/main/AndroidManifest.xml b/node_modules/react-native-exception-handler/android/src/main/AndroidManifest.xml
+index 58dfc7b..193187d 100644
+--- a/node_modules/react-native-exception-handler/android/src/main/AndroidManifest.xml
++++ b/node_modules/react-native-exception-handler/android/src/main/AndroidManifest.xml
+@@ -1,6 +1,5 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+-    package="com.masteratul.exceptionhandler">
++<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+ 
+     <application>
+         <activity android:name=".DefaultErrorScreen">

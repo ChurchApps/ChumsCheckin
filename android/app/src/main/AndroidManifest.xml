@@ -1,4 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.chums.checkin">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -23,6 +23,12 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
+      <meta-data
+          android:name="com.microsoft.appcenter"
+          android:value="true" />
+      <meta-data
+          android:name="com.microsoft.appcenter.analytics"
+          android:value="true" />
     </application>
 
 </manifest>
