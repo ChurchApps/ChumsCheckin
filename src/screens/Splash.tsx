@@ -18,9 +18,10 @@ export const Splash = (props: Props) => {
   const access = async () => {
     await AsyncStorage.multiGet(["@Login", "@Email", "@Password", "@SelectedChurchId", "@Printer", "@ChurchAppearance"]).then(response => {
 
+      console.log(response)
       const printerJSON = response[4][1];
       console.log("********", "PRINTER JSON IS: ", printerJSON);
-      if (printerJSON) {CachedData.printer = JSON.parse(printerJSON);}
+      if (printerJSON!= null) {CachedData.printer = JSON.parse(printerJSON);}
 
       const appearanceJson = response[5][1];
       if (appearanceJson) { CachedData.churchAppearance = JSON.parse(appearanceJson); }

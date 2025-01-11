@@ -81,7 +81,7 @@ public class PrinterHelper extends  ReactContextBaseJavaModule  {
     }
 
     @ReactMethod
-    public void printUris(String uriList) //comma separated
+    public void printUris(String uriList)
     {
         String[] uris = uriList.split(",");
         List<Bitmap> bmps = new ArrayList<>();
