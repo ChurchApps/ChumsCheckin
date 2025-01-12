@@ -8,7 +8,7 @@ export class EnvironmentHelper {
 
   static init = () => {
     let stage = STAGE;
-    stage = "prod";
+     stage = "staging";
     switch (stage) {
       case "staging": EnvironmentHelper.initStaging(); break;
       case "prod": EnvironmentHelper.initProd(); break;
@@ -26,6 +26,8 @@ export class EnvironmentHelper {
     EnvironmentHelper.AttendanceApi = ATTENDANCE_API || EnvironmentHelper.AttendanceApi;
     EnvironmentHelper.ContentRoot = CONTENT_ROOT || EnvironmentHelper.ContentRoot;
   };
+
+
 
   //NOTE: None of these values are secret.
   static initStaging = () => {

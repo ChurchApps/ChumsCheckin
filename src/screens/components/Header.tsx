@@ -24,17 +24,14 @@ export const Header = (props: Props) => {
   const init = () => {
     console.log(Platform.OS);
     if (Platform.OS === "android") {
-
-      console.log("PRINTER IS: ");
       console.log(CachedData.printer);
+      console.log(receiveNativeStatus);
 
       NativeModules.PrinterHelper.bind(receiveNativeStatus);
       NativeModules.PrinterHelper.checkInit(CachedData.printer?.ipAddress || "", CachedData.printer?.model || "");
       eventEmitter = new NativeEventEmitter(NativeModules.PrinterHelper);  //eslint-disable-line react-hooks/exhaustive-deps
       eventEmitter.addListener("StatusUpdated", (event: any) => {
-        //console.log("PRINTER STATUS: ");
-        //console.log(event.status);
-        if (event.status.indexOf("ready") > -1) {CachedData.printer.ipAddress = "ready";}
+        if (event.status.indexOf("ready") > -1) { CachedData.printer.ipAddress = "ready"; }
         setStatus(event.status);
       });
     }
@@ -65,9 +62,7 @@ export const Header = (props: Props) => {
   }, [landscape]);
 
   const getLogoUrl = () => {
-    if (CachedData.churchAppearance?.logoLight)
-    {
-      console.log("LOGO URL: " + CachedData.churchAppearance?.logoLight);
+    if (CachedData.churchAppearance?.logoLight) {
       return { uri: CachedData.churchAppearance?.logoLight };
     }
     else { return require("../../images/logo1.png"); }
