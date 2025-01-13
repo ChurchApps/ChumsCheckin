@@ -42,6 +42,7 @@ export const Styles = StyleSheet.create({
   mainContainer: { paddingHorizontal: "5%", backgroundColor: StyleConstants.ghostWhite, flex: 1, },
   fullWidthContainer: { backgroundColor: StyleConstants.ghostWhite, flex: 1, },
   H1: { fontSize: StyleConstants.fontSize2, alignSelf: "flex-start", marginVertical: "4%", fontFamily: StyleConstants.RobotoLight },
+  H2: { fontSize: StyleConstants.fontSize, alignSelf: "flex-start", marginVertical: "4%", fontFamily: StyleConstants.RobotoLight },
   headerImageView: { height: StyleConstants.deviceHeight * 24 / 100, width: "100%", backgroundColor: StyleConstants.whiteColor },
   headerImage: { maxWidth: StyleConstants.deviceWidth * 70 / 100, height: StyleConstants.deviceHeight * 20 / 100, alignSelf: "center" },
   printerStatus: { backgroundColor: "#09A1CD", height: 30, justifyContent: "center", flexDirection: "row" },
@@ -52,6 +53,7 @@ export const Styles = StyleSheet.create({
   textInputStyle: { height: DimensionHelper.wp("10%"), width: DimensionHelper.wp("80%"), alignItems: "center", justifyContent: "center", fontSize: DimensionHelper.wp("3.8%"), color: "gray" },
   flatlistDropIcon: { fontSize: DimensionHelper.wp("6%"), color: StyleConstants.grayColor, marginLeft: DimensionHelper.wp("3%") },
   inputIcon: { width: DimensionHelper.wp("4.5%"), height: DimensionHelper.wp("4.5%"), margin: DimensionHelper.wp("3%") },
+  privacyIcon: { width: DimensionHelper.wp("4.5%"), height: DimensionHelper.wp("4.5%"),marginRight:DimensionHelper.wp("2%") },
 
   //Buttons
   button: { backgroundColor: StyleConstants.baseColor, marginVertical: "8%", height: 50, justifyContent: "center", flexDirection: "row", },

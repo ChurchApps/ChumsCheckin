@@ -11,5 +11,6 @@ export type ScreenList = {
   CheckinComplete: undefined,
   SelectGroup: { serviceTime: ServiceTimeInterface, personId: string },
   SelectChurch: undefined,
-  Printers: undefined
+  Printers: undefined,
+  PrivacyPolicy:undefined
 }
