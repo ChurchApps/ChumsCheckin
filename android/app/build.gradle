@@ -86,8 +86,9 @@ android {
         applicationId "org.chums.checkin"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 17
-        versionName "1.25.0"
+        versionCode 18
+        versionName "1.26.0"
+        multiDexEnabled true
     }
     signingConfigs {
         debug {

@@ -7,7 +7,7 @@ import { EnvironmentHelper } from "./src/helpers";
 import { Printers } from "./src/screens/Printers";
 import CodePush from "react-native-code-push";
 import { ErrorHelper } from "@churchapps/mobilehelper";
-
+import PrivacyPolicy from "./src/screens/PrivacyPolicy";
 
 const CODE_PUSH_OPTIONS = {
   checkFrequency: CodePush.CheckFrequency.ON_APP_START
@@ -49,6 +49,7 @@ const App = () => {
         <stack.Screen name="AddGuest" component={AddGuest} />
         <stack.Screen name="CheckinComplete" component={CheckinComplete} />
         <stack.Screen name="SelectGroup" component={SelectGroup} />
+        <stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} options={{headerShown: true, headerTitle:"Privacy Policy"}} />
         <stack.Screen name="SelectChurch" component={SelectChurch} />
         <stack.Screen name="Printers" component={Printers} />
       </stack.Navigator>
