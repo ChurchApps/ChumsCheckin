@@ -60,7 +60,7 @@ export const Printers = (props: Props) => {
     const printer: AvailablePrinter = data.item;
     const style = (printer.ipAddress === selectedPrinter.ipAddress) ? { backgroundColor: "#DDFFDD" } : {};
     return (
-      <View>
+      <View key={printer.ipAddress} >
         <Ripple style={[Styles.flatlistMainView, { width: wd("90%"), padding: wd("3%") }, style]} onPress={() => { setSelectedPrinter(printer); }}>
           <View style={[{ justifyContent: "center", alignItems: "center" }]}>
             <Text style={[Styles.personName, { alignSelf: "flex-start" }]} numberOfLines={1}>{printer.ipAddress}</Text>
@@ -91,7 +91,7 @@ export const Printers = (props: Props) => {
       <Header navigation={props.navigation} />
       <Text style={{ ...Styles.H1, marginLeft: DimensionHelper.wp("5%") }}>Select a printer:</Text>
       <View style={Styles.fullWidthContainer}>
-        <FlatList data={printers as any[]} renderItem={getPrinterRow} keyExtractor={(printer: string) => printer} />
+        <FlatList data={printers as any[]} renderItem={getPrinterRow} keyExtractor={(printer: AvailablePrinter) => printer.ipAddress} />
       </View>
       {getLabelView()}
 
