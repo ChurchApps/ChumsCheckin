@@ -1,6 +1,6 @@
 {
   "name": "ChumsCheckin",
-  "version": "1.26.1",
+  "version": "1.28.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -20,6 +20,7 @@
     "appcenter": "^5.0.2",
     "appcenter-analytics": "^5.0.2",
     "appcenter-crashes": "^5.0.2",
+    "path": "^0.12.7",
     "react": "18.3.1",
     "react-error-boundary": "^5.0.0",
     "react-native": "0.76.5",

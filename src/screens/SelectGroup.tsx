@@ -21,7 +21,7 @@ export const SelectGroup = (props: Props) => {
     let gt: GroupCategoryInterface[] = [];
 
     console.log("Service Time", props.route.params.serviceTime.groups);
-    const sortedGroups = props.route.params.serviceTime?.groups?.sort((a, b) => ((a.categoryName || "") > (b.categoryName || "")) ? 1 : -1);
+    const sortedGroups = [...(props.route.params.serviceTime?.groups || [])].sort((a, b) => ((a.categoryName || "") > (b.categoryName || "")) ? 1 : -1);
     console.log("Sorted Groups", sortedGroups);
 
     sortedGroups?.forEach(g => {
