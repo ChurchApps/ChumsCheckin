@@ -86,7 +86,7 @@ android {
         applicationId "org.chums.checkin"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
+        versionCode 20
         versionName "1.28.0"
         multiDexEnabled true
     }
