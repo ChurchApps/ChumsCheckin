@@ -1,8 +1,15 @@
 
-import { StackNavigationProp } from "@react-navigation/stack";
-import { ScreenList } from "../screens";
+// import { StackNavigationProp } from "@react-navigation/stack";
 
-export type screenNavigationProps = StackNavigationProp<ScreenList, "Login">
+import { ScreenList } from "@/app/screenList";
+
+export type screenNavigationProps = {
+  navigate: (screen: string, params?: object) => void;
+  goBack: () => void;
+  replace: (screen: string, params?: object) => void;
+};
+
+// export type screenNavigationProps = StackNavigationProp<ScreenList, "Login">
 
 export class Utilities {
 

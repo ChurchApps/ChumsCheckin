@@ -1,4 +1,4 @@
-package org.chums.checkin;
+package  org.chums.checkin;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,9 +15,9 @@ import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
-import org.chums.checkin.printProviders.BrotherProvider;
-import org.chums.checkin.printProviders.PrintHandProvider;
-import org.chums.checkin.printProviders.PrintProviderInterface;
+import  org.chums.checkin.printProviders.BrotherProvider;
+import  org.chums.checkin.printProviders.PrintHandProvider;
+import  org.chums.checkin.printProviders.PrintProviderInterface;
 
 import java.util.ArrayList;
 import java.util.List;

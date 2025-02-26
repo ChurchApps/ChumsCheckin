@@ -1,4 +1,4 @@
-package org.chums.checkin.printProviders;
+package  org.chums.checkin.printProviders;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -6,8 +6,8 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
-import org.chums.checkin.PrintHandHelper;
-import org.chums.checkin.PrinterHelper;
+import  org.chums.checkin.PrintHandHelper;
+import  org.chums.checkin.PrinterHelper;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -26,8 +26,8 @@ import com.brother.sdk.lmprinter.OpenChannelError;
 import com.brother.sdk.lmprinter.PrinterDriver;
 import com.brother.sdk.lmprinter.PrinterDriverGenerateResult;
 import com.brother.sdk.lmprinter.PrinterDriverGenerator;
-import com.microsoft.appcenter.AppCenter;
-import com.microsoft.appcenter.analytics.Analytics;
+// import com.microsoft.appcenter.AppCenter;
+// import com.microsoft.appcenter.analytics.Analytics;
 
 
 public class BrotherProvider implements PrintProviderInterface {
