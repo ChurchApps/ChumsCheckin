@@ -3,7 +3,7 @@ import { useRouter, useLocalSearchParams } from "expo-router";
 import { TextInput, View, Text, Image, FlatList, ActivityIndicator, Keyboard, SafeAreaView, ScrollView, Dimensions, PixelRatio } from "react-native";
 import Ripple from "react-native-material-ripple";
 import { RouteProp } from "@react-navigation/native";
-import { ScreenList } from "./ScreenList"; 
+import { ScreenList } from "./screenList";
 import { EnvironmentHelper, screenNavigationProps, CachedData, Styles, StyleConstants } from "../src/helpers";
 import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper, PersonInterface, Utils } from "@churchapps/mobilehelper";
 import Header from "./components/Header";

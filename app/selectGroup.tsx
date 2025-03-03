@@ -2,24 +2,24 @@ import React from "react";
 import { View, Text, FlatList } from "react-native";
 import Ripple from "react-native-material-ripple";
 import { RouteProp } from "@react-navigation/native";
-import { ScreenList } from "./ScreenList";
+import { ScreenList } from "./screenList";
 import Header from "./components/Header";
 import { screenNavigationProps, VisitHelper, VisitSessionHelper, CachedData, Styles, StyleConstants, Utilities } from "../src/helpers";
-// import Icon from "react-native-vector-icons/FontAwesome";
 import { FontAwesome } from "@expo/vector-icons";
 import { AppCenterHelper, DimensionHelper, GroupInterface } from "@churchapps/mobilehelper";
 import { useRouter, useLocalSearchParams } from "expo-router"; 
 
 
-
-type ProfileScreenRouteProp = RouteProp<ScreenList, "SelectGroup">;
-interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
+// type ProfileScreenRouteProp = RouteProp<ScreenList, "SelectGroup">;
+// interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
 interface GroupCategoryInterface { key: number, name: string, items: GroupInterface[] }
 
-  const SelectGroup = (props: Props) => {
+  const SelectGroup = (props: any) => {
+
 
     const router = useRouter();
-    const params = useLocalSearchParams();  
+    const {personId, serviceTime} = useLocalSearchParams();  
+    let serviceTimes = JSON.parse(serviceTime)
 
   const [selectedCategory, setSelectedCategory] = React.useState(-1);
   const [groupTree, setGroupTree] = React.useState<GroupCategoryInterface[]>([]);
@@ -28,15 +28,19 @@ interface GroupCategoryInterface { key: number, name: string, items: GroupInterf
     let category = "";
     let gt: GroupCategoryInterface[] = [];
 
-    // console.log("Service Time", props.route.params.serviceTime.groups);
-    // const sortedGroups = props.route.params.serviceTime?.groups?.sort((a, b) => ((a.categoryName || "") > (b.categoryName || "")) ? 1 : -1);
-    // console.log("Sorted Groups", sortedGroups);
 
-    // sortedGroups?.forEach(g => {
-    //   if (g.categoryName !== category) {gt.push({ key: gt.length, name: g.categoryName || "", items: [] });}
-    //   gt[gt.length - 1].items.push(g);
-    //   category = g.categoryName || "";
-    // });
+
+    const sortedGroups = [...(serviceTimes?.groups || [])].sort((a, b) => ((a.categoryName || "") > (b.categoryName || "")) ? 1 : -1);
+    console.log("Sorted Groups", sortedGroups);
+
+
+
+
+    sortedGroups?.forEach(g => {
+      if (g.categoryName !== category) {gt.push({ key: gt.length, name: g.categoryName || "", items: [] });}
+      gt[gt.length - 1].items.push(g);
+      category = g.categoryName || "";
+    });
 
     console.log("Group Tree", gt);
     setGroupTree(gt);
@@ -61,9 +65,7 @@ interface GroupCategoryInterface { key: number, name: string, items: GroupInterf
   // };
 
   const selectGroup = (id: string, name: string) => {
-    // AppCenterHelper.trackEvent("Select Group", { groupName: name });
-  
-    const personId = params.personId; // ✅ Use expo-router params
+
     let visit = VisitHelper.getByPersonId(CachedData.pendingVisits, personId);
   
     if (!visit) {
@@ -72,10 +74,10 @@ interface GroupCategoryInterface { key: number, name: string, items: GroupInterf
     }
   
     const vs = visit?.visitSessions || [];
-    const serviceTimeId = params.serviceTimeId || ""; // ✅ Use serviceTimeId from params
+    const serviceTimeId = serviceTimes.id || ""; // ✅ Use serviceTimeId from params
     VisitSessionHelper.setValue(vs, serviceTimeId, id, name);
-  
-    router.back(); // ✅ Go back
+
+    router.back(); 
   };
 
   const getRow = (data: any) => {
