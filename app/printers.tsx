@@ -9,18 +9,21 @@ import { AvailablePrinter, CachedData, screenNavigationProps, Styles } from "../
 import { DimensionHelper } from "@churchapps/mobilehelper";
 import Header from "./components/Header";
 import PrintUI from "./components/PrintUI";
+import RNRestart from 'react-native-restart';
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Household">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
 
-  const Printers = (props: Props) => {
+const Printers = (props: Props) => {
   const [printers, setPrinters] = React.useState<AvailablePrinter[]>([{ model: "No Printer", ipAddress: "No Printer" }]);
   const [selectedPrinter, setSelectedPrinter] = React.useState<AvailablePrinter>({ model: "No Printer", ipAddress: "No Printer" });
   const [dimension, setDimension] = React.useState(Dimensions.get("window"));
   const [htmlLabels, setHtmlLabels] = React.useState<string[]>([]);
 
   const init = async () => {
+    console.log("Scanning")
     NativeModules.PrinterHelper.scan().then((data: string) => {
+      console.log("Scan callback", data)
       const items = data.split(",");
       let result: AvailablePrinter[] = [];
       items.forEach(item => {
@@ -38,7 +41,7 @@ interface Props { navigation: screenNavigationProps; route: ProfileScreenRoutePr
 
   const saveSelectedPrinter = async () => {
     let printer = selectedPrinter;
-    if (printer.model === "No Printer") {printer = { model: "none", ipAddress: "" };}
+    if (printer.model === "No Printer") { printer = { model: "none", ipAddress: "" }; }
 
     CachedData.printer = printer;
     await AsyncStorage.setItem("@Printer", JSON.stringify(CachedData.printer));
@@ -72,7 +75,7 @@ interface Props { navigation: screenNavigationProps; route: ProfileScreenRoutePr
   };
 
   const testPrint = () => {
-    if (selectedPrinter.model === "No Printer") {Alert.alert("No printer selected");}
+    if (selectedPrinter.model === "No Printer") { Alert.alert("No printer selected"); }
     else {
       saveSelectedPrinter();
       setHtmlLabels(["<b>Hello World</b>"]);
@@ -80,10 +83,12 @@ interface Props { navigation: screenNavigationProps; route: ProfileScreenRoutePr
   };
 
   const getLabelView = () => {
-    if (htmlLabels?.length > 0) {return (<PrintUI htmlLabels={htmlLabels} onPrintComplete={() => { setHtmlLabels([]); }} />);}
-    else {return <View style={[Styles.blockButtons]}>
-      <Ripple style={[Styles.blockButton, { backgroundColor: "#FFFFFF" }]} onPress={testPrint}><Text style={[Styles.blockButtonText, { color: "#08A1CD" }]}>Test Print</Text></Ripple>
-    </View>;}
+    if (htmlLabels?.length > 0) { return (<PrintUI htmlLabels={htmlLabels} onPrintComplete={() => { setHtmlLabels([]); }} />); }
+    else {
+      return <View style={[Styles.blockButtons]}>
+        <Ripple style={[Styles.blockButton, { backgroundColor: "#FFFFFF" }]} onPress={testPrint}><Text style={[Styles.blockButtonText, { color: "#08A1CD" }]}>Test Print</Text></Ripple>
+      </View>;
+    }
   };
 
   return (
@@ -96,9 +101,11 @@ interface Props { navigation: screenNavigationProps; route: ProfileScreenRoutePr
       {getLabelView()}
 
       <View style={[Styles.blockButtons]}>
-        <Ripple style={[Styles.blockButton]} onPress={() => { saveSelectedPrinter(); 
+        <Ripple style={[Styles.blockButton]} onPress={() => {
+          saveSelectedPrinter();
           // CodePush.restartApp(); 
-          }}><Text style={Styles.blockButtonText}>Done</Text></Ripple>
+          RNRestart.Restart();
+        }}><Text style={Styles.blockButtonText}>Done</Text></Ripple>
       </View>
     </View>
   );

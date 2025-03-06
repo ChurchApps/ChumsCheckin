@@ -50,6 +50,7 @@ public class PrinterHelper extends  ReactContextBaseJavaModule  {
 
     @ReactMethod
     public void scan(final Promise promise) {
+      
         promise.resolve(String.join(",", printProvider.scan()));
     }
 

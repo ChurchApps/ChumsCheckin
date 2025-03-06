@@ -1,9 +1,9 @@
 import { ApiHelper } from "@churchapps/mobilehelper";
 
 
-let CONTENT_ROOT='https://content.staging.churchapps.org'
-let MEMBERSHIP_API='https://membershipapi.staging.churchapps.org'
-let ATTENDANCE_API='https://attendanceapi.staging.churchapps.org'
+let CONTENT_ROOT = 'https://content.staging.churchapps.org'
+let MEMBERSHIP_API = 'https://membershipapi.staging.churchapps.org'
+let ATTENDANCE_API = 'https://attendanceapi.staging.churchapps.org'
 // import { CONTENT_ROOT, MEMBERSHIP_API, ATTENDANCE_API, STAGE } from "@env";
 export class EnvironmentHelper {
   private static MembershipApi = "";
@@ -14,7 +14,7 @@ export class EnvironmentHelper {
 
   static init = () => {
     // let stage = STAGE;
-      let stage = "staging";
+    let stage = "prod";
     switch (stage) {
       case "staging": EnvironmentHelper.initStaging(); break;
       case "prod": EnvironmentHelper.initProd(); break;
