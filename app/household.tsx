@@ -77,14 +77,14 @@ import { RouteProp } from "@react-navigation/native";
 import Header from "./components/Header";
 import MemberList from "./components/MemberList";
 import { screenNavigationProps, CachedData, Styles, Utilities, StyleConstants } from "../src/helpers";
-import { AppCenterHelper, VisitInterface } from "@churchapps/mobilehelper";
+import { AppCenterHelper, FirebaseHelper, VisitInterface } from "@churchapps/mobilehelper";
 import { router, useFocusEffect } from "expo-router";
 import { ScreenList } from "./screenList";
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Household">;
-interface Props { navigation: screenNavigationProps;  }
+interface Props { navigation: screenNavigationProps; }
 
- const Household = (props: Props) => {
+const Household = (props: Props) => {
   const [pendingVisits, setPendingVisits] = React.useState<VisitInterface[]>([]);
   // const init = () => {
   //   // AppCenterHelper.trackEvent("Household screen");
@@ -104,7 +104,7 @@ interface Props { navigation: screenNavigationProps;  }
 
   // console.log(props.navigation)
 
-  // React.useEffect(init, []); // eslint-disable-line react-hooks/exhaustive-deps
+  React.useEffect(() => { FirebaseHelper.addOpenScreenEvent("Household"); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <View style={{ flex: 1 }}>
@@ -112,8 +112,8 @@ interface Props { navigation: screenNavigationProps;  }
         <View style={Styles.fullWidthContainer}>
           <Header navigation={props.navigation} />
           <MemberList navigation={props.navigation} pendingVisits={pendingVisits} />
-          <View style={[Styles.blockButtons, {marginTop:20}]}>
-            <Ripple style={[Styles.blockButton, {backgroundColor: StyleConstants.greenColor}]} onPress={addGuest}><Text style={Styles.blockButtonText}>Add a Guest</Text></Ripple>
+          <View style={[Styles.blockButtons, { marginTop: 20 }]}>
+            <Ripple style={[Styles.blockButton, { backgroundColor: StyleConstants.greenColor }]} onPress={addGuest}><Text style={Styles.blockButtonText}>Add a Guest</Text></Ripple>
           </View>
 
         </View>

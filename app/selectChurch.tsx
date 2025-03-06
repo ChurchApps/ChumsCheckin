@@ -5,7 +5,7 @@ import Ripple from "react-native-material-ripple";
 // import { CommonActions } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import { StyleConstants, Styles, CachedData, screenNavigationProps, Utilities } from "../src/helpers";
-import { ApiHelper, AppCenterHelper, DimensionHelper, LoginUserChurchInterface } from "@churchapps/mobilehelper";
+import { ApiHelper, AppCenterHelper, DimensionHelper, FirebaseHelper, LoginUserChurchInterface } from "@churchapps/mobilehelper";
 import Header from "./components/Header";
 
 // interface Props {
@@ -18,6 +18,7 @@ function SelectChurch() {
   const [isLoading, setLoading] = React.useState<boolean>(false);
 
   React.useEffect(() => {
+    FirebaseHelper.addOpenScreenEvent("Select Church");
     setLoading(true);
     // AppCenterHelper.trackEvent("Select Church Screen");
     (async () => {

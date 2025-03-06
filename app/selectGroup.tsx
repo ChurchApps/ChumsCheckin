@@ -6,25 +6,26 @@ import { ScreenList } from "./screenList";
 import Header from "./components/Header";
 import { screenNavigationProps, VisitHelper, VisitSessionHelper, CachedData, Styles, StyleConstants, Utilities } from "../src/helpers";
 import { FontAwesome } from "@expo/vector-icons";
-import { AppCenterHelper, DimensionHelper, GroupInterface } from "@churchapps/mobilehelper";
-import { useRouter, useLocalSearchParams } from "expo-router"; 
+import { AppCenterHelper, DimensionHelper, FirebaseHelper, GroupInterface } from "@churchapps/mobilehelper";
+import { useRouter, useLocalSearchParams } from "expo-router";
 
 
 // type ProfileScreenRouteProp = RouteProp<ScreenList, "SelectGroup">;
 // interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
 interface GroupCategoryInterface { key: number, name: string, items: GroupInterface[] }
 
-  const SelectGroup = (props: any) => {
+const SelectGroup = (props: any) => {
 
 
-    const router = useRouter();
-    const {personId, serviceTime} = useLocalSearchParams();  
-    let serviceTimes = JSON.parse(serviceTime)
+  const router = useRouter();
+  const { personId, serviceTime } = useLocalSearchParams();
+  let serviceTimes = JSON.parse(serviceTime)
 
   const [selectedCategory, setSelectedCategory] = React.useState(-1);
   const [groupTree, setGroupTree] = React.useState<GroupCategoryInterface[]>([]);
 
   const buildTree = () => {
+    FirebaseHelper.addOpenScreenEvent("Select Group");
     let category = "";
     let gt: GroupCategoryInterface[] = [];
 
@@ -37,7 +38,7 @@ interface GroupCategoryInterface { key: number, name: string, items: GroupInterf
 
 
     sortedGroups?.forEach(g => {
-      if (g.categoryName !== category) {gt.push({ key: gt.length, name: g.categoryName || "", items: [] });}
+      if (g.categoryName !== category) { gt.push({ key: gt.length, name: g.categoryName || "", items: [] }); }
       gt[gt.length - 1].items.push(g);
       category = g.categoryName || "";
     });
@@ -67,17 +68,17 @@ interface GroupCategoryInterface { key: number, name: string, items: GroupInterf
   const selectGroup = (id: string, name: string) => {
 
     let visit = VisitHelper.getByPersonId(CachedData.pendingVisits, personId);
-  
+
     if (!visit) {
       visit = { personId, serviceId: CachedData.serviceId, visitSessions: [] };
       CachedData.pendingVisits.push(visit);
     }
-  
+
     const vs = visit?.visitSessions || [];
     const serviceTimeId = serviceTimes.id || ""; // ✅ Use serviceTimeId from params
     VisitSessionHelper.setValue(vs, serviceTimeId, id, name);
 
-    router.back(); 
+    router.back();
   };
 
   const getRow = (data: any) => {
@@ -95,7 +96,7 @@ interface GroupCategoryInterface { key: number, name: string, items: GroupInterf
   };
 
   const getExpanded = (selectedcategory: number, category: GroupCategoryInterface) => {
-    if (selectedcategory !== category.key) {return null;}
+    if (selectedcategory !== category.key) { return null; }
     else {
       const result: JSX.Element[] = [];
       category.items.forEach(g => {

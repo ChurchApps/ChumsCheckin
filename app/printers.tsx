@@ -6,7 +6,7 @@ import { RouteProp } from "@react-navigation/native";
 import { ScreenList } from "./screenList";
 import { AvailablePrinter, CachedData, screenNavigationProps, Styles } from "../src/helpers";
 // import CodePush from "react-native-code-push";
-import { DimensionHelper } from "@churchapps/mobilehelper";
+import { DimensionHelper, FirebaseHelper } from "@churchapps/mobilehelper";
 import Header from "./components/Header";
 import PrintUI from "./components/PrintUI";
 import RNRestart from 'react-native-restart';
@@ -21,6 +21,7 @@ const Printers = (props: Props) => {
   const [htmlLabels, setHtmlLabels] = React.useState<string[]>([]);
 
   const init = async () => {
+    FirebaseHelper.addOpenScreenEvent("Printers");
     console.log("Scanning")
     NativeModules.PrinterHelper.scan().then((data: string) => {
       console.log("Scan callback", data)

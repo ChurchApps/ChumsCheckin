@@ -3,7 +3,7 @@ import { Image, TouchableOpacity, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { CommonActions } from "@react-navigation/native";
 import { screenNavigationProps, Styles, CachedData, Utilities, EnvironmentHelper } from "../src/helpers";
-import { ApiHelper, AppCenterHelper, ErrorHelper, LoginResponseInterface, PushNotificationHelper } from "@churchapps/mobilehelper";
+import { ApiHelper, AppCenterHelper, ErrorHelper, FirebaseHelper, LoginResponseInterface, PushNotificationHelper } from "@churchapps/mobilehelper";
 import { router, useRouter } from "expo-router";
 
 EnvironmentHelper.init();
@@ -14,6 +14,7 @@ function Splash(props: Props) {
   const router = useRouter()
 
   useEffect(() => {
+    FirebaseHelper.addOpenScreenEvent("Splash");
     ErrorHelper.init();
   }, []);
 

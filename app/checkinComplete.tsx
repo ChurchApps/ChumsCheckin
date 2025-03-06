@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text } from "react-native";
 import { screenNavigationProps, CachedData, LabelHelper, Styles, StyleConstants } from "../src/helpers";
 import { FontAwesome } from "@expo/vector-icons";
-import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper } from "@churchapps/mobilehelper";
+import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper, FirebaseHelper } from "@churchapps/mobilehelper";
 import PrintUI from "./components/PrintUI";
 import Header from "./components/Header";
 import { router } from "expo-router";
@@ -13,6 +13,7 @@ const CheckinComplete = (props: Props) => {
   const [htmlLabels, setHtmlLabels] = React.useState<string[]>([]);
 
   const loadData = () => {
+    FirebaseHelper.addOpenScreenEvent("CheckinCompleteScreen");
     const promises: Promise<any>[] = [];
     promises.push(checkin());
     if (CachedData.printer?.ipAddress) { print(); }

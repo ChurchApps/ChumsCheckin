@@ -5,7 +5,7 @@ import Ripple from "react-native-material-ripple";
 import { RouteProp } from "@react-navigation/native";
 import { ScreenList } from "./screenList";
 import { EnvironmentHelper, screenNavigationProps, CachedData, Styles, StyleConstants } from "../src/helpers";
-import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper, PersonInterface, Utils } from "@churchapps/mobilehelper";
+import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper, FirebaseHelper, PersonInterface, Utils } from "@churchapps/mobilehelper";
 import Header from "./components/Header";
 import { router } from "expo-router";
 // import { Header } from "./components";
@@ -15,8 +15,8 @@ interface Props { navigation: screenNavigationProps; route: ProfileScreenRoutePr
 
 
 
-  const Lookup = (props: Props) => {
-    // const Lookup = () => {
+const Lookup = (props: Props) => {
+  // const Lookup = () => {
   const router = useRouter();
   const params = useLocalSearchParams();
   const [hasSearched, setHasSearched] = React.useState<boolean>(false);
@@ -55,7 +55,7 @@ interface Props { navigation: screenNavigationProps; route: ProfileScreenRoutePr
     }
 
     const cleanedPhone = phone.replace(/\D/g, '');
-    if (phone === "") {Utils.snackBar("Please enter phone number or last four digits");}
+    if (phone === "") { Utils.snackBar("Please enter phone number or last four digits"); }
     else {
       Keyboard.dismiss();
       setHasSearched(true);
@@ -73,7 +73,7 @@ interface Props { navigation: screenNavigationProps; route: ProfileScreenRoutePr
       ApiHelper.get("/people/search/phone?number=" + searchQuery, "MembershipApi").then(data => {
         setIsLoading(false);
         setPeople(data);
-        if (data.length === 0) {Utils.snackBar("No matches found");}
+        if (data.length === 0) { Utils.snackBar("No matches found"); }
       });
     }
   };
@@ -89,12 +89,13 @@ interface Props { navigation: screenNavigationProps; route: ProfileScreenRoutePr
   };
 
   const getResults = () => {
-    if (!hasSearched) {return null;}
-    else if (isLoading) {return (<ActivityIndicator size="large" color={StyleConstants.baseColor1} animating={isLoading} style={{ marginTop: "25%" }} />);}
-    else {return (<FlatList data={people} renderItem={getRow} keyExtractor={(item: PersonInterface) => item.id?.toString() || "0"} />);}
+    if (!hasSearched) { return null; }
+    else if (isLoading) { return (<ActivityIndicator size="large" color={StyleConstants.baseColor1} animating={isLoading} style={{ marginTop: "25%" }} />); }
+    else { return (<FlatList data={people} renderItem={getRow} keyExtractor={(item: PersonInterface) => item.id?.toString() || "0"} />); }
   };
 
   React.useEffect(() => {
+    FirebaseHelper.addOpenScreenEvent("Lookup");
     Dimensions.addEventListener("change", () => {
       const dim = Dimensions.get("screen");
       setDimension(dim);
@@ -108,7 +109,7 @@ interface Props { navigation: screenNavigationProps; route: ProfileScreenRoutePr
 
   return (
     <View style={{ backgroundColor: StyleConstants.ghostWhite }}>
-      <Header navigation={props.navigation}/>
+      <Header navigation={props.navigation} />
       <Text style={{ ...Styles.H1, marginLeft: DimensionHelper.wp("5%") }}>Search by phone number:</Text>
       <View style={[Styles.searchView, { width: wd("90%") }]}>
         <TextInput placeholder="Enter last four digits of mobile number" onChangeText={(value) => { setPhone(value); }} keyboardType="numeric" style={Styles.searchTextInput} />

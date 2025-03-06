@@ -3,11 +3,11 @@ import { Text, FlatList, ActivityIndicator, SafeAreaView, Dimensions, PixelRatio
 import Ripple from "react-native-material-ripple";
 import Header from "./components/Header";
 import { screenNavigationProps, CachedData, Styles, StyleConstants, Utilities } from "../src/helpers";
-import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper, GroupInterface, GroupServiceTimeInterface } from "@churchapps/mobilehelper";
+import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper, FirebaseHelper, GroupInterface, GroupServiceTimeInterface } from "@churchapps/mobilehelper";
 
 interface Props { navigation: screenNavigationProps }
 
-  const Services = (props: Props) => {
+const Services = (props: Props) => {
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [services, setServices] = React.useState([]);
   const [dimension, setDimension] = React.useState(Dimensions.get("window"));
@@ -22,6 +22,7 @@ interface Props { navigation: screenNavigationProps }
   };
 
   React.useEffect(() => {
+    FirebaseHelper.addOpenScreenEvent("Service");
     Dimensions.addEventListener("change", () => {
       const dim = Dimensions.get("screen");
       setDimension(dim);
@@ -69,8 +70,8 @@ interface Props { navigation: screenNavigationProps }
   };
 
   const getResults = () => {
-    if (isLoading) {return (<ActivityIndicator size="large" color={StyleConstants.baseColor1} animating={isLoading} style={{ marginTop: "25%" }} />);}
-    else {return (<FlatList data={services} renderItem={getRow} keyExtractor={(item: any) => item.id.toString()} />);}
+    if (isLoading) { return (<ActivityIndicator size="large" color={StyleConstants.baseColor1} animating={isLoading} style={{ marginTop: "25%" }} />); }
+    else { return (<FlatList data={services} renderItem={getRow} keyExtractor={(item: any) => item.id.toString()} />); }
   };
 
   React.useEffect(loadData, []);

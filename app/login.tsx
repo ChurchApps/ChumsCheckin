@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TextInput, ActivityIndicator, ScrollView, PixelRatio, Dimensions, SafeAreaView, TouchableOpacity, Linking, } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Utilities, screenNavigationProps, Styles, StyleConstants } from "../src/helpers";
-import { ApiHelper, DimensionHelper, LoginResponseInterface, Utils } from "@churchapps/mobilehelper";
+import { ApiHelper, DimensionHelper, FirebaseHelper, LoginResponseInterface, Utils } from "@churchapps/mobilehelper";
 import Fontisto from "@expo/vector-icons/Fontisto";
 import Ripple from "react-native-material-ripple";
 import Header from "./components/Header";
@@ -17,7 +17,7 @@ function Login(props: Props) {
   const [dimension, setDimension] = useState(Dimensions.get("window"));
 
   const login = () => {
-    
+
     console.log("logni")
 
     if (email === "") { Utils.snackBar("Please enter your email address"); }
@@ -48,6 +48,7 @@ function Login(props: Props) {
   };
 
   React.useEffect(() => {
+    FirebaseHelper.addOpenScreenEvent("Login");
     Dimensions.addEventListener("change", () => {
       const dim = Dimensions.get("screen");
       setDimension(dim);
