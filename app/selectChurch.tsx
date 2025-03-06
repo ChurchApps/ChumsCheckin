@@ -38,18 +38,16 @@ function SelectChurch() {
 
     router.replace("/services"); // Navigate using expo-router
     // router.push({ pathname: "/services", params: { selectedChurchId: userChurch.church.id } }); 
-    
+
   };
 
-  
+
 
   const getRow = (userChurch: LoginUserChurchInterface) => (
     <Ripple style={[Styles.bigLinkButton, { width: DimensionHelper.wp("90%") }]} onPress={() => select(userChurch)}>
       <Text style={Styles.bigLinkButtonText}>{userChurch.church.name}</Text>
     </Ripple>
   );
-
-  console.log(JSON.stringify(userChurches));
 
   const churchList = isLoading
     ? (<ActivityIndicator size="large" color={StyleConstants.baseColor1} animating={isLoading} style={{ marginTop: "25%" }} />)

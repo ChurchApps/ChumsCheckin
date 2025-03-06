@@ -25,19 +25,19 @@ export class LabelHelper {
   private static replaceValues(html: string, visit: VisitInterface, childVisits: VisitInterface[], pickupCode: string) {
     const person: PersonInterface = ArrayHelper.getOne(CachedData.householdMembers, "id", visit.personId || "");
     let isChild: boolean = false;
-    childVisits.forEach(cv => { if (cv.personId === person.id) {isChild = true;} });
+    childVisits.forEach(cv => { if (cv.personId === person.id) { isChild = true; } });
     let result = html.replace(/\[Name\]/g, person.name.display || "");
     result = result.replace(/\[Sessions\]/g, VisitSessionHelper.getDisplaySessions(visit.visitSessions || []).replace(/ ,/g, "<br/>"));
     result = result.replace(/\[PickupCode\]/g, (isChild) ? pickupCode : "");
     result = result.replace(/\[Allergies\]/g, (person.nametagNotes) ? person.nametagNotes : "");
-    console.log(result);
+    //console.log(result);
     return result;
   }
 
 
   private static replaceValuesPickup(html: string, childVisits: VisitInterface[], pickupCode: string) {
     let childList: string[] = [];
-    let allergiesList : string[] = [];
+    let allergiesList: string[] = [];
     childVisits.forEach(cv => {
       const person: PersonInterface = ArrayHelper.getOne(CachedData.householdMembers, "id", cv.personId || "");
       childList.push(person.name.display + " - " + VisitSessionHelper.getPickupSessions(cv.visitSessions || []));
@@ -61,9 +61,9 @@ export class LabelHelper {
       pv.visitSessions?.forEach(vs => {
         const serviceTime: ServiceTimeInterface = ArrayHelper.getOne(CachedData.serviceTimes, "id", vs.session?.serviceTimeId || "");
         const group: GroupInterface = ArrayHelper.getOne(serviceTime.groups || [], "id", vs.session?.groupId || "");
-        if (group.parentPickup) {isChild = true;}
+        if (group.parentPickup) { isChild = true; }
       });
-      if (isChild) {result.push(pv);}
+      if (isChild) { result.push(pv); }
     });
     return result;
   }
@@ -76,10 +76,10 @@ export class LabelHelper {
     const result: string[] = [];
 
     CachedData.pendingVisits.forEach(pv => {
-      if (pv.visitSessions && pv.visitSessions.length > 0) {result.push(this.replaceValues(labelTemplate, pv, childVisits, pickupCode));}
+      if (pv.visitSessions && pv.visitSessions.length > 0) { result.push(this.replaceValues(labelTemplate, pv, childVisits, pickupCode)); }
     });
 
-    if (childVisits.length > 0) {result.push(this.replaceValuesPickup(pickupTemplate, childVisits, pickupCode));}
+    if (childVisits.length > 0) { result.push(this.replaceValuesPickup(pickupTemplate, childVisits, pickupCode)); }
     return result;
   }
 }

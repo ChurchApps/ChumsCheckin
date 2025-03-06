@@ -9,17 +9,17 @@ import { router } from "expo-router";
 
 interface Props { navigation: screenNavigationProps; }
 
- const CheckinComplete = (props: Props) => {
+const CheckinComplete = (props: Props) => {
   const [htmlLabels, setHtmlLabels] = React.useState<string[]>([]);
 
   const loadData = () => {
     const promises: Promise<any>[] = [];
     promises.push(checkin());
-    if (CachedData.printer?.ipAddress) {print();}
+    if (CachedData.printer?.ipAddress) { print(); }
     //print();
 
     Promise.all(promises).then(() => {
-      if (!CachedData.printer?.ipAddress) {startOver();}
+      if (!CachedData.printer?.ipAddress) { startOver(); }
     });
   };
 
@@ -38,7 +38,7 @@ interface Props { navigation: screenNavigationProps; }
 
   const print = async () => LabelHelper.getAllLabels().then(async (labels) => {
     setHtmlLabels(labels);
-    if (labels.length === 0) {startOver();}
+    if (labels.length === 0) { startOver(); }
   });
 
   const timeout = (ms: number) => new Promise(resolve => setTimeout(() => { resolve(null); }, ms));
@@ -47,17 +47,18 @@ interface Props { navigation: screenNavigationProps; }
     const peopleIds: number[] = ArrayHelper.getUniqueValues(CachedData.householdMembers, "id");
     const url = "/visits/checkin?serviceId=" + CachedData.serviceId + "&peopleIds=" + escape(peopleIds.join(","));
     return ApiHelper.post(url, CachedData.pendingVisits, "AttendanceApi").then(data => {
-      console.log(data)
+      console.log("Checkin Complete")
+      //console.log(data)
       // AppCenterHelper.trackEvent("Checkin Complete");
-      router.navigate('/checkinComplete')
+      //router.navigate('/checkinComplete')
       // props.navigation.navigate("CheckinComplete");
     });
   };
 
 
   const getLabelView = () => {
-    if (htmlLabels?.length > 0) {return (<PrintUI htmlLabels={htmlLabels} onPrintComplete={startOver} />);}
-    else {return <></>;}
+    if (htmlLabels?.length > 0) { return (<PrintUI htmlLabels={htmlLabels} onPrintComplete={startOver} />); }
+    else { return <></>; }
   };
 
   React.useEffect(loadData, []);  //eslint-disable-line react-hooks/exhaustive-deps
