@@ -4,7 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { CommonActions } from "@react-navigation/native";
 import { screenNavigationProps, Styles, CachedData, Utilities, EnvironmentHelper } from "../src/helpers";
 import { ApiHelper, AppCenterHelper, ErrorHelper, LoginResponseInterface, PushNotificationHelper } from "@churchapps/mobilehelper";
-import { router, useRouter } from "expo-router"; 
+import { router, useRouter } from "expo-router";
 
 EnvironmentHelper.init();
 type Props = { navigation: screenNavigationProps; };
@@ -61,10 +61,10 @@ function Splash(props: Props) {
           router.replace("/selectChurch")
           return;
         }
-            router.replace("/selectChurch")
+        router.replace("/selectChurch")
         // props.navigation.dispatch(CommonActions.reset({ index: 0, routes: [{ name: "SelectChurch" }] }));
       }
-    });
+    }).catch(() => { redirectToLogin(); });
   };
 
   React.useEffect(loadData, []);  //eslint-disable-line react-hooks/exhaustive-deps
