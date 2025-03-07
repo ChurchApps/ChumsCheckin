@@ -1,16 +1,17 @@
 {
   "expo": {
-    "name": "ChumsCheckin_latest",
-    "slug": "ChumsCheckin_latest",
-    "version": "1.0.0",
+    "name": "Chums Checkin",
+    "slug": "chums-checkin",
+    "version": "1.30.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.vshalattri.ChumsCheckin-latest"
+    "extra": {
+      "eas": {
+        "projectId": "5fe08561-2d86-40b8-8a7d-a5e427711b13"
+      }
     },
     "android": {
       "adaptiveIcon": {

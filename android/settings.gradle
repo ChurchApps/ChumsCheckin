@@ -21,7 +21,7 @@ extensions.configure(com.facebook.react.ReactSettingsExtension) { ex ->
   }
 }
 
-rootProject.name = 'ChumsCheckin_latest'
+rootProject.name = 'ChumsCheckin'
 
 dependencyResolutionManagement {
   versionCatalogs {
