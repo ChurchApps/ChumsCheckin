@@ -19,6 +19,7 @@ function Splash(props: Props) {
   }, []);
 
   const loadData = () => {
+    FirebaseHelper.addAnalyticsEvent("splash Screen", "")
     // AppCenterHelper.trackEvent("Splash Screen"); 
     PushNotificationHelper.registerUserDevice("ChumsCheckin");
     setTimeout(access, 1000);

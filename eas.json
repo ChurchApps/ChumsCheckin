@@ -26,6 +26,7 @@
   "submit": {
     "GooglePlay": {
       "android": {
+        "serviceAccountKeyPath": "./google-service-account.json"
       }
     }, "Amazon": {
       "android": {
