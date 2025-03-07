@@ -8,9 +8,10 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "owner": "churchapps",
     "extra": {
       "eas": {
-        "projectId": "5fe08561-2d86-40b8-8a7d-a5e427711b13"
+        "projectId": "3e543eda-7610-49dc-b345-38234d7b9059"
       }
     },
     "android": {
