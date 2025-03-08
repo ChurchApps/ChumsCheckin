@@ -17,9 +17,9 @@ export class LabelHelper {
     return pickupCode;
   }
 
-  private static async readHtml(fileName: string) {
+  private static readHtml(fileName: string) {
     //*** IMPORTANT: This is reading from /android/app/src/main/assets rather than the /assets folder.  I'd like to change this but am not sure how. */
-    return await fs.readFileAssets("labels/" + fileName);
+    return fs.readFileAssets("labels/" + fileName);
   }
 
   private static replaceValues(html: string, visit: VisitInterface, childVisits: VisitInterface[], pickupCode: string) {
@@ -30,6 +30,7 @@ export class LabelHelper {
     result = result.replace(/\[Sessions\]/g, VisitSessionHelper.getDisplaySessions(visit.visitSessions || []).replace(/ ,/g, "<br/>"));
     result = result.replace(/\[PickupCode\]/g, (isChild) ? pickupCode : "");
     result = result.replace(/\[Allergies\]/g, (person.nametagNotes) ? person.nametagNotes : "");
+    //console.log(result);
     return result;
   }
 

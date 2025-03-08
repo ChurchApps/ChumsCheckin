@@ -1,4 +1,4 @@
-package org.chums.checkin.printProviders;
+package  org.chums.checkin.printProviders;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -6,8 +6,8 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
-import org.chums.checkin.PrintHandHelper;
-import org.chums.checkin.PrinterHelper;
+import  org.chums.checkin.PrintHandHelper;
+import  org.chums.checkin.PrinterHelper;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -26,8 +26,8 @@ import com.brother.sdk.lmprinter.OpenChannelError;
 import com.brother.sdk.lmprinter.PrinterDriver;
 import com.brother.sdk.lmprinter.PrinterDriverGenerateResult;
 import com.brother.sdk.lmprinter.PrinterDriverGenerator;
-import com.microsoft.appcenter.AppCenter;
-import com.microsoft.appcenter.analytics.Analytics;
+// import com.microsoft.appcenter.AppCenter;
+// import com.microsoft.appcenter.analytics.Analytics;
 
 
 public class BrotherProvider implements PrintProviderInterface {
@@ -37,12 +37,14 @@ public class BrotherProvider implements PrintProviderInterface {
     private static String printerModel = "QL-1110NWB";
 
     public String[] scan() {
+      
         //return new String[]{"192.168.1.2", "192.168.1.3"};
 
         List<String> result = new ArrayList<>();
         Printer printers = new Printer();
         String[] models = new String[]{"QL-1100", "QL-1110NWB", "QL-580N", "QL-710W", "QL-720NW", "QL-800", "QL-810W", "QL-820NWB", "QL-1115NWB"};
         NetPrinter[] printerList = printers.getNetPrinters(models);
+        //NetPrinter[] printerList = printers.getNetPrinters(new String[]{});
 
         for (NetPrinter printer: printerList) {
             result.add(printer.modelName + "~" + printer.ipAddress);

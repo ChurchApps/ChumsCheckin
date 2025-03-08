@@ -1,4 +1,4 @@
-package org.chums.checkin;
+package  org.chums.checkin;
 
 import android.content.Context;
 import android.graphics.Bitmap;
