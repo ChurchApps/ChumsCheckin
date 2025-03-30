@@ -60,7 +60,7 @@ function Splash(props: Props) {
           CachedData.userChurch = userChurch;
           userChurch.apis?.forEach(api => { ApiHelper.setPermissions(api.keyName || "", api.jwt, api.permissions); });
           // props.navigation.dispatch(CommonActions.reset({ index: 0, routes: [{ name: "Services" }] }));
-          router.replace("/selectChurch")
+          router.replace("/services")
           return;
         }
         router.replace("/selectChurch")
