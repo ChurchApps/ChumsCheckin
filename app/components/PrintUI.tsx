@@ -9,7 +9,7 @@ interface Props {
   onPrintComplete: () => void
 }
 
-  const PrintUI = (props: Props) => {
+const PrintUI = (props: Props) => {
   const shotRef = React.useRef(null);
   const [html, setHtml] = React.useState("");
 

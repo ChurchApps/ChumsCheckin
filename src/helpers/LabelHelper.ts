@@ -1,6 +1,5 @@
 import fs from "react-native-fs";
 import { CachedData } from "./CachedData";
-import { Utilities } from "./Utilities";
 import { VisitSessionHelper } from "./VisitSessionHelper";
 import { VisitInterface, PersonInterface, ServiceTimeInterface, GroupInterface, ArrayHelper } from "@churchapps/mobilehelper";
 

@@ -1,10 +1,10 @@
 import * as React from "react";
 import { View, StyleSheet, Button } from "react-native";
 
- function ErrorFallback(props: any) {
+function ErrorFallback(props: any) {
   return (
     <View style={[styles.container]}>
-        <Button title="try Again" onPress={props.resetErrorBoundary} />
+      <Button title="try Again" onPress={props.resetErrorBoundary} />
     </View>
   );
 }

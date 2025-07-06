@@ -1,9 +1,7 @@
 import React from "react";
 import { View, Image, StatusBar, Text, NativeModules, NativeEventEmitter, Platform, Dimensions } from "react-native";
 import Ripple from "react-native-material-ripple";
-import { CachedData, screenNavigationProps, Styles } from "../../src/helpers";
-import { DimensionHelper } from "@churchapps/mobilehelper";
-import { routeToScreen } from "expo-router/build/useScreens";
+import { CachedData, screenNavigationProps, Styles, DimensionHelper } from "../../src/helpers";
 import { router } from "expo-router";
 
 
@@ -20,10 +18,10 @@ const Header = (props: Props) => {
   let eventEmitter: NativeEventEmitter;
 
   const handleClick = () => {
-    router.navigate('/printers')
+    router.navigate("/printers")
     // props.navigation?.navigate("/printers");
   };
-  
+
   const receiveNativeStatus = (receivedStatus: string) => { setStatus(receivedStatus); };
 
   const init = () => {

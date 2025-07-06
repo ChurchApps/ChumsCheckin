@@ -10,7 +10,7 @@ import { VisitInterface, PersonInterface, VisitSessionInterface, ServiceTimeInte
 
 interface Props { navigation: screenNavigationProps, pendingVisits: VisitInterface[] }
 
-  const MemberList = (props: Props) => {
+const MemberList = (props: Props) => {
   const [selectedMemberId, setSelectedMemberId] = React.useState("");
   const [dimension, setDimension] = React.useState(Dimensions.get("window"));
 

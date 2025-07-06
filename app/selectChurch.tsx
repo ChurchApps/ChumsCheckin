@@ -38,7 +38,7 @@ function SelectChurch() {
     // navigation.dispatch(CommonActions.reset({ index: 0, routes: [{ name: "Services" }] }));
 
     router.replace("/services"); // Navigate using expo-router
-    // router.push({ pathname: "/services", params: { selectedChurchId: userChurch.church.id } }); 
+    // router.push({ pathname: "/services", params: { selectedChurchId: userChurch.church.id } });
 
   };
 

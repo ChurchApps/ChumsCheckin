@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, ActivityIndicator, ScrollView, PixelRatio, Dimensions, SafeAreaView, TouchableOpacity, Linking, } from "react-native";
+import { View, Text, TextInput, ActivityIndicator, PixelRatio, Dimensions } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Utilities, screenNavigationProps, Styles, StyleConstants } from "../src/helpers";
-import { ApiHelper, DimensionHelper, FirebaseHelper, LoginResponseInterface, Utils } from "@churchapps/mobilehelper";
+import { Utilities, screenNavigationProps, Styles, StyleConstants, DimensionHelper, Utils } from "../src/helpers";
+import { ApiHelper, FirebaseHelper, LoginResponseInterface } from "@churchapps/mobilehelper";
 import Fontisto from "@expo/vector-icons/Fontisto";
 import Ripple from "react-native-material-ripple";
 import Header from "./components/Header";
@@ -37,7 +37,7 @@ function Login(props: Props) {
           setEmail("");
           setPassword("");
           // AppCenterHelper.trackEvent("Login success", { email: email });
-          router.replace('/selectChurch')
+          router.replace("/selectChurch")
           // props.navigation.dispatch(CommonActions.reset({ index: 0, routes: [{ name: "SelectChurch" }] }));
         }
       }).catch((error) => {
@@ -77,7 +77,7 @@ function Login(props: Props) {
         <View style={Styles.privacyPolicyView}>
           <Text style={{ ...Styles.H2, width: wd("90%") }}>By clicking on Login, I confirm that I have read the <Text style={{ color: StyleConstants.baseColor }} onPress={() => {
             // props.navigation.navigate("PrivacyPolicy")
-            router.navigate('/privacyPolicy')
+            router.navigate("/privacyPolicy")
           }}    >privacy policy.</Text>
           </Text>
         </View>

@@ -2,15 +2,14 @@ import React, { useEffect } from "react";
 import { Image, TouchableOpacity, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { CommonActions } from "@react-navigation/native";
-import { screenNavigationProps, Styles, CachedData, Utilities, EnvironmentHelper } from "../src/helpers";
-import { ApiHelper, AppCenterHelper, ErrorHelper, FirebaseHelper, LoginResponseInterface, PushNotificationHelper } from "@churchapps/mobilehelper";
-import { router, useRouter } from "expo-router";
+import { screenNavigationProps, CachedData, EnvironmentHelper } from "../src/helpers";
+import { ApiHelper, ErrorHelper, FirebaseHelper, LoginResponseInterface, PushNotificationHelper } from "@churchapps/mobilehelper";
+import { useRouter } from "expo-router";
 
 EnvironmentHelper.init();
-type Props = { navigation: screenNavigationProps; };
 
-function Splash(props: Props) {
-  console.log('Callleed')
+function Splash() {
+  console.log("Callleed")
   const router = useRouter()
 
   useEffect(() => {
@@ -20,7 +19,6 @@ function Splash(props: Props) {
 
   const loadData = () => {
     FirebaseHelper.addAnalyticsEvent("splash Screen", "")
-    // AppCenterHelper.trackEvent("Splash Screen"); 
     PushNotificationHelper.registerUserDevice("ChumsCheckin");
     setTimeout(access, 1000);
   };
@@ -47,7 +45,7 @@ function Splash(props: Props) {
     // console.log("login")
     // Replace the current route stack with the "login" route.
     // route.replace('/Login');
-    router.replace('/login')
+    router.replace("/login")
   };
 
   const attemptLogin = (email: string, password: string, churchId: string) => {
@@ -73,10 +71,10 @@ function Splash(props: Props) {
 
   return (
     <View>
-      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ justifyContent: "center", alignItems: "center" }}>
         <TouchableOpacity onPress={() => {
           console.log("onpresss")
-          router.replace('/login');
+          router.replace("/login");
         }}>
           <Image source={require("../src/images/logo1.png")} style={{ width: 400, height: 400 }} resizeMode="contain" />
         </TouchableOpacity>
@@ -87,4 +85,5 @@ function Splash(props: Props) {
 
 };
 
-export default Splash
+export default Splash;
+

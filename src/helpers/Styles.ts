@@ -1,6 +1,5 @@
-import { DimensionHelper } from "@churchapps/mobilehelper";
+import { DimensionHelper } from "./DimensionHelper";
 import { StyleSheet, Dimensions } from "react-native";
-import PrivacyPolicy from "../screens/PrivacyPolicy";
 
 export class StyleConstants {
   static deviceWidth = Dimensions.get("window").width;
@@ -55,7 +54,7 @@ export const Styles = StyleSheet.create({
   flatlistDropIcon: { fontSize: DimensionHelper.wp("6%"), color: StyleConstants.grayColor, marginLeft: DimensionHelper.wp("3%") },
   inputIcon: { width: DimensionHelper.wp("4.5%"), height: DimensionHelper.wp("4.5%"), margin: DimensionHelper.wp("3%") },
   privacyIcon: { width: DimensionHelper.wp("4.5%"), height: DimensionHelper.wp("4.5%"),marginRight:DimensionHelper.wp("2%") },
-  privacyPolicyView:{flexDirection:'row', alignItems: 'center'},
+  privacyPolicyView:{flexDirection:"row", alignItems: "center"},
   //Buttons
   button: { backgroundColor: StyleConstants.baseColor, marginVertical: "8%", height: 50, justifyContent: "center", flexDirection: "row", },
   buttonText: { alignSelf: "center", color: StyleConstants.whiteColor, fontSize: StyleConstants.smallerFont },
@@ -66,7 +65,7 @@ export const Styles = StyleSheet.create({
   blockButtons: { height: StyleConstants.deviceWidth * 0.13, width: "100%", flexDirection: "row" },
   blockButton: { backgroundColor: StyleConstants.baseColor1, justifyContent: "center", flex: 1, alignContent: "center", flexDirection: "row" },
   blockButtonText: { color: StyleConstants.whiteColor, fontSize: StyleConstants.smallFont, marginTop: (StyleConstants.deviceWidth * 0.13 - StyleConstants.smallFont) * 0.5 },
- 
+
 
   //Splash
   splashMaincontainer: { alignItems: "center", justifyContent: "center", flex: 1, paddingTop:DimensionHelper.hp("45%") },

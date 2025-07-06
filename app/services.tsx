@@ -3,7 +3,7 @@ import { Text, FlatList, ActivityIndicator, SafeAreaView, Dimensions, PixelRatio
 import Ripple from "react-native-material-ripple";
 import Header from "./components/Header";
 import { screenNavigationProps, CachedData, Styles, StyleConstants, Utilities } from "../src/helpers";
-import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper, FirebaseHelper, GroupInterface, GroupServiceTimeInterface } from "@churchapps/mobilehelper";
+import { ApiHelper, ArrayHelper, DimensionHelper, FirebaseHelper, GroupInterface, GroupServiceTimeInterface } from "@churchapps/mobilehelper";
 import { router } from "expo-router";
 
 interface Props { navigation: screenNavigationProps }
@@ -15,7 +15,6 @@ const Services = (props: Props) => {
 
   const loadData = () => {
     setIsLoading(true);
-    // AppCenterHelper.trackEvent("Services Screen");
     ApiHelper.get("/services", "AttendanceApi").then(data => {
       setServices(data); setIsLoading(false);
     });
@@ -55,7 +54,7 @@ const Services = (props: Props) => {
       console.log(JSON.stringify(CachedData.serviceTimes));
 
 
-      router.navigate('/lookup')
+      router.navigate("/lookup")
       setIsLoading(false);
     });
 

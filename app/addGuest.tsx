@@ -1,18 +1,15 @@
 import React from "react";
 import { TextInput, View, Text, ScrollView } from "react-native";
 import Ripple from "react-native-material-ripple";
-import { screenNavigationProps, CachedData, Styles, StyleConstants } from "../src/helpers";
-import { ApiHelper , AppCenterHelper, FirebaseHelper, PersonInterface, Utils } from "@churchapps/mobilehelper";
+import { screenNavigationProps, CachedData, Styles, StyleConstants, Utils } from "../src/helpers";
+import { ApiHelper, PersonInterface } from "@churchapps/mobilehelper";
 import Header from "./components/Header";
-import { router } from "expo-router";
 import { useRouter ,useLocalSearchParams} from "expo-router";
 
 
-interface Props { navigation: screenNavigationProps }
 
-const AddGuest = (props: Props) => {
+const AddGuest = () => {
   const router = useRouter();
-  const params = useLocalSearchParams(); // ✅ Retrieve route parameters
 
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
@@ -25,8 +22,8 @@ const AddGuest = (props: Props) => {
       // AppCenterHelper.trackEvent("Add Guest", { name: firstName + " " + lastName });
       CachedData.householdMembers.push(person);
       // props.navigation.navigate("Household");
-      router.push("/household"); 
-      // router.push({ pathname: "/household", params: { householdId: params.householdId || CachedData.householdId } });     
+      router.push("/household");
+      // router.push({ pathname: "/household", params: { householdId: params.householdId || CachedData.householdId } });
     });}
     // router.push({ pathname: "/household", params: { householdId: params.householdId || CachedData.householdId } });
   };

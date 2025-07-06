@@ -1,3 +1,3 @@
-export { Header } from "./Header";
-export { MemberList } from "./MemberList";
-export { MemberServiceTimes } from "./MemberServiceTimes";
+export { default as Header } from "./Header";
+export { default as MemberList } from "./MemberList";
+export { default as MemberServiceTimes } from "./MemberServiceTimes";

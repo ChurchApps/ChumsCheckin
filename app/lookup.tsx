@@ -54,7 +54,7 @@ const Lookup = (props: Props) => {
       return;
     }
 
-    const cleanedPhone = phone.replace(/\D/g, '');
+    const cleanedPhone = phone.replace(/\D/g, "");
     if (phone === "") { Utils.snackBar("Please enter phone number or last four digits"); }
     else {
       Keyboard.dismiss();

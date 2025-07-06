@@ -62,7 +62,7 @@ const SelectGroup = (props: any) => {
   //   const serviceTimeId = props.route.params.serviceTime.id || "";
   //   VisitSessionHelper.setValue(vs, serviceTimeId, id, name);
   //   // props.navigation.goBack();
-  //   router.back();  
+  //   router.back();
   // };
 
   const selectGroup = (id: string, name: string) => {

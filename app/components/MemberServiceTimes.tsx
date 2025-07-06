@@ -8,18 +8,18 @@ import { router } from "expo-router";
 
 interface Props { person: PersonInterface, selectedMemberId: string, navigation: screenNavigationProps, pendingVisits: VisitInterface[] }
 
-  const MemberServiceTimes = (props: Props) => {
+const MemberServiceTimes = (props: Props) => {
 
-    const handleServiceTimeClick = (serviceTime: any, person: any) => { 
-      router.navigate({
-        pathname: '/selectGroup',
-        params: { 
-          personId: person.id || "", 
-          serviceTime: JSON.stringify(serviceTime) 
-        }
-      });
-      
-    };
+  const handleServiceTimeClick = (serviceTime: any, person: any) => {
+    router.navigate({
+      pathname: "/selectGroup",
+      params: {
+        personId: person.id || "",
+        serviceTime: JSON.stringify(serviceTime)
+      }
+    });
+
+  };
 
   const getExpandedRow = (serviceTime: ServiceTimeInterface, visitSessions: VisitSessionInterface[]) => {
     const stSessions = VisitSessionHelper.getByServiceTimeId(visitSessions, serviceTime.id || "");

@@ -9,7 +9,7 @@ import { AvailablePrinter, CachedData, screenNavigationProps, Styles } from "../
 import { DimensionHelper, FirebaseHelper } from "@churchapps/mobilehelper";
 import Header from "./components/Header";
 import PrintUI from "./components/PrintUI";
-import RNRestart from 'react-native-restart';
+import RNRestart from "react-native-restart";
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Household">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
@@ -104,7 +104,7 @@ const Printers = (props: Props) => {
       <View style={[Styles.blockButtons]}>
         <Ripple style={[Styles.blockButton]} onPress={() => {
           saveSelectedPrinter();
-          // CodePush.restartApp(); 
+          // CodePush.restartApp();
           RNRestart.Restart();
         }}><Text style={Styles.blockButtonText}>Done</Text></Ripple>
       </View>

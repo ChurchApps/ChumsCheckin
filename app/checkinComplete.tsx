@@ -1,15 +1,13 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { screenNavigationProps, CachedData, LabelHelper, Styles, StyleConstants } from "../src/helpers";
+import { screenNavigationProps, CachedData, LabelHelper, Styles, StyleConstants, DimensionHelper } from "../src/helpers";
 import { FontAwesome } from "@expo/vector-icons";
-import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper, FirebaseHelper } from "@churchapps/mobilehelper";
+import { ApiHelper, ArrayHelper, FirebaseHelper } from "@churchapps/mobilehelper";
 import PrintUI from "./components/PrintUI";
 import Header from "./components/Header";
 import { router } from "expo-router";
 
-interface Props { navigation: screenNavigationProps; }
-
-const CheckinComplete = (props: Props) => {
+const CheckinComplete = () => {
   const [htmlLabels, setHtmlLabels] = React.useState<string[]>([]);
 
   const loadData = () => {
@@ -33,7 +31,7 @@ const CheckinComplete = (props: Props) => {
 
   const redirectToLookup = () => {
     timeout(500).then(() => {
-      router.replace('/lookup')
+      router.replace("/lookup")
     });
   };
 
@@ -47,7 +45,7 @@ const CheckinComplete = (props: Props) => {
   const checkin = async () => {
     const peopleIds: number[] = ArrayHelper.getUniqueValues(CachedData.householdMembers, "id");
     const url = "/visits/checkin?serviceId=" + CachedData.serviceId + "&peopleIds=" + escape(peopleIds.join(","));
-    return ApiHelper.post(url, CachedData.pendingVisits, "AttendanceApi").then(data => {
+    return ApiHelper.post(url, CachedData.pendingVisits, "AttendanceApi").then(() => {
       console.log("Checkin Complete")
       //console.log(data)
       // AppCenterHelper.trackEvent("Checkin Complete");
