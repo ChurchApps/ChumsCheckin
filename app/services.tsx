@@ -100,39 +100,16 @@ const Services = (props: Props) => {
     }
   };
 
-  const getLogoUrl = () => {
-    if (CachedData.churchAppearance?.logoLight) {
-      return { uri: CachedData.churchAppearance?.logoLight };
-    }
-    else { return require("../src/images/logo1.png"); }
-  };
-
   React.useEffect(loadData, []);
 
   return (
     <View style={serviceStyles.container}>
-      <Header navigation={props.navigation} logo={false} />
-
-      {/* Professional Header Section with Prominent Logo */}
-      <View style={serviceStyles.headerSection}>
-        {/* Prominent Church Logo in White Box */}
-        <View style={serviceStyles.logoContainer}>
-          <Image source={getLogoUrl()} style={serviceStyles.prominentLogo} />
-        </View>
-        
-        {/* Header Text Below Logo */}
-        <View style={serviceStyles.headerTextContainer}>
-          <View style={serviceStyles.titleRow}>
-            <View style={serviceStyles.titleIconContainer}>
-              <Text style={serviceStyles.titleIcon}>🏛️</Text>
-            </View>
-            <View style={serviceStyles.titleTextContainer}>
-              <Text style={serviceStyles.headerTitle}>Select a Service</Text>
-              <Text style={serviceStyles.headerSubtitle}>Choose which service you'd like to check in for</Text>
-            </View>
-          </View>
-        </View>
-      </View>
+      <Header 
+        navigation={props.navigation} 
+        prominentLogo={true}
+        title="Select a Service"
+        subtitle="Choose which service you'd like to check in for"
+      />
 
       {/* Main Content */}
       <View style={serviceStyles.mainContent}>
@@ -147,88 +124,6 @@ const serviceStyles = {
   container: {
     flex: 1,
     backgroundColor: StyleConstants.ghostWhite
-  },
-  
-  // Header Section (Blue background with prominent logo)
-  headerSection: {
-    backgroundColor: StyleConstants.baseColor, // Dark blue #1565C0
-    paddingHorizontal: DimensionHelper.wp("5%"),
-    paddingTop: DimensionHelper.wp("6%"),
-    paddingBottom: DimensionHelper.wp("5%"),
-    borderBottomLeftRadius: DimensionHelper.wp("8%"),
-    borderBottomRightRadius: DimensionHelper.wp("8%"),
-    marginBottom: DimensionHelper.wp("2%"),
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 8,
-    elevation: 5,
-    shadowColor: StyleConstants.baseColor,
-    alignItems: "center"
-  },
-  
-  // Prominent White Box for Logo within Blue Header
-  logoContainer: {
-    backgroundColor: StyleConstants.whiteColor,
-    borderRadius: 12,
-    width: DimensionHelper.wp("70%"), // 70% of blue box width
-    height: DimensionHelper.wp("16%"),
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: DimensionHelper.wp("4%"),
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 6,
-    elevation: 4
-  },
-  
-  prominentLogo: {
-    width: DimensionHelper.wp("65%"), // Slightly smaller than container for padding
-    height: DimensionHelper.wp("14%"),
-    resizeMode: "contain"
-  },
-  
-  headerTextContainer: {
-    width: "100%"
-  },
-  
-  titleRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%"
-  },
-  
-  titleIconContainer: {
-    backgroundColor: "rgba(255,255,255,0.2)",
-    borderRadius: 8,
-    width: DimensionHelper.wp("10%"),
-    height: DimensionHelper.wp("10%"),
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: DimensionHelper.wp("3%")
-  },
-  
-  titleIcon: {
-    fontSize: DimensionHelper.wp("5%")
-  },
-  
-  titleTextContainer: {
-    flex: 1
-  },
-  
-  headerTitle: {
-    fontSize: DimensionHelper.wp("5.5%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    fontWeight: "600",
-    color: StyleConstants.whiteColor,
-    marginBottom: DimensionHelper.wp("1%"),
-    textAlign: "left"
-  },
-  
-  headerSubtitle: {
-    fontSize: DimensionHelper.wp("3.8%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    color: "rgba(255,255,255,0.9)",
-    textAlign: "left"
   },
   
   // Main Content
