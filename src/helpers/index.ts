@@ -18,5 +18,4 @@ export { FirebaseAnalyticsHelper } from "./FirebaseAnalyticsHelper";
 export { FirebaseHelper } from "./FirebaseHelper";
 export { DeviceInfo } from "./DeviceInfo";
 export { PushNotificationHelper, pushEventBus } from "./PushNotificationHelper";
-export { StyleConstants } from "./StyleConstants";
 export { Utils } from "./Utils";

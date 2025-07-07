@@ -78,7 +78,9 @@ const Header = (props: Props) => {
       <Ripple style={Styles.printerStatus} onPress={() => { handleClick(); }}>
         <Text style={{ backgroundColor: "#09A1CD", color: "#FFF" }}>{getVersion()} - {status}</Text>
       </Ripple>
-      <Image source={getLogoUrl()} style={[Styles.headerLogoIcon, landscape && { maxHeight: "40%", top: "10%" }]} />
+      {props.logo !== false && (
+        <Image source={getLogoUrl()} style={[Styles.headerLogoIcon, landscape && { maxHeight: "40%", top: "10%" }]} />
+      )}
     </View>
   );
 };
