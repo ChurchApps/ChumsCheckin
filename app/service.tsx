@@ -1,9 +1,9 @@
 import React from "react";
 import { Text, FlatList, ActivityIndicator, SafeAreaView, Dimensions, PixelRatio, ScrollView, View } from "react-native";
 import Ripple from "react-native-material-ripple";
-import Header from "./components/Header";
+import Header from "../src/components/Header";
 import { screenNavigationProps, CachedData, Styles, StyleConstants, Utilities } from "../src/helpers";
-import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper, FirebaseHelper, GroupInterface, GroupServiceTimeInterface } from "@churchapps/mobilehelper";
+import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper, FirebaseHelper, GroupInterface, GroupServiceTimeInterface } from "../src/helpers";
 
 interface Props { navigation: screenNavigationProps }
 

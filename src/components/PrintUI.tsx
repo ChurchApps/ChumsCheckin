@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, NativeModules } from "react-native";
 import { WebView } from "react-native-webview";
 import ViewShot, { captureRef } from "react-native-view-shot";
-import { Styles } from "../../src/helpers";
+import { Styles } from "../helpers";
 
 interface Props {
   htmlLabels: string[],
@@ -39,7 +39,9 @@ interface Props {
       setPrintIndex(printIndex + 1);
       setUris(urisCopy);
     } else {
-      NativeModules.PrinterHelper.printUris(urisCopy.toString());
+      if (NativeModules.PrinterHelper) {
+        NativeModules.PrinterHelper.printUris(urisCopy.toString());
+      }
       resetPrint();
       props.onPrintComplete();
     }

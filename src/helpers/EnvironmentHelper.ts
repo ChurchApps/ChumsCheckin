@@ -1,4 +1,4 @@
-import { ApiHelper } from "@churchapps/mobilehelper";
+import { ApiHelper } from "./ApiHelper";
 
 
 let CONTENT_ROOT = 'https://content.staging.churchapps.org'
@@ -21,8 +21,8 @@ export class EnvironmentHelper {
       default: EnvironmentHelper.initDev(); break;
     }
     ApiHelper.apiConfigs = [
-      { keyName: "MembershipApi", url: EnvironmentHelper.MembershipApi, jwt: "", permisssions: [] },
-      { keyName: "AttendanceApi", url: EnvironmentHelper.AttendanceApi, jwt: "", permisssions: [] },
+      { keyName: "MembershipApi", url: EnvironmentHelper.MembershipApi, jwt: "", permissions: [] },
+      { keyName: "AttendanceApi", url: EnvironmentHelper.AttendanceApi, jwt: "", permissions: [] },
     ];
   };
 

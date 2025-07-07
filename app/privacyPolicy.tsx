@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import React, { useEffect } from 'react'
 import WebView from 'react-native-webview'
-import { FirebaseHelper } from '@churchapps/mobilehelper';
+import { FirebaseHelper } from '../src/helpers';
 
 const PrivacyPolicy = () => {
   FirebaseHelper.addOpenScreenEvent("Privacy");

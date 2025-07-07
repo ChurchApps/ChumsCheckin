@@ -5,8 +5,8 @@ import Ripple from "react-native-material-ripple";
 // import { CommonActions } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import { StyleConstants, Styles, CachedData, screenNavigationProps, Utilities } from "../src/helpers";
-import { ApiHelper, AppCenterHelper, DimensionHelper, FirebaseHelper, LoginUserChurchInterface } from "@churchapps/mobilehelper";
-import Header from "./components/Header";
+import { ApiHelper, AppCenterHelper, DimensionHelper, FirebaseHelper, LoginUserChurchInterface } from "../src/helpers";
+import Header from "../src/components/Header";
 
 // interface Props {
 //   navigation: screenNavigationProps

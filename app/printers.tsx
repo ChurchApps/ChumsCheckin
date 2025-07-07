@@ -3,12 +3,12 @@ import { View, Text, NativeModules, FlatList, PixelRatio, Dimensions, Alert } fr
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ripple from "react-native-material-ripple";
 import { RouteProp } from "@react-navigation/native";
-import { ScreenList } from "./screenList";
+import { ScreenList } from "../src/screenList";
 import { AvailablePrinter, CachedData, screenNavigationProps, Styles } from "../src/helpers";
 // import CodePush from "react-native-code-push";
-import { DimensionHelper, FirebaseHelper } from "@churchapps/mobilehelper";
-import Header from "./components/Header";
-import PrintUI from "./components/PrintUI";
+import { DimensionHelper, FirebaseHelper } from "../src/helpers";
+import Header from "../src/components/Header";
+import PrintUI from "../src/components/PrintUI";
 import RNRestart from 'react-native-restart';
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Household">;
@@ -23,19 +23,21 @@ const Printers = (props: Props) => {
   const init = async () => {
     FirebaseHelper.addOpenScreenEvent("Printers");
     console.log("Scanning")
-    NativeModules.PrinterHelper.scan().then((data: string) => {
-      console.log("Scan callback", data)
-      const items = data.split(",");
-      let result: AvailablePrinter[] = [];
-      items.forEach(item => {
-        if (item.length > 0) {
-          const splitItem = item.split("~");
-          result.push({ ipAddress: splitItem[1], model: splitItem[0] });
-        }
+    if (NativeModules.PrinterHelper) {
+      NativeModules.PrinterHelper.scan().then((data: string) => {
+        console.log("Scan callback", data)
+        const items = data.split(",");
+        let result: AvailablePrinter[] = [];
+        items.forEach(item => {
+          if (item.length > 0) {
+            const splitItem = item.split("~");
+            result.push({ ipAddress: splitItem[1], model: splitItem[0] });
+          }
+        });
+        result.push({ model: "No Printer", ipAddress: "No Printer" });
+        setPrinters(result);
       });
-      result.push({ model: "No Printer", ipAddress: "No Printer" });
-      setPrinters(result);
-    });
+    }
     return null;
 
   };
@@ -49,7 +51,9 @@ const Printers = (props: Props) => {
     console.log(JSON.stringify(CachedData.printer));
 
     //NativeModules.PrinterHelper.bind(receiveNativeStatus);
-    NativeModules.PrinterHelper.checkInit(CachedData.printer?.ipAddress || "", CachedData.printer?.model || "");
+    if (NativeModules.PrinterHelper) {
+      NativeModules.PrinterHelper.checkInit(CachedData.printer?.ipAddress || "", CachedData.printer?.model || "");
+    }
 
   };
 

@@ -1,4 +1,4 @@
-package  org.chums.checkin
+package org.chums.checkin
 
 import android.app.Application
 import android.content.res.Configuration

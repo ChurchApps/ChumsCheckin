@@ -3,10 +3,9 @@ import { View, Text, FlatList, Image, Dimensions, PixelRatio } from "react-nativ
 // import Icon from "react-native-vector-icons/FontAwesome";
 import { FontAwesome } from "@expo/vector-icons";
 import Ripple from "react-native-material-ripple";
-import { CachedData, EnvironmentHelper, screenNavigationProps, VisitHelper, Styles } from "../../src/helpers";
+import { CachedData, EnvironmentHelper, screenNavigationProps, VisitHelper, Styles, VisitInterface, PersonInterface, VisitSessionInterface, ServiceTimeInterface, GroupInterface, ArrayHelper, DimensionHelper } from "../helpers";
 // import { MemberServiceTimes } from "./MemberServiceTimes";
 import MemberServiceTimes from "./MemberServiceTimes";
-import { VisitInterface, PersonInterface, VisitSessionInterface, ServiceTimeInterface, GroupInterface, ArrayHelper, DimensionHelper } from "@churchapps/mobilehelper";
 
 interface Props { navigation: screenNavigationProps, pendingVisits: VisitInterface[] }
 

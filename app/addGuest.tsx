@@ -2,8 +2,8 @@ import React from "react";
 import { TextInput, View, Text, ScrollView } from "react-native";
 import Ripple from "react-native-material-ripple";
 import { screenNavigationProps, CachedData, Styles, StyleConstants } from "../src/helpers";
-import { ApiHelper , AppCenterHelper, FirebaseHelper, PersonInterface, Utils } from "@churchapps/mobilehelper";
-import Header from "./components/Header";
+import { ApiHelper, AppCenterHelper, FirebaseHelper, PersonInterface, Utils } from "../src/helpers";
+import Header from "../src/components/Header";
 import { router } from "expo-router";
 import { useRouter ,useLocalSearchParams} from "expo-router";
 

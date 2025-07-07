@@ -1,6 +1,6 @@
-import { DimensionHelper } from "@churchapps/mobilehelper";
+import { DimensionHelper } from "./DimensionHelper";
 import { StyleSheet, Dimensions } from "react-native";
-import PrivacyPolicy from "../screens/PrivacyPolicy";
+// import PrivacyPolicy from "../screens/PrivacyPolicy";
 
 export class StyleConstants {
   static deviceWidth = Dimensions.get("window").width;

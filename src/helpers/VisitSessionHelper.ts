@@ -1,4 +1,5 @@
-import { VisitSessionInterface, ServiceTimeInterface, GroupInterface, ArrayHelper } from "@churchapps/mobilehelper";
+import { VisitSessionInterface, ServiceTimeInterface, GroupInterface } from "./Interfaces";
+import { ArrayHelper } from "./ArrayHelper";
 import { CachedData } from "./CachedData";
 import { Utilities } from "./Utilities";
 

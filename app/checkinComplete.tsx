@@ -2,9 +2,9 @@ import React from "react";
 import { View, Text } from "react-native";
 import { screenNavigationProps, CachedData, LabelHelper, Styles, StyleConstants } from "../src/helpers";
 import { FontAwesome } from "@expo/vector-icons";
-import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper, FirebaseHelper } from "@churchapps/mobilehelper";
-import PrintUI from "./components/PrintUI";
-import Header from "./components/Header";
+import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper, FirebaseHelper } from "../src/helpers";
+import PrintUI from "../src/components/PrintUI";
+import Header from "../src/components/Header";
 import { router } from "expo-router";
 
 interface Props { navigation: screenNavigationProps; }

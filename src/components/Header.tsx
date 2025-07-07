@@ -1,8 +1,7 @@
 import React from "react";
 import { View, Image, StatusBar, Text, NativeModules, NativeEventEmitter, Platform, Dimensions } from "react-native";
 import Ripple from "react-native-material-ripple";
-import { CachedData, screenNavigationProps, Styles } from "../../src/helpers";
-import { DimensionHelper } from "@churchapps/mobilehelper";
+import { CachedData, screenNavigationProps, Styles, DimensionHelper } from "../helpers";
 import { routeToScreen } from "expo-router/build/useScreens";
 import { router } from "expo-router";
 
@@ -28,7 +27,7 @@ const Header = (props: Props) => {
 
   const init = () => {
     console.log(Platform.OS);
-    if (Platform.OS === "android") {
+    if (Platform.OS === "android" && NativeModules.PrinterHelper) {
       console.log("print", CachedData.printer);
       console.log(receiveNativeStatus);
 
@@ -70,7 +69,7 @@ const Header = (props: Props) => {
     if (CachedData.churchAppearance?.logoLight) {
       return { uri: CachedData.churchAppearance?.logoLight };
     }
-    else { return require("../../src/images/logo1.png"); }
+    else { return require("../images/logo1.png"); }
   };
 
   return (

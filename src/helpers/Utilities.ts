@@ -1,7 +1,7 @@
 
 // import { StackNavigationProp } from "@react-navigation/stack";
 
-import { ScreenList } from "@/app/screenList";
+import { ScreenList } from "../screenList";
 
 export type screenNavigationProps = {
   navigate: (screen: string, params?: object) => void;

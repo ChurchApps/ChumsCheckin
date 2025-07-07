@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { View, Text, TextInput, ActivityIndicator, ScrollView, PixelRatio, Dimensions, SafeAreaView, TouchableOpacity, Linking, } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Utilities, screenNavigationProps, Styles, StyleConstants } from "../src/helpers";
-import { ApiHelper, DimensionHelper, FirebaseHelper, LoginResponseInterface, Utils } from "@churchapps/mobilehelper";
+import { ApiHelper, DimensionHelper, FirebaseHelper, LoginResponseInterface, Utils } from "../src/helpers";
 import Fontisto from "@expo/vector-icons/Fontisto";
 import Ripple from "react-native-material-ripple";
-import Header from "./components/Header";
+import Header from "../src/components/Header";
 import { router } from "expo-router";
 
 interface Props { navigation: screenNavigationProps }

@@ -1,4 +1,4 @@
-import { VisitInterface } from "@churchapps/mobilehelper";
+import { VisitInterface } from "./Interfaces";
 
 export class VisitHelper {
 

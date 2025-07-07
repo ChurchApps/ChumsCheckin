@@ -4,7 +4,7 @@
 // import { RouteProp } from "@react-navigation/native";
 // import { ScreenList } from "./ScreenList";
 // import { screenNavigationProps, CachedData, Styles, Utilities, StyleConstants } from "../src/helpers";
-// import {  VisitInterface ,AppCenterHelper} from "@churchapps/mobilehelper";
+// import {  VisitInterface ,AppCenterHelper} from "../src/helpers";
 // import Header from "./components/Header";
 // import MemberList from "./components/MemberList";
 // import { useRouter, useLocalSearchParams } from "expo-router";
@@ -74,12 +74,12 @@ import Ripple from "react-native-material-ripple";
 import { RouteProp } from "@react-navigation/native";
 
 // import { Header, MemberList } from "./components";
-import Header from "./components/Header";
-import MemberList from "./components/MemberList";
+import Header from "../src/components/Header";
+import MemberList from "../src/components/MemberList";
 import { screenNavigationProps, CachedData, Styles, Utilities, StyleConstants } from "../src/helpers";
-import { AppCenterHelper, FirebaseHelper, VisitInterface } from "@churchapps/mobilehelper";
+import { AppCenterHelper, FirebaseHelper, VisitInterface } from "../src/helpers";
 import { router, useFocusEffect } from "expo-router";
-import { ScreenList } from "./screenList";
+import { ScreenList } from "../src/screenList";
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Household">;
 interface Props { navigation: screenNavigationProps; }

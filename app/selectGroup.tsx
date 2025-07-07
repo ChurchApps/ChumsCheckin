@@ -2,11 +2,11 @@ import React from "react";
 import { View, Text, FlatList } from "react-native";
 import Ripple from "react-native-material-ripple";
 import { RouteProp } from "@react-navigation/native";
-import { ScreenList } from "./screenList";
-import Header from "./components/Header";
+import { ScreenList } from "../src/screenList";
+import Header from "../src/components/Header";
 import { screenNavigationProps, VisitHelper, VisitSessionHelper, CachedData, Styles, StyleConstants, Utilities } from "../src/helpers";
 import { FontAwesome } from "@expo/vector-icons";
-import { AppCenterHelper, DimensionHelper, FirebaseHelper, GroupInterface } from "@churchapps/mobilehelper";
+import { AppCenterHelper, DimensionHelper, FirebaseHelper, GroupInterface } from "../src/helpers";
 import { useRouter, useLocalSearchParams } from "expo-router";
 
 

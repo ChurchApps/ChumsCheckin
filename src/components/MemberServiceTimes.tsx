@@ -1,9 +1,9 @@
 import React from "react";
 import { View, Text } from "react-native";
 import Ripple from "react-native-material-ripple";
-import { CachedData,  screenNavigationProps, VisitHelper, VisitSessionHelper, Styles, StyleConstants } from "../../src/helpers";
+import { CachedData,  screenNavigationProps, VisitHelper, VisitSessionHelper, Styles, StyleConstants } from "../helpers";
 import { FontAwesome } from "@expo/vector-icons";
-import { PersonInterface, VisitInterface, ServiceTimeInterface, VisitSessionInterface, GroupInterface, ArrayHelper, DimensionHelper } from "@churchapps/mobilehelper";
+import { PersonInterface, VisitInterface, ServiceTimeInterface, VisitSessionInterface, GroupInterface, ArrayHelper, DimensionHelper } from "../helpers";
 import { router } from "expo-router";
 
 interface Props { person: PersonInterface, selectedMemberId: string, navigation: screenNavigationProps, pendingVisits: VisitInterface[] }

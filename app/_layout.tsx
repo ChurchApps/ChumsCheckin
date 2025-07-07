@@ -11,17 +11,27 @@ SplashScreen.preventAutoHideAsync();
 
 function RootLayout() {
   const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
+  const [loaded, error] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
 
   useEffect(() => {
+    // Force hide splash screen after a timeout regardless of font loading
+    const timer = setTimeout(() => {
+      SplashScreen.hideAsync();
+    }, 2000);
+
     if (loaded) {
+      clearTimeout(timer);
       SplashScreen.hideAsync();
     }
+
+    return () => clearTimeout(timer);
   }, [loaded]);
 
-  if (!loaded) {
+  // Always render the content, even if fonts aren't loaded
+  if (!loaded && !error) {
+    // Show loading for a maximum of 2 seconds
     return null;
   }
 
@@ -45,4 +55,5 @@ function RootLayout() {
     </ThemeProvider>
   );
 }
-export default RootLayout
+
+export default RootLayout;
