@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Image, StatusBar, Text, NativeModules, NativeEventEmitter, Platform, Dimensions } from "react-native";
 import Ripple from "react-native-material-ripple";
-import { CachedData, screenNavigationProps, Styles, DimensionHelper } from "../helpers";
+import { CachedData, screenNavigationProps, Styles, StyleConstants, DimensionHelper } from "../helpers";
 import { routeToScreen } from "expo-router/build/useScreens";
 import { router } from "expo-router";
 
@@ -73,10 +73,13 @@ const Header = (props: Props) => {
   };
 
   return (
-    <View style={[Styles.headerLogoView, landscape && { maxHeight: props.logo ? "30%" : DimensionHelper.wp("50%") }]}>
-      <StatusBar backgroundColor="#08A1CD" />
+    <View style={[
+      props.logo !== false ? Styles.headerLogoView : { backgroundColor: "transparent" }, 
+      landscape && { maxHeight: props.logo ? "30%" : DimensionHelper.wp("50%") }
+    ]}>
+      <StatusBar backgroundColor={StyleConstants.baseColor} />
       <Ripple style={Styles.printerStatus} onPress={() => { handleClick(); }}>
-        <Text style={{ backgroundColor: "#09A1CD", color: "#FFF" }}>{getVersion()} - {status}</Text>
+        <Text style={{ backgroundColor: StyleConstants.baseColor, color: "#FFF" }}>{getVersion()} - {status}</Text>
       </Ripple>
       {props.logo !== false && (
         <Image source={getLogoUrl()} style={[Styles.headerLogoIcon, landscape && { maxHeight: "40%", top: "10%" }]} />

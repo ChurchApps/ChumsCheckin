@@ -47,7 +47,7 @@ export const Styles = StyleSheet.create({
   H2: { fontSize: StyleConstants.fontSize, alignSelf: "flex-start", marginVertical: "4%", fontFamily: StyleConstants.RobotoLight },
   headerImageView: { height: StyleConstants.deviceHeight * 24 / 100, width: "100%", backgroundColor: StyleConstants.whiteColor },
   headerImage: { maxWidth: StyleConstants.deviceWidth * 70 / 100, height: StyleConstants.deviceHeight * 20 / 100, alignSelf: "center" },
-  printerStatus: { backgroundColor: "#09A1CD", height: 30, justifyContent: "center", flexDirection: "row" },
+  printerStatus: { backgroundColor: StyleConstants.baseColor, height: 30, justifyContent: "center", flexDirection: "row" },
   content: { backgroundColor: StyleConstants.ghostWhite, paddingBottom: "5%", flex: 1, },
   label: { fontSize: StyleConstants.fontSize, alignSelf: "flex-start", marginVertical: "4%", fontFamily: StyleConstants.RobotoLight },
   textInput: { backgroundColor: StyleConstants.whiteColor, paddingHorizontal: "3%", fontSize: StyleConstants.smallFont, },
