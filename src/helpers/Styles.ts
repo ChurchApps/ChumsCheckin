@@ -13,8 +13,8 @@ export class StyleConstants {
   static smallerFont = StyleConstants.deviceWidth * 3.0 / 100;
 
   //Colors
-  static baseColor = "#24B8FE";
-  static baseColor1 = "#08A1CD";
+  static baseColor = "#1565C0";  // ChumsApp primary blue
+  static baseColor1 = "#568BDA"; // ChumsApp light blue (header color)
   static blueColor = "#2196F3";
   static darkColor = "#3c3c3c";
   static blackColor = "black";
@@ -27,6 +27,7 @@ export class StyleConstants {
   static cyanColor = "#1C9BA0";
   static darkPink = "	#FF69B4";
   static ghostWhite = "#F6F6F8";
+  static loginBackground = "#EEE"; // ChumsApp login background
 
   //Font
   static RobotoBold = "Roboto-Bold";
@@ -99,4 +100,85 @@ export const Styles = StyleSheet.create({
   //WhiteLogo
   headerLogoView: { borderBottomLeftRadius: DimensionHelper.wp("8%"), borderBottomRightRadius: DimensionHelper.wp("8%"), marginBottom: DimensionHelper.wp("2.5%"), backgroundColor: "white", shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.3, shadowRadius: DimensionHelper.wp("1.5%"), shadowColor: StyleConstants.blueColor, elevation: 5 },
   headerLogoIcon: { width:DimensionHelper.wp("100%"), height:DimensionHelper.hp(16), marginBottom: DimensionHelper.wp("2%"), marginTop: DimensionHelper.wp("4%"), resizeMode: "contain", alignSelf: "center" },
+
+  //Login Card Styles (Material UI inspired)
+  loginContainer: { 
+    flex: 1, 
+    backgroundColor: StyleConstants.loginBackground,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  loginCard: {
+    backgroundColor: StyleConstants.whiteColor,
+    borderRadius: 12,
+    width: DimensionHelper.wp("92%"),
+    maxWidth: 600,
+    padding: DimensionHelper.wp("7%"),
+    paddingVertical: DimensionHelper.wp("5%"),
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 5,
+    alignSelf: "center"
+  },
+  loginTitle: {
+    fontSize: DimensionHelper.wp("5%"),
+    fontFamily: StyleConstants.RobotoMedium,
+    fontWeight: "500",
+    color: StyleConstants.darkColor,
+    textAlign: "center",
+    marginBottom: DimensionHelper.wp("4%")
+  },
+  loginInputView: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "rgba(0, 0, 0, 0.12)",
+    marginBottom: DimensionHelper.wp("3%"),
+    paddingHorizontal: DimensionHelper.wp("3.5%"),
+    height: DimensionHelper.wp("12%")
+  },
+  loginInputIcon: {
+    marginRight: DimensionHelper.wp("2%"),
+    opacity: 0.6
+  },
+  loginInput: {
+    flex: 1,
+    fontSize: DimensionHelper.wp("4%"),
+    fontFamily: StyleConstants.RobotoRegular,
+    color: StyleConstants.darkColor
+  },
+  loginButton: {
+    backgroundColor: StyleConstants.baseColor,
+    borderRadius: 8,
+    height: DimensionHelper.wp("11%"),
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: DimensionHelper.wp("3%"),
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 3
+  },
+  loginButtonText: {
+    color: StyleConstants.whiteColor,
+    fontSize: DimensionHelper.wp("4.2%"),
+    fontFamily: StyleConstants.RobotoMedium,
+    textTransform: "none",
+    letterSpacing: 0.5
+  },
+  privacyText: {
+    fontSize: DimensionHelper.wp("3.2%"),
+    fontFamily: StyleConstants.RobotoRegular,
+    color: "rgba(0, 0, 0, 0.6)",
+    textAlign: "center",
+    marginTop: DimensionHelper.wp("3%"),
+    lineHeight: DimensionHelper.wp("4.5%")
+  },
+  privacyLink: {
+    color: StyleConstants.baseColor,
+    textDecorationLine: "underline"
+  }
 });

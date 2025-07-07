@@ -1,14 +1,17 @@
 import React, { useEffect } from "react";
 import { Image, TouchableOpacity, View, Text } from "react-native";
 import { router } from "expo-router";
+import { EnvironmentHelper } from "../src/helpers/EnvironmentHelper";
 
 export default function Splash() {
   console.log('Splash component called')
 
   useEffect(() => {
+    // Initialize API configuration
+    EnvironmentHelper.init();
+    
     // Redirect to login after 2 seconds for testing
     const timer = setTimeout(() => {
-      console.log('Redirecting to login...');
       router.replace('/login');
     }, 2000);
 

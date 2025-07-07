@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, ActivityIndicator, ScrollView, PixelRatio, Dimensions, SafeAreaView, TouchableOpacity, Linking, } from "react-native";
+import { View, Text, TextInput, ActivityIndicator, ScrollView, TouchableOpacity, KeyboardAvoidingView, Platform, Image } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Utilities, screenNavigationProps, Styles, StyleConstants } from "../src/helpers";
 import { ApiHelper, DimensionHelper, FirebaseHelper, LoginResponseInterface, Utils } from "../src/helpers";
 import Fontisto from "@expo/vector-icons/Fontisto";
-import Ripple from "react-native-material-ripple";
-import Header from "../src/components/Header";
 import { router } from "expo-router";
 
 interface Props { navigation: screenNavigationProps }
@@ -14,19 +12,12 @@ function Login(props: Props) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [dimension, setDimension] = useState(Dimensions.get("window"));
 
   const login = () => {
-
-    console.log("logni")
-
     if (email === "") { Utils.snackBar("Please enter your email address"); }
     else if (!Utilities.validateEmail(email)) { Utils.snackBar("Please enter valid email"); }
     else if (password === "") { Utils.snackBar("Please enter your password"); }
     else {
-      // router.replace("SelectChurch")
-      console.log("event")
-      // AppCenterHelper.trackEvent("Login attempt", { email: email });
       setIsLoading(true);
       ApiHelper.postAnonymous("/users/login", { email: email, password: password }, "MembershipApi").then((data: LoginResponseInterface) => {
         setIsLoading(false);
@@ -36,9 +27,7 @@ function Login(props: Props) {
           AsyncStorage.multiSet([["@Login", "true"], ["@Email", email], ["@Password", password], ["@UserChurches", JSON.stringify(churches)]]);
           setEmail("");
           setPassword("");
-          // AppCenterHelper.trackEvent("Login success", { email: email });
-          router.replace('/selectChurch')
-          // props.navigation.dispatch(CommonActions.reset({ index: 0, routes: [{ name: "SelectChurch" }] }));
+          router.replace('/selectChurch');
         }
       }).catch((error) => {
         setIsLoading(false);
@@ -49,46 +38,102 @@ function Login(props: Props) {
 
   React.useEffect(() => {
     FirebaseHelper.addOpenScreenEvent("Login");
-    Dimensions.addEventListener("change", () => {
-      const dim = Dimensions.get("screen");
-      setDimension(dim);
-    });
   }, []);
 
-  const wd = (number: string) => {
-    let givenWidth = typeof number === "number" ? number : parseFloat(number);
-    return PixelRatio.roundToNearestPixel((dimension.width * givenWidth) / 100);
-  };
-
   return (
-    <View style={{ flex: 1, backgroundColor: StyleConstants.ghostWhite }}>
-      <Header navigation={props.navigation} logo={true} />
-      <View style={Styles.mainContainer}>
-        <Text style={{ ...Styles.H1, marginTop: DimensionHelper.wp("6%") }}>Welcome.  Please Log in.</Text>
-        <View style={[Styles.textInputView, { width: wd("90%") }]}>
-          <Fontisto name={"email"} color={StyleConstants.baseColor} style={Styles.inputIcon} size={DimensionHelper.wp("4.5%")} />
-          <TextInput placeholder={"Email"} placeholderTextColor={"lightgray"} style={[Styles.textInputStyle, { width: wd("80%") }]} autoComplete="email" keyboardType="email-address" autoCapitalize="none" value={email} onChangeText={(value) => setEmail(value)} />
-        </View>
-        <View style={[Styles.textInputView, { width: wd("90%") }]}>
-          <Fontisto name={"key"} color={StyleConstants.baseColor} style={Styles.inputIcon} size={DimensionHelper.wp("4.5%")} />
-          <TextInput placeholder={"Password"} placeholderTextColor={"lightgray"} style={[Styles.textInputStyle, { width: wd("80%") }]} secureTextEntry={true} autoCapitalize="none" autoCorrect={false} keyboardType="default" value={password} onChangeText={(value) => { setPassword(value); }} />
-        </View>
+    <KeyboardAvoidingView 
+      style={Styles.loginContainer}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <ScrollView 
+        contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={Styles.loginCard}>
+          {/* Logo */}
+          <View style={{ alignItems: "center", marginBottom: DimensionHelper.wp("4%") }}>
+            <Image 
+              source={require("../src/images/logo1.png")} 
+              style={{ 
+                width: DimensionHelper.wp("28%"), 
+                height: DimensionHelper.wp("28%"), 
+                resizeMode: "contain",
+                marginBottom: DimensionHelper.wp("1%")
+              }} 
+            />
+            <Text style={{ fontSize: DimensionHelper.wp("3.2%"), fontFamily: StyleConstants.RobotoRegular, color: StyleConstants.grayColor }}>Check-in System</Text>
+          </View>
 
-        <View style={Styles.privacyPolicyView}>
-          <Text style={{ ...Styles.H2, width: wd("90%") }}>By clicking on Login, I confirm that I have read the <Text style={{ color: StyleConstants.baseColor }} onPress={() => {
-            // props.navigation.navigate("PrivacyPolicy")
-            router.navigate('/privacyPolicy')
-          }}    >privacy policy.</Text>
+          {/* Title */}
+          <Text style={Styles.loginTitle}>Welcome Back</Text>
+
+          {/* Email Input */}
+          <View style={Styles.loginInputView}>
+            <Fontisto 
+              name="email" 
+              color={StyleConstants.darkColor} 
+              size={DimensionHelper.wp("4.5%")} 
+              style={Styles.loginInputIcon}
+            />
+            <TextInput 
+              placeholder="Email" 
+              placeholderTextColor="rgba(0, 0, 0, 0.4)" 
+              style={Styles.loginInput} 
+              autoComplete="email" 
+              keyboardType="email-address" 
+              autoCapitalize="none" 
+              value={email} 
+              onChangeText={(value) => setEmail(value)} 
+            />
+          </View>
+
+          {/* Password Input */}
+          <View style={Styles.loginInputView}>
+            <Fontisto 
+              name="key" 
+              color={StyleConstants.darkColor} 
+              size={DimensionHelper.wp("4.5%")} 
+              style={Styles.loginInputIcon}
+            />
+            <TextInput 
+              placeholder="Password" 
+              placeholderTextColor="rgba(0, 0, 0, 0.4)" 
+              style={Styles.loginInput} 
+              secureTextEntry={true} 
+              autoCapitalize="none" 
+              autoCorrect={false} 
+              keyboardType="default" 
+              value={password} 
+              onChangeText={(value) => setPassword(value)} 
+            />
+          </View>
+
+          {/* Login Button */}
+          <TouchableOpacity 
+            style={Styles.loginButton} 
+            onPress={login}
+            activeOpacity={0.8}
+          >
+            {isLoading ? (
+              <ActivityIndicator size="small" color="#FFFFFF" />
+            ) : (
+              <Text style={Styles.loginButtonText}>Login</Text>
+            )}
+          </TouchableOpacity>
+
+          {/* Privacy Policy */}
+          <Text style={Styles.privacyText}>
+            By logging in, I confirm that I have read the{" "}
+            <Text 
+              style={Styles.privacyLink} 
+              onPress={() => router.navigate('/privacyPolicy')}
+            >
+              privacy policy
+            </Text>
           </Text>
         </View>
-
-
-        <Ripple style={[Styles.bigButton, { marginTop: DimensionHelper.wp("6%"), width: wd("90%") }]} onPress={login}>
-          <ActivityIndicator size="small" color="#FFFFFF" animating={isLoading} style={{ display: (isLoading) ? "flex" : "none" }} />
-          <Text style={[Styles.bigButtonText, { display: (isLoading) ? "none" : "flex" }]}>LOGIN</Text>
-        </Ripple>
-      </View>
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 export default Login
