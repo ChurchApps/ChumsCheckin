@@ -1,7 +1,12 @@
-import fs from "react-native-fs";
+import * as FileSystem from 'expo-file-system';
+import { Asset } from 'expo-asset';
 import { CachedData } from "./CachedData";
 import { VisitSessionHelper } from "./VisitSessionHelper";
 import { VisitInterface, PersonInterface, ServiceTimeInterface, GroupInterface, ArrayHelper } from "@churchapps/mobilehelper";
+
+// Static imports for label templates
+const labelTemplate = Asset.fromModule(require('../../assets/labels/1_1x3_5.html'));
+const pickupTemplate = Asset.fromModule(require('../../assets/labels/pickup_1_1x3_5.html'));
 
 export class LabelHelper {
 
@@ -16,9 +21,26 @@ export class LabelHelper {
     return pickupCode;
   }
 
-  private static readHtml(fileName: string) {
-    //*** IMPORTANT: This is reading from /android/app/src/main/assets rather than the /assets folder.  I'd like to change this but am not sure how. */
-    return fs.readFileAssets("labels/" + fileName);
+  private static async readHtml(fileName: string) {
+    try {
+      let asset: Asset;
+      if (fileName === "1_1x3_5.html") {
+        asset = labelTemplate;
+      } else if (fileName === "pickup_1_1x3_5.html") {
+        asset = pickupTemplate;
+      } else {
+        throw new Error(`Unknown template: ${fileName}`);
+      }
+      
+      await asset.downloadAsync();
+      if (asset.localUri) {
+        return await FileSystem.readAsStringAsync(asset.localUri);
+      }
+      throw new Error(`Asset not found: ${fileName}`);
+    } catch (error) {
+      console.error('Error reading HTML file:', error);
+      throw error;
+    }
   }
 
   private static replaceValues(html: string, visit: VisitInterface, childVisits: VisitInterface[], pickupCode: string) {

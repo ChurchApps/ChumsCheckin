@@ -3,8 +3,8 @@ import { View, Text } from "react-native";
 import { screenNavigationProps, CachedData, LabelHelper, Styles, StyleConstants, DimensionHelper } from "../src/helpers";
 import { FontAwesome } from "@expo/vector-icons";
 import { ApiHelper, ArrayHelper, FirebaseHelper } from "@churchapps/mobilehelper";
-import PrintUI from "./components/PrintUI";
-import Header from "./components/Header";
+import PrintUI from "../components/PrintUI";
+import Header from "../components/Header";
 import { router } from "expo-router";
 
 const CheckinComplete = () => {

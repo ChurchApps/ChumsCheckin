@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "bundler": "expo",
+    "platforms": ["android", "ios", "web"],
+    "dev": true,
+    "minify": false,
+    "watchman": false,
+    "assetBundlePatterns": [
+      "assets/**/*"
+    ]
+  }
+}

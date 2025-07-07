@@ -3,7 +3,7 @@ import { TextInput, View, Text, ScrollView } from "react-native";
 import Ripple from "react-native-material-ripple";
 import { screenNavigationProps, CachedData, Styles, StyleConstants, Utils } from "../src/helpers";
 import { ApiHelper, PersonInterface } from "@churchapps/mobilehelper";
-import Header from "./components/Header";
+import Header from "../components/Header";
 import { useRouter ,useLocalSearchParams} from "expo-router";
 
 

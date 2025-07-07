@@ -19,7 +19,7 @@ function Splash() {
 
   const loadData = () => {
     FirebaseHelper.addAnalyticsEvent("splash Screen", "")
-    PushNotificationHelper.registerUserDevice("ChumsCheckin");
+    // PushNotificationHelper.registerUserDevice("ChumsCheckin"); // Function not available in current version
     setTimeout(access, 1000);
   };
 

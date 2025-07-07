@@ -15,6 +15,13 @@ index.android.bundle
 node_modules/
 dist/
 
+# Windows temp files and permission issues
+node_modules/.bin/.acorn-*
+node_modules/.bin/.webpack-*
+node_modules/.bin/.*
+*.tmp
+*.temp
+
 # Compiled Java class files
 *.class
 
