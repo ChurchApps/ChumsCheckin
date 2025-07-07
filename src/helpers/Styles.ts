@@ -180,5 +180,63 @@ export const Styles = StyleSheet.create({
   privacyLink: {
     color: StyleConstants.baseColor,
     textDecorationLine: "underline"
+  },
+
+  //Church Selection Styles
+  churchSelectionContainer: {
+    flex: 1,
+    backgroundColor: StyleConstants.loginBackground,
+    paddingHorizontal: DimensionHelper.wp("5%"),
+    paddingTop: DimensionHelper.wp("8%")
+  },
+  churchSelectionTitle: {
+    fontSize: DimensionHelper.wp("5.5%"),
+    fontFamily: StyleConstants.RobotoMedium,
+    fontWeight: "500",
+    color: StyleConstants.darkColor,
+    textAlign: "center",
+    marginBottom: DimensionHelper.wp("6%")
+  },
+  churchCard: {
+    backgroundColor: StyleConstants.whiteColor,
+    borderRadius: 12,
+    marginBottom: DimensionHelper.wp("4%"),
+    padding: DimensionHelper.wp("4%"),
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 5,
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  churchLogoContainer: {
+    width: DimensionHelper.wp("20%"),
+    height: DimensionHelper.wp("5%"),
+    borderRadius: 6,
+    backgroundColor: "transparent",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: DimensionHelper.wp("4%")
+  },
+  churchLogo: {
+    width: DimensionHelper.wp("19%"),
+    height: DimensionHelper.wp("4.75%"),
+    borderRadius: 4,
+    resizeMode: "cover"
+  },
+  churchPlaceholderIcon: {
+    opacity: 0.6
+  },
+  churchName: {
+    flex: 1,
+    fontSize: DimensionHelper.wp("4.2%"),
+    fontFamily: StyleConstants.RobotoMedium,
+    color: StyleConstants.darkColor,
+    lineHeight: DimensionHelper.wp("5%")
+  },
+  churchSelectionLoader: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
