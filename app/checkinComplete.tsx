@@ -33,7 +33,7 @@ const CheckinComplete = (props: Props) => {
   };
 
   const redirectToLookup = () => {
-    timeout(500).then(() => {
+    timeout(3000).then(() => {
       router.replace('/lookup')
     });
   };
@@ -83,19 +83,19 @@ const CheckinComplete = (props: Props) => {
       <View style={checkinCompleteStyles.mainContent}>
         <View style={checkinCompleteStyles.successCard}>
           <View style={checkinCompleteStyles.successIconContainer}>
-            <FontAwesome 
-              name="check-circle" 
+            <FontAwesome
+              name="check-circle"
               style={checkinCompleteStyles.successIcon}
-              size={DimensionHelper.wp("15%")} 
+              size={DimensionHelper.wp("15%")}
             />
           </View>
           <Text style={checkinCompleteStyles.successTitle}>Welcome!</Text>
           <Text style={checkinCompleteStyles.successMessage}>
-            Your family has been checked in successfully. 
+            Your family has been checked in successfully.
             {CachedData.printer?.ipAddress ? " Your labels are being printed now." : ""}
           </Text>
         </View>
-        
+
         {getLabelView()}
       </View>
     </View>
