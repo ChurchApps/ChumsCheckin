@@ -30,6 +30,12 @@ interface Props { person: PersonInterface, selectedMemberId: string, navigation:
       const group: GroupInterface = ArrayHelper.getOne(serviceTime.groups || [], "id", groupId);
       selectedGroupName = group?.name || "Error";
     }
+    
+    // Truncate group name if it's too long
+    const maxLength = 15;
+    if (selectedGroupName.length > maxLength) {
+      selectedGroupName = selectedGroupName.substring(0, maxLength) + "...";
+    }
 
     return (
       <View key={serviceTime.id} style={serviceTimeStyles.expandedRow}>
