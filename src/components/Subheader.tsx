@@ -8,23 +8,21 @@ interface Props {
   subtitle: string;
 }
 
-const Subheader = (props: Props) => {
-  return (
-    <View style={subheaderStyles.textSection}>
-      <View style={subheaderStyles.headerTextContainer}>
-        <View style={subheaderStyles.titleRow}>
-          <View style={subheaderStyles.titleIconContainer}>
-            <Text style={subheaderStyles.titleIcon}>{props.icon}</Text>
-          </View>
-          <View style={subheaderStyles.titleTextContainer}>
-            <Text style={subheaderStyles.headerTitle}>{props.title}</Text>
-            <Text style={subheaderStyles.headerSubtitle}>{props.subtitle}</Text>
-          </View>
+const Subheader = (props: Props) => (
+  <View style={subheaderStyles.textSection}>
+    <View style={subheaderStyles.headerTextContainer}>
+      <View style={subheaderStyles.titleRow}>
+        <View style={subheaderStyles.titleIconContainer}>
+          <Text style={subheaderStyles.titleIcon}>{props.icon}</Text>
+        </View>
+        <View style={subheaderStyles.titleTextContainer}>
+          <Text style={subheaderStyles.headerTitle}>{props.title}</Text>
+          <Text style={subheaderStyles.headerSubtitle}>{props.subtitle}</Text>
         </View>
       </View>
     </View>
-  );
-};
+  </View>
+);
 
 const subheaderStyles = {
   // Text Section (Light blue background)
@@ -89,3 +87,4 @@ const subheaderStyles = {
 };
 
 export default Subheader;
+

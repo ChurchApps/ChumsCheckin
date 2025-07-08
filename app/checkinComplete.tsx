@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { screenNavigationProps, CachedData, LabelHelper, Styles, StyleConstants } from "../src/helpers";
+import { screenNavigationProps, CachedData, LabelHelper, StyleConstants } from "../src/helpers";
 import { FontAwesome } from "@expo/vector-icons";
-import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper, FirebaseHelper } from "../src/helpers";
+import { ApiHelper, ArrayHelper, DimensionHelper, FirebaseHelper } from "../src/helpers";
 import PrintUI from "../src/components/PrintUI";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
@@ -34,7 +34,7 @@ const CheckinComplete = (props: Props) => {
 
   const redirectToLookup = () => {
     timeout(3000).then(() => {
-      router.replace('/lookup')
+      router.replace("/lookup");
     });
   };
 
@@ -48,8 +48,8 @@ const CheckinComplete = (props: Props) => {
   const checkin = async () => {
     const peopleIds: number[] = ArrayHelper.getUniqueValues(CachedData.householdMembers, "id");
     const url = "/visits/checkin?serviceId=" + CachedData.serviceId + "&peopleIds=" + escape(peopleIds.join(","));
-    return ApiHelper.post(url, CachedData.pendingVisits, "AttendanceApi").then(data => {
-      console.log("Checkin Complete")
+    return ApiHelper.post(url, CachedData.pendingVisits, "AttendanceApi").then(_data => {
+      console.log("Checkin Complete");
       //console.log(data)
       // AppCenterHelper.trackEvent("Checkin Complete");
       //router.navigate('/checkinComplete')
@@ -59,8 +59,7 @@ const CheckinComplete = (props: Props) => {
 
 
   const getLabelView = () => {
-    if (htmlLabels?.length > 0) { return (<PrintUI htmlLabels={htmlLabels} onPrintComplete={startOver} />); }
-    else { return <></>; }
+    if (htmlLabels?.length > 0) { return (<PrintUI htmlLabels={htmlLabels} onPrintComplete={startOver} />); } else { return <></>; }
   };
 
   React.useEffect(loadData, []);  //eslint-disable-line react-hooks/exhaustive-deps
@@ -169,4 +168,5 @@ const checkinCompleteStyles = {
   }
 };
 
-export default CheckinComplete
+export default CheckinComplete;
+

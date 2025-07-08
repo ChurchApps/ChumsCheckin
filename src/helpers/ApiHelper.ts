@@ -10,7 +10,7 @@ export class ApiHelper {
 
   static getConfig(keyName: string): ApiConfig | null {
     let result: ApiConfig | null = null;
-    this.apiConfigs.forEach(config => { if (config.keyName === keyName) result = config });
+    this.apiConfigs.forEach(config => { if (config.keyName === keyName) result = config; });
     return result;
   }
 
@@ -97,9 +97,9 @@ export class ApiHelper {
   private static async fetchWithErrorHandling(url: string, requestOptions: any) {
     try {
       if (this.onRequest) this.onRequest(url, requestOptions);
-      
+
       const response = await fetch(url, requestOptions);
-      
+
       if (!response.ok) {
         const errorText = await response.text();
         const error = new Error(`HTTP ${response.status}: ${errorText}`);
@@ -108,9 +108,9 @@ export class ApiHelper {
       }
 
       const responseText = await response.text();
-      
+
       if (!responseText) return {};
-      
+
       try {
         return JSON.parse(responseText);
       } catch (parseError) {

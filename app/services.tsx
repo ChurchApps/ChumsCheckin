@@ -1,10 +1,12 @@
 import React from "react";
-import { Text, FlatList, ActivityIndicator, SafeAreaView, Dimensions, PixelRatio, ScrollView, View, Image, StatusBar } from "react-native";
+import {
+  Text, FlatList, ActivityIndicator, Dimensions, PixelRatio, View
+} from "react-native";
 import Ripple from "react-native-material-ripple";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
-import { screenNavigationProps, CachedData, Styles, StyleConstants, Utilities } from "../src/helpers";
-import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper, FirebaseHelper, GroupInterface, GroupServiceTimeInterface } from "../src/helpers";
+import { screenNavigationProps, CachedData, StyleConstants } from "../src/helpers";
+import { ApiHelper, ArrayHelper, DimensionHelper, FirebaseHelper, GroupInterface, GroupServiceTimeInterface } from "../src/helpers";
 import { router } from "expo-router";
 
 interface Props { navigation: screenNavigationProps }
@@ -38,11 +40,7 @@ const Services = (props: Props) => {
   const selectService = (serviceId: string) => {
     setIsLoading(true);
 
-    const promises: Promise<any>[] = [
-      ApiHelper.get("/servicetimes?serviceId=" + serviceId, "AttendanceApi").then(times => { CachedData.serviceId = serviceId; CachedData.serviceTimes = times; }),
-      ApiHelper.get("/groupservicetimes", "AttendanceApi").then(groupServiceTimes => { CachedData.groupServiceTimes = groupServiceTimes; }),
-      ApiHelper.get("/groups", "MembershipApi").then(groups => { CachedData.groups = groups; })
-    ];
+    const promises: Promise<any>[] = [ApiHelper.get("/servicetimes?serviceId=" + serviceId, "AttendanceApi").then(times => { CachedData.serviceId = serviceId; CachedData.serviceTimes = times; }), ApiHelper.get("/groupservicetimes", "AttendanceApi").then(groupServiceTimes => { CachedData.groupServiceTimes = groupServiceTimes; }), ApiHelper.get("/groups", "MembershipApi").then(groups => { CachedData.groups = groups; })];
 
     Promise.all(promises).then(() => {
       //for simplicity, iterate the group service times and add groups to the services.
@@ -56,7 +54,7 @@ const Services = (props: Props) => {
       console.log(JSON.stringify(CachedData.serviceTimes));
 
 
-      router.navigate('/lookup')
+      router.navigate("/lookup");
       setIsLoading(false);
     });
 
@@ -85,8 +83,7 @@ const Services = (props: Props) => {
           <Text style={serviceStyles.loadingText}>Loading services...</Text>
         </View>
       );
-    }
-    else {
+    } else {
       return (
         <View style={serviceStyles.servicesContainer}>
           <FlatList
@@ -212,4 +209,4 @@ const serviceStyles = {
 };
 
 
-export default Services
+export default Services;

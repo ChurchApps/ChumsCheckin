@@ -1,17 +1,19 @@
 import React from "react";
-import { View, Text, NativeModules, FlatList, PixelRatio, Dimensions, Alert, ActivityIndicator } from "react-native";
+import {
+  View, Text, NativeModules, FlatList, PixelRatio, Dimensions, Alert, ActivityIndicator
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ripple from "react-native-material-ripple";
 import { RouteProp } from "@react-navigation/native";
 import { ScreenList } from "../src/screenList";
-import { AvailablePrinter, CachedData, screenNavigationProps, Styles, StyleConstants } from "../src/helpers";
+import { AvailablePrinter, CachedData, screenNavigationProps, StyleConstants } from "../src/helpers";
 // import CodePush from "react-native-code-push";
 import { DimensionHelper, FirebaseHelper } from "../src/helpers";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
 import { FontAwesome } from "@expo/vector-icons";
 import PrintUI from "../src/components/PrintUI";
-import RNRestart from 'react-native-restart';
+import RNRestart from "react-native-restart";
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Household">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
@@ -19,17 +21,17 @@ interface Props { navigation: screenNavigationProps; route: ProfileScreenRoutePr
 const Printers = (props: Props) => {
   const [printers, setPrinters] = React.useState<AvailablePrinter[]>([{ model: "No Printer", ipAddress: "No Printer" }]);
   const [selectedPrinter, setSelectedPrinter] = React.useState<AvailablePrinter>({ model: "No Printer", ipAddress: "No Printer" });
-  const [dimension, setDimension] = React.useState(Dimensions.get("window"));
+  const [dimension, _setDimension] = React.useState(Dimensions.get("window"));
   const [htmlLabels, setHtmlLabels] = React.useState<string[]>([]);
   const [isScanning, setIsScanning] = React.useState<boolean>(true);
 
   const init = async () => {
     FirebaseHelper.addOpenScreenEvent("Printers");
-    console.log("Scanning")
+    console.log("Scanning");
     setIsScanning(true);
     if (NativeModules.PrinterHelper) {
       NativeModules.PrinterHelper.scan().then((data: string) => {
-        console.log("Scan callback", data)
+        console.log("Scan callback", data);
         const items = data.split(",");
         let result: AvailablePrinter[] = [];
         items.forEach(item => {
@@ -66,7 +68,7 @@ const Printers = (props: Props) => {
 
   React.useEffect(() => { init(); }, []);
 
-  const wd = (number: string) => {
+  const _wd = (number: string) => {
     let givenWidth = typeof number === "number" ? number : parseFloat(number);
     return PixelRatio.roundToNearestPixel((dimension.width * givenWidth) / 100);
   };
@@ -75,43 +77,34 @@ const Printers = (props: Props) => {
     const printer: AvailablePrinter = data.item;
     const isSelected = printer.ipAddress === selectedPrinter.ipAddress;
     const isNoPrinter = printer.model === "No Printer";
-    
+
     return (
-      <Ripple 
-        style={[
-          printerStyles.printerCard,
-          isSelected && printerStyles.selectedCard
-        ]} 
+      <Ripple
+        style={[printerStyles.printerCard, isSelected && printerStyles.selectedCard]}
         onPress={() => { setSelectedPrinter(printer); }}
       >
         <View style={printerStyles.printerIconContainer}>
-          <FontAwesome 
-            name={isNoPrinter ? "times-circle" : "print"} 
-            size={DimensionHelper.wp("5%")} 
+          <FontAwesome
+            name={isNoPrinter ? "times-circle" : "print"}
+            size={DimensionHelper.wp("5%")}
             color={isSelected ? StyleConstants.whiteColor : StyleConstants.baseColor}
           />
         </View>
         <View style={printerStyles.printerInfo}>
-          <Text style={[
-            printerStyles.printerName,
-            isSelected && printerStyles.selectedText
-          ]} numberOfLines={1}>
+          <Text style={[printerStyles.printerName, isSelected && printerStyles.selectedText]} numberOfLines={1}>
             {isNoPrinter ? "No Printer" : printer.model}
           </Text>
           {!isNoPrinter && (
-            <Text style={[
-              printerStyles.printerIp,
-              isSelected && printerStyles.selectedSubtext
-            ]} numberOfLines={1}>
+            <Text style={[printerStyles.printerIp, isSelected && printerStyles.selectedSubtext]} numberOfLines={1}>
               {printer.ipAddress}
             </Text>
           )}
         </View>
         {isSelected && (
           <View style={printerStyles.checkmarkContainer}>
-            <FontAwesome 
-              name="check-circle" 
-              size={DimensionHelper.wp("5%")} 
+            <FontAwesome
+              name="check-circle"
+              size={DimensionHelper.wp("5%")}
               color={StyleConstants.whiteColor}
             />
           </View>
@@ -121,16 +114,15 @@ const Printers = (props: Props) => {
   };
 
   const testPrint = () => {
-    if (selectedPrinter.model === "No Printer") { Alert.alert("No printer selected"); }
-    else {
+    if (selectedPrinter.model === "No Printer") { Alert.alert("No printer selected"); } else {
       saveSelectedPrinter();
       setHtmlLabels(["<b>Hello World</b>"]);
     }
   };
 
   const getLabelView = () => {
-    if (htmlLabels?.length > 0) { 
-      return (<PrintUI htmlLabels={htmlLabels} onPrintComplete={() => { setHtmlLabels([]); }} />); 
+    if (htmlLabels?.length > 0) {
+      return (<PrintUI htmlLabels={htmlLabels} onPrintComplete={() => { setHtmlLabels([]); }} />);
     }
     return null;
   };
@@ -147,9 +139,9 @@ const Printers = (props: Props) => {
 
     return (
       <>
-        <FlatList 
-          data={printers as any[]} 
-          renderItem={getPrinterRow} 
+        <FlatList
+          data={printers as any[]}
+          renderItem={getPrinterRow}
           keyExtractor={(printer: AvailablePrinter) => printer.ipAddress}
           contentContainerStyle={printerStyles.listContent}
           showsVerticalScrollIndicator={false}
@@ -180,28 +172,28 @@ const Printers = (props: Props) => {
 
       {/* Action Buttons */}
       <View style={printerStyles.buttonContainer}>
-        <Ripple 
-          style={[printerStyles.actionButton, printerStyles.testButton]} 
+        <Ripple
+          style={[printerStyles.actionButton, printerStyles.testButton]}
           onPress={testPrint}
         >
-          <FontAwesome 
-            name="print" 
-            size={DimensionHelper.wp("4%")} 
+          <FontAwesome
+            name="print"
+            size={DimensionHelper.wp("4%")}
             color={StyleConstants.baseColor}
             style={printerStyles.buttonIcon}
           />
           <Text style={printerStyles.testButtonText}>Test Print</Text>
         </Ripple>
-        <Ripple 
-          style={[printerStyles.actionButton, printerStyles.doneButton]} 
+        <Ripple
+          style={[printerStyles.actionButton, printerStyles.doneButton]}
           onPress={() => {
             saveSelectedPrinter();
             RNRestart.Restart();
           }}
         >
-          <FontAwesome 
-            name="check" 
-            size={DimensionHelper.wp("4%")} 
+          <FontAwesome
+            name="check"
+            size={DimensionHelper.wp("4%")}
             color={StyleConstants.whiteColor}
             style={printerStyles.buttonIcon}
           />
@@ -371,4 +363,5 @@ const printerStyles = {
   }
 };
 
-export default Printers
+export default Printers;
+

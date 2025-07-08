@@ -1,9 +1,9 @@
 import { ApiHelper } from "./ApiHelper";
 
 
-let CONTENT_ROOT = 'https://content.staging.churchapps.org'
-let MEMBERSHIP_API = 'https://membershipapi.staging.churchapps.org'
-let ATTENDANCE_API = 'https://attendanceapi.staging.churchapps.org'
+let CONTENT_ROOT = "https://content.staging.churchapps.org";
+let MEMBERSHIP_API = "https://membershipapi.staging.churchapps.org";
+let ATTENDANCE_API = "https://attendanceapi.staging.churchapps.org";
 // import { CONTENT_ROOT, MEMBERSHIP_API, ATTENDANCE_API, STAGE } from "@env";
 export class EnvironmentHelper {
   private static MembershipApi = "";
@@ -20,10 +20,7 @@ export class EnvironmentHelper {
       case "prod": EnvironmentHelper.initProd(); break;
       default: EnvironmentHelper.initDev(); break;
     }
-    ApiHelper.apiConfigs = [
-      { keyName: "MembershipApi", url: EnvironmentHelper.MembershipApi, jwt: "", permissions: [] },
-      { keyName: "AttendanceApi", url: EnvironmentHelper.AttendanceApi, jwt: "", permissions: [] },
-    ];
+    ApiHelper.apiConfigs = [{ keyName: "MembershipApi", url: EnvironmentHelper.MembershipApi, jwt: "", permissions: [] }, { keyName: "AttendanceApi", url: EnvironmentHelper.AttendanceApi, jwt: "", permissions: [] },];
   };
 
   static initDev = () => {

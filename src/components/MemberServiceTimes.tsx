@@ -1,25 +1,25 @@
 import React from "react";
 import { View, Text } from "react-native";
 import Ripple from "react-native-material-ripple";
-import { CachedData, screenNavigationProps, VisitHelper, VisitSessionHelper, Styles, StyleConstants } from "../helpers";
+import { CachedData, screenNavigationProps, VisitHelper, VisitSessionHelper, StyleConstants } from "../helpers";
 import { FontAwesome } from "@expo/vector-icons";
 import { PersonInterface, VisitInterface, ServiceTimeInterface, VisitSessionInterface, GroupInterface, ArrayHelper, DimensionHelper } from "../helpers";
 import { router } from "expo-router";
 
 interface Props { person: PersonInterface, selectedMemberId: string, navigation: screenNavigationProps, pendingVisits: VisitInterface[] }
 
-  const MemberServiceTimes = (props: Props) => {
+const MemberServiceTimes = (props: Props) => {
 
-    const handleServiceTimeClick = (serviceTime: any, person: any) => { 
-      router.navigate({
-        pathname: '/selectGroup',
-        params: { 
-          personId: person.id || "", 
-          serviceTime: JSON.stringify(serviceTime) 
-        }
-      });
-      
-    };
+  const handleServiceTimeClick = (serviceTime: any, person: any) => {
+    router.navigate({
+      pathname: "/selectGroup",
+      params: {
+        personId: person.id || "",
+        serviceTime: JSON.stringify(serviceTime)
+      }
+    });
+
+  };
 
   const getExpandedRow = (serviceTime: ServiceTimeInterface, visitSessions: VisitSessionInterface[]) => {
     const stSessions = VisitSessionHelper.getByServiceTimeId(visitSessions, serviceTime.id || "");
@@ -30,7 +30,7 @@ interface Props { person: PersonInterface, selectedMemberId: string, navigation:
       const group: GroupInterface = ArrayHelper.getOne(serviceTime.groups || [], "id", groupId);
       selectedGroupName = group?.name || "Error";
     }
-    
+
     // Truncate group name if it's too long
     const maxLength = 15;
     if (selectedGroupName.length > maxLength) {
@@ -41,36 +41,27 @@ interface Props { person: PersonInterface, selectedMemberId: string, navigation:
       <View key={serviceTime.id} style={serviceTimeStyles.expandedRow}>
         <View style={serviceTimeStyles.serviceTimeInfo}>
           <View style={serviceTimeStyles.timeIconContainer}>
-            <FontAwesome 
-              name="clock-o" 
-              style={serviceTimeStyles.timeIcon} 
-              size={DimensionHelper.wp("4%")} 
+            <FontAwesome
+              name="clock-o"
+              style={serviceTimeStyles.timeIcon}
+              size={DimensionHelper.wp("4%")}
             />
           </View>
           <View style={serviceTimeStyles.serviceTimeTextContainer}>
             <Text style={serviceTimeStyles.serviceTimeText}>{serviceTime.name}</Text>
           </View>
         </View>
-        <Ripple 
-          style={[
-            serviceTimeStyles.serviceTimeButton, 
-            isSelected ? serviceTimeStyles.selectedButton : serviceTimeStyles.unselectedButton
-          ]} 
+        <Ripple
+          style={[serviceTimeStyles.serviceTimeButton, isSelected ? serviceTimeStyles.selectedButton : serviceTimeStyles.unselectedButton]}
           onPress={() => { handleServiceTimeClick(serviceTime, props.person); }}
         >
-          <Text style={[
-            serviceTimeStyles.serviceTimeButtonText,
-            isSelected ? serviceTimeStyles.selectedButtonText : serviceTimeStyles.unselectedButtonText
-          ]}>
+          <Text style={[serviceTimeStyles.serviceTimeButtonText, isSelected ? serviceTimeStyles.selectedButtonText : serviceTimeStyles.unselectedButtonText]}>
             {selectedGroupName}
           </Text>
-          <FontAwesome 
-            name="chevron-right" 
-            style={[
-              serviceTimeStyles.buttonIcon,
-              isSelected ? serviceTimeStyles.selectedButtonIcon : serviceTimeStyles.unselectedButtonIcon
-            ]} 
-            size={DimensionHelper.wp("3.5%")} 
+          <FontAwesome
+            name="chevron-right"
+            style={[serviceTimeStyles.buttonIcon, isSelected ? serviceTimeStyles.selectedButtonIcon : serviceTimeStyles.unselectedButtonIcon]}
+            size={DimensionHelper.wp("3.5%")}
           />
         </Ripple>
       </View>
@@ -83,7 +74,7 @@ interface Props { person: PersonInterface, selectedMemberId: string, navigation:
     const visitSessions = visit?.visitSessions || [];
     CachedData.serviceTimes.forEach(st => { result.push(getExpandedRow(st, visitSessions)); });
   }
-  
+
   return (
     <View style={serviceTimeStyles.container}>
       {result}
@@ -194,4 +185,5 @@ const serviceTimeStyles = {
   }
 };
 
-export default MemberServiceTimes
+export default MemberServiceTimes;
+

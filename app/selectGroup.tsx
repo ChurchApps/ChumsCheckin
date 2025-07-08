@@ -1,13 +1,11 @@
 import React from "react";
 import { View, Text, FlatList, ScrollView } from "react-native";
 import Ripple from "react-native-material-ripple";
-import { RouteProp } from "@react-navigation/native";
-import { ScreenList } from "../src/screenList";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
-import { screenNavigationProps, VisitHelper, VisitSessionHelper, CachedData, Styles, StyleConstants, Utilities } from "../src/helpers";
+import { VisitHelper, VisitSessionHelper, CachedData, StyleConstants } from "../src/helpers";
 import { FontAwesome } from "@expo/vector-icons";
-import { AppCenterHelper, DimensionHelper, FirebaseHelper, GroupInterface } from "../src/helpers";
+import { DimensionHelper, FirebaseHelper, GroupInterface } from "../src/helpers";
 import { useRouter, useLocalSearchParams } from "expo-router";
 
 
@@ -20,7 +18,7 @@ const SelectGroup = (props: any) => {
 
   const router = useRouter();
   const { personId, serviceTime } = useLocalSearchParams();
-  let serviceTimes = JSON.parse(serviceTime)
+  let serviceTimes = JSON.parse(serviceTime);
 
   const [selectedCategory, setSelectedCategory] = React.useState(-1);
   const [groupTree, setGroupTree] = React.useState<GroupCategoryInterface[]>([]);
@@ -61,7 +59,7 @@ const SelectGroup = (props: any) => {
   //   const serviceTimeId = props.route.params.serviceTime.id || "";
   //   VisitSessionHelper.setValue(vs, serviceTimeId, id, name);
   //   // props.navigation.goBack();
-  //   router.back();  
+  //   router.back();
   // };
 
   const selectGroup = (id: string, name: string) => {
@@ -92,10 +90,10 @@ const SelectGroup = (props: any) => {
               <Text style={selectGroupStyles.categoryCount}>{item.items.length} groups</Text>
             </View>
             <View style={selectGroupStyles.expandIconContainer}>
-              <FontAwesome 
-                name={isExpanded ? "chevron-up" : "chevron-down"} 
-                style={selectGroupStyles.expandIcon} 
-                size={DimensionHelper.wp("5%")} 
+              <FontAwesome
+                name={isExpanded ? "chevron-up" : "chevron-down"}
+                style={selectGroupStyles.expandIcon}
+                size={DimensionHelper.wp("5%")}
               />
             </View>
           </View>
@@ -106,30 +104,29 @@ const SelectGroup = (props: any) => {
   };
 
   const getExpanded = (selectedcategory: number, category: GroupCategoryInterface) => {
-    if (selectedcategory !== category.key) { return null; }
-    else {
+    if (selectedcategory !== category.key) { return null; } else {
       const result: JSX.Element[] = [];
       category.items.forEach(g => {
         result.push(
-          <Ripple 
-            key={g.id?.toString()} 
-            style={selectGroupStyles.groupItem} 
+          <Ripple
+            key={g.id?.toString()}
+            style={selectGroupStyles.groupItem}
             onPress={() => selectGroup(g.id || "", g.name || "")}
           >
             <View style={selectGroupStyles.groupItemContent}>
               <View style={selectGroupStyles.groupIconContainer}>
-                <FontAwesome 
-                  name="users" 
-                  style={selectGroupStyles.groupIcon} 
-                  size={DimensionHelper.wp("4%")} 
+                <FontAwesome
+                  name="users"
+                  style={selectGroupStyles.groupIcon}
+                  size={DimensionHelper.wp("4%")}
                 />
               </View>
               <Text style={selectGroupStyles.groupName}>{g.name}</Text>
               <View style={selectGroupStyles.selectIconContainer}>
-                <FontAwesome 
-                  name="check-circle-o" 
-                  style={selectGroupStyles.selectIcon} 
-                  size={DimensionHelper.wp("4.5%")} 
+                <FontAwesome
+                  name="check-circle-o"
+                  style={selectGroupStyles.selectIcon}
+                  size={DimensionHelper.wp("4.5%")}
                 />
               </View>
             </View>
@@ -153,18 +150,18 @@ const SelectGroup = (props: any) => {
       <Subheader
         icon="👥"
         title="Select a Group"
-        subtitle={`Choose a group for ${serviceTimes?.name || 'this service'}`}
+        subtitle={`Choose a group for ${serviceTimes?.name || "this service"}`}
       />
 
       {/* Main Content */}
       <View style={selectGroupStyles.mainContent}>
-        <ScrollView 
+        <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={selectGroupStyles.scrollContent}
         >
-          <FlatList 
-            data={groupTree} 
-            renderItem={getRow} 
+          <FlatList
+            data={groupTree}
+            renderItem={getRow}
             keyExtractor={(item: GroupCategoryInterface) => item.name}
             scrollEnabled={false}
             contentContainerStyle={selectGroupStyles.listContainer}
@@ -349,4 +346,4 @@ const selectGroupStyles = {
   }
 };
 
-export default SelectGroup
+export default SelectGroup;

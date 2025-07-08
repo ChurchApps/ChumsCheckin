@@ -1,10 +1,10 @@
 import React from "react";
-import { View, Image, StatusBar, Text, NativeModules, NativeEventEmitter, Platform, Dimensions, Alert } from "react-native";
+import {
+  View, Image, StatusBar, Text, NativeModules, NativeEventEmitter, Platform, Dimensions, Alert
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ripple from "react-native-material-ripple";
 import { CachedData, screenNavigationProps, Styles, StyleConstants, DimensionHelper } from "../helpers";
-import { FontAwesome } from "@expo/vector-icons";
-import { routeToScreen } from "expo-router/build/useScreens";
 import { router } from "expo-router";
 
 
@@ -26,7 +26,7 @@ const Header = (props: Props) => {
   let eventEmitter: NativeEventEmitter;
 
   const handleClick = () => {
-    router.navigate('/printers')
+    router.navigate("/printers");
     // props.navigation?.navigate("/printers");
   };
 
@@ -55,21 +55,14 @@ const Header = (props: Props) => {
             text: "Logout",
             onPress: async () => {
               // Clear stored credentials and church selection
-              await AsyncStorage.multiRemove([
-                "@Email",
-                "@Password",
-                "@SelectedChurchId",
-                "@ChurchAppearance",
-                "@UserChurches",
-                "@Login"
-              ]);
-              
+              await AsyncStorage.multiRemove(["@Email", "@Password", "@SelectedChurchId", "@ChurchAppearance", "@UserChurches", "@Login"]);
+
               // Clear cached data
               CachedData.userChurch = null;
               CachedData.churchAppearance = null;
-              
+
               // Navigate to login screen
-              router.replace('/login');
+              router.replace("/login");
             },
             style: "destructive"
           }
@@ -129,8 +122,7 @@ const Header = (props: Props) => {
   const getLogoUrl = () => {
     if (CachedData.churchAppearance?.logoLight) {
       return { uri: CachedData.churchAppearance?.logoLight };
-    }
-    else { return require("../images/logo1.png"); }
+    } else { return require("../images/logo1.png"); }
   };
 
   if (props.prominentLogo) {
@@ -156,10 +148,7 @@ const Header = (props: Props) => {
   }
 
   return (
-    <View style={[
-      props.logo !== false ? Styles.headerLogoView : { backgroundColor: "transparent" },
-      landscape && { maxHeight: props.logo ? "30%" : DimensionHelper.wp("50%") }
-    ]}>
+    <View style={[props.logo !== false ? Styles.headerLogoView : { backgroundColor: "transparent" }, landscape && { maxHeight: props.logo ? "30%" : DimensionHelper.wp("50%") }]}>
       <StatusBar backgroundColor={StyleConstants.baseColor} />
       <Ripple style={Styles.printerStatus} onPress={() => { handleClick(); }}>
         <Text style={{ backgroundColor: StyleConstants.baseColor, color: "#FFF" }}>{getVersion()} - {status}</Text>
@@ -205,4 +194,5 @@ const headerStyles = {
   }
 };
 
-export default Header
+export default Header;
+

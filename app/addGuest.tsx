@@ -1,35 +1,34 @@
 import React from "react";
 import { TextInput, View, Text, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
 import Ripple from "react-native-material-ripple";
-import { screenNavigationProps, CachedData, Styles, StyleConstants, DimensionHelper } from "../src/helpers";
-import { ApiHelper, AppCenterHelper, FirebaseHelper, PersonInterface, Utils } from "../src/helpers";
+import { screenNavigationProps, CachedData, StyleConstants, DimensionHelper } from "../src/helpers";
+import { ApiHelper, PersonInterface, Utils } from "../src/helpers";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
 import { FontAwesome } from "@expo/vector-icons";
-import { router } from "expo-router";
-import { useRouter ,useLocalSearchParams} from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 
 
 interface Props { navigation: screenNavigationProps }
 
 const AddGuest = (props: Props) => {
   const router = useRouter();
-  const params = useLocalSearchParams(); // ✅ Retrieve route parameters
+  const _params = useLocalSearchParams(); // ✅ Retrieve route parameters
 
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
 
   const addGuest = () => {
-    if (firstName === "") {Utils.snackBar("Please enter first name");}
-    else if (lastName === "") {Utils.snackBar("Please enter last name");}
-    else {getOrCreatePerson(firstName, lastName).then(person => {
+    if (firstName === "") { Utils.snackBar("Please enter first name"); } else if (lastName === "") { Utils.snackBar("Please enter last name"); } else {
+      getOrCreatePerson(firstName, lastName).then(person => {
       // console.log(person)
       // AppCenterHelper.trackEvent("Add Guest", { name: firstName + " " + lastName });
-      CachedData.householdMembers.push(person);
-      // props.navigation.navigate("Household");
-      router.push("/household"); 
-      // router.push({ pathname: "/household", params: { householdId: params.householdId || CachedData.householdId } });     
-    });}
+        CachedData.householdMembers.push(person);
+        // props.navigation.navigate("Household");
+        router.push("/household");
+      // router.push({ pathname: "/household", params: { householdId: params.householdId || CachedData.householdId } });
+      });
+    }
     // router.push({ pathname: "/household", params: { householdId: params.householdId || CachedData.householdId } });
   };
 
@@ -43,23 +42,23 @@ const AddGuest = (props: Props) => {
         contactInfo: {}
       };
       const data = await ApiHelper.post("/people", [person], "MembershipApi");
-      console.log("data", data)
+      console.log("data", data);
       person.id = data[0].id;
     }
-    console.log("zzz", person)
+    console.log("zzz", person);
     return person;
   };
 
   const searchForGuest = async (fullName: string) => {
     // AppCenterHelper.trackEvent("Search for Guest", { name: fullName });
     let result: PersonInterface | null = null;
-    console.log("sssss", fullName)
+    console.log("sssss", fullName);
     const url = "/people/search?term=" + escape(fullName);
-    console.log("ss", url)
+    console.log("ss", url);
     let people: PersonInterface[] = await ApiHelper.get(url, "MembershipApi");
-    console.log("urllll", people)
-    people.forEach(p => { if (p.membershipStatus !== "Member") {result = p;} });
-    console.log("reuslt", result)
+    console.log("urllll", people);
+    people.forEach(p => { if (p.membershipStatus !== "Member") { result = p; } });
+    console.log("reuslt", result);
     return (result === undefined) ? null : result;
   };
 
@@ -70,7 +69,7 @@ const AddGuest = (props: Props) => {
   };
 
   return (
-    <KeyboardAvoidingView 
+    <KeyboardAvoidingView
       style={addGuestStyles.container}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
@@ -87,7 +86,7 @@ const AddGuest = (props: Props) => {
       />
 
       {/* Main Content */}
-      <ScrollView 
+      <ScrollView
         style={addGuestStyles.scrollView}
         contentContainerStyle={addGuestStyles.scrollContent}
         showsVerticalScrollIndicator={false}
@@ -95,17 +94,17 @@ const AddGuest = (props: Props) => {
         <View style={addGuestStyles.formCard}>
           <View style={addGuestStyles.inputGroup}>
             <View style={addGuestStyles.labelContainer}>
-              <FontAwesome 
-                name="user" 
-                size={DimensionHelper.wp("4%")} 
+              <FontAwesome
+                name="user"
+                size={DimensionHelper.wp("4%")}
                 color={StyleConstants.baseColor}
                 style={addGuestStyles.labelIcon}
               />
               <Text style={addGuestStyles.label}>First Name</Text>
             </View>
-            <TextInput 
-              placeholder="Enter first name" 
-              onChangeText={(value) => { setFirstName(value); }} 
+            <TextInput
+              placeholder="Enter first name"
+              onChangeText={(value) => { setFirstName(value); }}
               style={addGuestStyles.textInput}
               placeholderTextColor={StyleConstants.darkColor + "50"}
             />
@@ -113,17 +112,17 @@ const AddGuest = (props: Props) => {
 
           <View style={addGuestStyles.inputGroup}>
             <View style={addGuestStyles.labelContainer}>
-              <FontAwesome 
-                name="user" 
-                size={DimensionHelper.wp("4%")} 
+              <FontAwesome
+                name="user"
+                size={DimensionHelper.wp("4%")}
                 color={StyleConstants.baseColor}
                 style={addGuestStyles.labelIcon}
               />
               <Text style={addGuestStyles.label}>Last Name</Text>
             </View>
-            <TextInput 
-              placeholder="Enter last name" 
-              onChangeText={(value) => { setLastName(value); }} 
+            <TextInput
+              placeholder="Enter last name"
+              onChangeText={(value) => { setLastName(value); }}
               style={addGuestStyles.textInput}
               placeholderTextColor={StyleConstants.darkColor + "50"}
             />
@@ -133,25 +132,25 @@ const AddGuest = (props: Props) => {
 
       {/* Action Buttons */}
       <View style={addGuestStyles.buttonContainer}>
-        <Ripple 
-          style={[addGuestStyles.actionButton, addGuestStyles.cancelButton]} 
+        <Ripple
+          style={[addGuestStyles.actionButton, addGuestStyles.cancelButton]}
           onPress={cancelGuest}
         >
-          <FontAwesome 
-            name="times" 
-            size={DimensionHelper.wp("4%")} 
+          <FontAwesome
+            name="times"
+            size={DimensionHelper.wp("4%")}
             color={StyleConstants.baseColor}
             style={addGuestStyles.buttonIcon}
           />
           <Text style={addGuestStyles.cancelButtonText}>Cancel</Text>
         </Ripple>
-        <Ripple 
-          style={[addGuestStyles.actionButton, addGuestStyles.addButton]} 
+        <Ripple
+          style={[addGuestStyles.actionButton, addGuestStyles.addButton]}
           onPress={addGuest}
         >
-          <FontAwesome 
-            name="plus" 
-            size={DimensionHelper.wp("4%")} 
+          <FontAwesome
+            name="plus"
+            size={DimensionHelper.wp("4%")}
             color={StyleConstants.whiteColor}
             style={addGuestStyles.buttonIcon}
           />
@@ -285,4 +284,5 @@ const addGuestStyles = {
   }
 };
 
-export default AddGuest
+export default AddGuest;
+

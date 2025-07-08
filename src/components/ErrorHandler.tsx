@@ -12,4 +12,4 @@ const ErrorHandler = ({ children }: { children: React.ReactNode }) => (
     {children}
   </ErrorBoundary>
 );
-export default ErrorHandler
+export default ErrorHandler;

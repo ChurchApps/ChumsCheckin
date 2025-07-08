@@ -1,6 +1,6 @@
-import * as Notifications from 'expo-notifications';
-import { DeviceEventEmitter } from 'react-native';
-import * as Device from 'expo-device';
+import * as Notifications from "expo-notifications";
+import { DeviceEventEmitter } from "react-native";
+import * as Device from "expo-device";
 
 export const pushEventBus = {
   emit(eventName: string, data?: any) {
@@ -25,12 +25,12 @@ export class PushNotificationHelper {
     const { status: existingStatus } = await Notifications.getPermissionsAsync();
     let finalStatus = existingStatus;
 
-    if (existingStatus !== 'granted') {
+    if (existingStatus !== "granted") {
       const { status } = await Notifications.requestPermissionsAsync();
       finalStatus = status;
     }
 
-    if (finalStatus !== 'granted') {
+    if (finalStatus !== "granted") {
       console.log("Push notification permission not granted");
       return null;
     }
@@ -51,7 +51,7 @@ export class PushNotificationHelper {
   }
 
   static async NotificationListener() {
-    console.log('Setting up notification listeners...');
+    console.log("Setting up notification listeners...");
 
     // Foreground notification handler
     Notifications.addNotificationReceivedListener(notification => {

@@ -7,8 +7,8 @@ import { RouteProp } from "@react-navigation/native";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
 import MemberList from "../src/components/MemberList";
-import { screenNavigationProps, CachedData, Styles, Utilities, StyleConstants, DimensionHelper } from "../src/helpers";
-import { AppCenterHelper, FirebaseHelper, VisitInterface } from "../src/helpers";
+import { screenNavigationProps, CachedData, StyleConstants, DimensionHelper } from "../src/helpers";
+import { FirebaseHelper, VisitInterface } from "../src/helpers";
 import { router, useFocusEffect } from "expo-router";
 import { ScreenList } from "../src/screenList";
 
@@ -35,7 +35,7 @@ const Household = (props: Props) => {
 
   // console.log(props.navigation)
 
-  React.useEffect(() => { FirebaseHelper.addOpenScreenEvent("Household"); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  React.useEffect(() => { FirebaseHelper.addOpenScreenEvent("Household"); }, []);
 
   return (
     <View style={householdStyles.container}>
@@ -53,12 +53,12 @@ const Household = (props: Props) => {
 
       {/* Main Content */}
       <View style={householdStyles.mainContent}>
-        <ScrollView 
+        <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={householdStyles.scrollContent}
         >
           <MemberList navigation={props.navigation} pendingVisits={pendingVisits} />
-          
+
           {/* Add Guest Button */}
           <View style={householdStyles.addGuestSection}>
             <Ripple style={householdStyles.addGuestButton} onPress={addGuest}>
@@ -169,4 +169,4 @@ const householdStyles = {
   }
 };
 
-export default Household
+export default Household;

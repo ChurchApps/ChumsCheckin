@@ -9,7 +9,7 @@ interface Props {
   onPrintComplete: () => void
 }
 
-  const PrintUI = (props: Props) => {
+const PrintUI = (props: Props) => {
   const shotRef = React.useRef(null);
   const [html, setHtml] = React.useState("");
 
@@ -19,11 +19,10 @@ interface Props {
 
   React.useEffect(() => { resetPrint(); }, []);
   React.useEffect(() => { setPrintIndex((props.htmlLabels.length === 0) ? -1 : 0); }, [props.htmlLabels]);
-  React.useEffect(() => { if (printIndex < props.htmlLabels.length) {loadNextLabel();} }, [printIndex]);  //eslint-disable-line react-hooks/exhaustive-deps
+  React.useEffect(() => { if (printIndex < props.htmlLabels.length) { loadNextLabel(); } }, [printIndex]);  //eslint-disable-line react-hooks/exhaustive-deps
   React.useEffect(() => {
     if (html) {
-      if (firstTag) {timeout(1500).then(handleHtmlLoaded);}
-      else {timeout(300).then(handleHtmlLoaded);}
+      if (firstTag) { timeout(1500).then(handleHtmlLoaded); } else { timeout(300).then(handleHtmlLoaded); }
     }
   }, [html]); // eslint-disable-line react-hooks/exhaustive-deps
   const timeout = (ms: number) => new Promise(resolve => setTimeout(() => { resolve(null); }, ms));
@@ -48,7 +47,7 @@ interface Props {
   };
 
   const handleHtmlLoaded = async () => {
-    if (firstTag) {setFirstTag(false);}
+    if (firstTag) { setFirstTag(false); }
     console.log("html loaded");
     //await timeout(500);
     captureRef(shotRef, { format: "jpg", quality: 1 }).then(async result => {
@@ -71,4 +70,4 @@ interface Props {
     </>
   );
 };
-export default PrintUI
+export default PrintUI;

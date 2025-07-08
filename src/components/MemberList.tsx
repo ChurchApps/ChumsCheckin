@@ -2,30 +2,30 @@ import React from "react";
 import { View, Text, FlatList, Image, Dimensions, PixelRatio } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import Ripple from "react-native-material-ripple";
-import { CachedData, EnvironmentHelper, screenNavigationProps, VisitHelper, Styles, StyleConstants, VisitInterface, PersonInterface, VisitSessionInterface, ServiceTimeInterface, GroupInterface, ArrayHelper, DimensionHelper } from "../helpers";
+import {
+  CachedData, EnvironmentHelper, screenNavigationProps, VisitHelper, StyleConstants, VisitInterface, PersonInterface, VisitSessionInterface, ServiceTimeInterface, GroupInterface, ArrayHelper, DimensionHelper
+} from "../helpers";
 import MemberServiceTimes from "./MemberServiceTimes";
 
 interface Props { navigation: screenNavigationProps, pendingVisits: VisitInterface[] }
 
-  const MemberList = (props: Props) => {
+const MemberList = (props: Props) => {
   const [selectedMemberId, setSelectedMemberId] = React.useState("");
   const [dimension, setDimension] = React.useState(Dimensions.get("window"));
 
   const handleMemberClick = (id: string) => { setSelectedMemberId((selectedMemberId === id) ? "" : id); };
 
   const getCondensedGroupList = (person: PersonInterface) => {
-    if (selectedMemberId === person.id) {return null;}
-    else {
+    if (selectedMemberId === person.id) { return null; } else {
       const visit = VisitHelper.getByPersonId(props.pendingVisits, person.id || "");
-      if (visit?.visitSessions?.length === 0) {return (null);}
-      else {
+      if (visit?.visitSessions?.length === 0) { return (null); } else {
         const groups: JSX.Element[] = [];
         visit?.visitSessions?.forEach((vs: VisitSessionInterface, index) => {
           const st: ServiceTimeInterface | null = ArrayHelper.getOne(CachedData.serviceTimes, "id", vs.session?.serviceTimeId || "");
           const group: GroupInterface = ArrayHelper.getOne(st?.groups || [], "id", vs.session?.groupId || "");
           const groupName = group.name || "none";
           const serviceTime = st?.name || "";
-          
+
           groups.push(
             <View key={index} style={memberListStyles.groupChip}>
               <View style={memberListStyles.groupInfo}>
@@ -59,40 +59,40 @@ interface Props { navigation: screenNavigationProps, pendingVisits: VisitInterfa
     const isExpanded = selectedMemberId === person.id;
     return (
       <View style={memberListStyles.memberContainer}>
-        <Ripple style={[memberListStyles.memberCard, {width: wd("90%")}]} onPress={() => { handleMemberClick(person.id || ""); }}>
+        <Ripple style={[memberListStyles.memberCard, { width: wd("90%") }]} onPress={() => { handleMemberClick(person.id || ""); }}>
           <View style={memberListStyles.memberContent}>
-            <Image 
-              source={{ uri: EnvironmentHelper.ContentRoot + person.photo }} 
-              style={memberListStyles.memberPhoto} 
+            <Image
+              source={{ uri: EnvironmentHelper.ContentRoot + person.photo }}
+              style={memberListStyles.memberPhoto}
             />
             <View style={memberListStyles.memberInfo}>
               <Text style={memberListStyles.memberName} numberOfLines={1}>{person.name.display}</Text>
               {getCondensedGroupList(person)}
             </View>
             <View style={memberListStyles.expandIconContainer}>
-              <FontAwesome 
-                name={isExpanded ? "chevron-up" : "chevron-down"} 
-                style={memberListStyles.expandIcon} 
-                size={DimensionHelper.wp("5%")} 
+              <FontAwesome
+                name={isExpanded ? "chevron-up" : "chevron-down"}
+                style={memberListStyles.expandIcon}
+                size={DimensionHelper.wp("5%")}
               />
             </View>
           </View>
         </Ripple>
-        <MemberServiceTimes 
-          person={person} 
-          navigation={props.navigation} 
-          selectedMemberId={selectedMemberId} 
-          key={person.id?.toString()} 
-          pendingVisits={props.pendingVisits} 
+        <MemberServiceTimes
+          person={person}
+          navigation={props.navigation}
+          selectedMemberId={selectedMemberId}
+          key={person.id?.toString()}
+          pendingVisits={props.pendingVisits}
         />
       </View>
     );
   };
 
   return (
-    <FlatList 
-      data={CachedData.householdMembers} 
-      renderItem={getMemberRow} 
+    <FlatList
+      data={CachedData.householdMembers}
+      renderItem={getMemberRow}
       keyExtractor={(item: PersonInterface) => item.id?.toString() || "0"}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={memberListStyles.listContainer}
@@ -197,4 +197,4 @@ const memberListStyles = {
   }
 };
 
-export default MemberList
+export default MemberList;

@@ -1,14 +1,15 @@
 import React from "react";
 import { useRouter, useLocalSearchParams } from "expo-router";
-import { TextInput, View, Text, Image, FlatList, ActivityIndicator, Keyboard, SafeAreaView, ScrollView, Dimensions, PixelRatio } from "react-native";
+import {
+  TextInput, View, Text, Image, FlatList, ActivityIndicator, Keyboard, Dimensions, PixelRatio
+} from "react-native";
 import Ripple from "react-native-material-ripple";
 import { RouteProp } from "@react-navigation/native";
 import { ScreenList } from "../src/screenList";
-import { EnvironmentHelper, screenNavigationProps, CachedData, Styles, StyleConstants } from "../src/helpers";
-import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper, FirebaseHelper, PersonInterface, Utils } from "../src/helpers";
+import { EnvironmentHelper, screenNavigationProps, CachedData, StyleConstants } from "../src/helpers";
+import { ApiHelper, ArrayHelper, DimensionHelper, FirebaseHelper, PersonInterface, Utils } from "../src/helpers";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
-import { router } from "expo-router";
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Lookup">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
@@ -54,9 +55,8 @@ const Lookup = (props: Props) => {
       return;
     }
 
-    const cleanedPhone = phone.replace(/\D/g, '');
-    if (phone === "") { Utils.snackBar("Please enter phone number or last four digits"); }
-    else {
+    const cleanedPhone = phone.replace(/\D/g, "");
+    if (phone === "") { Utils.snackBar("Please enter phone number or last four digits"); } else {
       Keyboard.dismiss();
       setHasSearched(true);
       setIsLoading(true);
@@ -81,9 +81,9 @@ const Lookup = (props: Props) => {
     const person: PersonInterface = data.item;
     return (
       <Ripple style={[lookupStyles.personCard, { width: wd("90%") }]} onPress={() => { selectPerson(person); }}>
-        <Image 
-          source={{ uri: EnvironmentHelper.ContentRoot + person.photo }} 
-          style={lookupStyles.personPhoto} 
+        <Image
+          source={{ uri: EnvironmentHelper.ContentRoot + person.photo }}
+          style={lookupStyles.personPhoto}
         />
         <View style={lookupStyles.personInfo}>
           <Text style={lookupStyles.personName}>{person.name.display}</Text>
@@ -96,7 +96,7 @@ const Lookup = (props: Props) => {
   };
 
   const getResults = () => {
-    if (!hasSearched) { 
+    if (!hasSearched) {
       return (
         <View style={lookupStyles.emptyState}>
           <Text style={lookupStyles.emptyStateIcon}>🔍</Text>
@@ -104,16 +104,14 @@ const Lookup = (props: Props) => {
           <Text style={lookupStyles.emptyStateSubtitle}>Enter a phone number to find people</Text>
         </View>
       );
-    }
-    else if (isLoading) { 
+    } else if (isLoading) {
       return (
         <View style={lookupStyles.loadingContainer}>
           <ActivityIndicator size="large" color={StyleConstants.baseColor} animating={isLoading} />
           <Text style={lookupStyles.loadingText}>Searching...</Text>
         </View>
       );
-    }
-    else { 
+    } else {
       if (people.length === 0) {
         return (
           <View style={lookupStyles.noResultsState}>
@@ -125,9 +123,9 @@ const Lookup = (props: Props) => {
       }
       return (
         <View style={lookupStyles.resultsContainer}>
-          <FlatList 
-            data={people} 
-            renderItem={getRow} 
+          <FlatList
+            data={people}
+            renderItem={getRow}
             keyExtractor={(item: PersonInterface) => item.id?.toString() || "0"}
             contentContainerStyle={lookupStyles.resultsList}
             showsVerticalScrollIndicator={false}
@@ -169,11 +167,11 @@ const Lookup = (props: Props) => {
         {/* Search Input */}
         <View style={lookupStyles.searchSection}>
           <View style={[lookupStyles.searchView, { width: wd("90%") }]}>
-            <TextInput 
-              placeholder="Enter last four digits of mobile number" 
-              onChangeText={(value) => { setPhone(value); }} 
-              keyboardType="numeric" 
-              style={lookupStyles.searchTextInput} 
+            <TextInput
+              placeholder="Enter last four digits of mobile number"
+              onChangeText={(value) => { setPhone(value); }}
+              keyboardType="numeric"
+              style={lookupStyles.searchTextInput}
               placeholderTextColor={StyleConstants.lightGray}
             />
             <Ripple style={lookupStyles.searchButton} onPress={handleSearch}>
@@ -386,4 +384,4 @@ const lookupStyles = {
   }
 };
 
-export default Lookup
+export default Lookup;
