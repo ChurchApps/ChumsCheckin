@@ -135,6 +135,8 @@ module.exports = [
       'react-native/no-unused-styles': 'off',
       'react/display-name': 'off',
       'react/react-in-jsx-scope': 'off',
+      'react-hooks/exhaustive-deps': 'off',
+      'import/namespace': 'off',
     },
   },
 ];

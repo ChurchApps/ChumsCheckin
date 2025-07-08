@@ -62,7 +62,7 @@ const CheckinComplete = (props: Props) => {
     if (htmlLabels?.length > 0) { return (<PrintUI htmlLabels={htmlLabels} onPrintComplete={startOver} />); } else { return <></>; }
   };
 
-  React.useEffect(loadData, []);  //eslint-disable-line react-hooks/exhaustive-deps
+  React.useEffect(loadData, []);
 
   return (
     <View style={checkinCompleteStyles.container}>

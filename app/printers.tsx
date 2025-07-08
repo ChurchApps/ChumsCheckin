@@ -29,7 +29,7 @@ const Printers = (props: Props) => {
     FirebaseHelper.addOpenScreenEvent("Printers");
     console.log("Scanning");
     setIsScanning(true);
-    
+
     // Load saved printer selection if available
     try {
       if (CachedData.printer && CachedData.printer.model !== "none") {
@@ -50,7 +50,7 @@ const Printers = (props: Props) => {
     } catch (error) {
       console.error("Error loading saved printer:", error);
     }
-    
+
     if (NativeModules.PrinterHelper) {
       NativeModules.PrinterHelper.scan().then((data: string) => {
         console.log("Scan callback", data);

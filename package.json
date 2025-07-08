@@ -11,8 +11,6 @@
     "test": "jest --watchAll",
     "lint": "expo lint",
     "lint:fix": "expo lint --fix",
-    "prebuild:android": "npm run lint:fix",
-    "prebuild:amazon": "npm run lint:fix",
     "build:android": "eas build --platform android",
     "build:amazon": "eas build --platform android --profile amazon"
   },

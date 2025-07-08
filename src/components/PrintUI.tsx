@@ -19,12 +19,12 @@ const PrintUI = (props: Props) => {
 
   React.useEffect(() => { resetPrint(); }, []);
   React.useEffect(() => { setPrintIndex((props.htmlLabels.length === 0) ? -1 : 0); }, [props.htmlLabels]);
-  React.useEffect(() => { if (printIndex < props.htmlLabels.length) { loadNextLabel(); } }, [printIndex]);  //eslint-disable-line react-hooks/exhaustive-deps
+  React.useEffect(() => { if (printIndex < props.htmlLabels.length) { loadNextLabel(); } }, [printIndex]);
   React.useEffect(() => {
     if (html) {
       if (firstTag) { timeout(1500).then(handleHtmlLoaded); } else { timeout(300).then(handleHtmlLoaded); }
     }
-  }, [html]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [html]);
   const timeout = (ms: number) => new Promise(resolve => setTimeout(() => { resolve(null); }, ms));
 
   const resetPrint = () => { setPrintIndex(-1); setUris([]); };

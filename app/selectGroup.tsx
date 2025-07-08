@@ -137,7 +137,7 @@ const SelectGroup = (props: any) => {
     }
   };
 
-  React.useEffect(buildTree, []); // eslint-disable-line react-hooks/exhaustive-deps
+  React.useEffect(buildTree, []);
 
   return (
     <View style={selectGroupStyles.container}>

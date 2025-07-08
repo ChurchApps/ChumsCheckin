@@ -87,7 +87,7 @@ const Header = (props: Props) => {
 
       NativeModules.PrinterHelper.bind(receiveNativeStatus);
       NativeModules.PrinterHelper.checkInit(CachedData.printer?.ipAddress || "", CachedData.printer?.model || "");
-      eventEmitter = new NativeEventEmitter(NativeModules.PrinterHelper);  //eslint-disable-line react-hooks/exhaustive-deps
+      eventEmitter = new NativeEventEmitter(NativeModules.PrinterHelper);
       eventEmitter.addListener("StatusUpdated", (event: any) => {
         if (event.status.indexOf("ready") > -1) { CachedData.printer.ipAddress = "ready"; }
         setStatus(event.status);
