@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { ErrorFallback } from "./ErrorFallback";
+import ErrorFallback from "./ErrorFallback";
 
 const myErrorHandler = (error: Error) => {
   // Do something with the error
@@ -12,4 +12,4 @@ const ErrorHandler = ({ children }: { children: React.ReactNode }) => (
     {children}
   </ErrorBoundary>
 );
-export default ErrorHandler
+export default ErrorHandler;

@@ -1,20 +1,20 @@
-import { VisitSessionInterface, ServiceTimeInterface, GroupInterface, ArrayHelper } from "@churchapps/mobilehelper";
+import { VisitSessionInterface, ServiceTimeInterface, GroupInterface } from "./Interfaces";
+import { ArrayHelper } from "./ArrayHelper";
 import { CachedData } from "./CachedData";
-import { Utilities } from "./Utilities";
 
 export class VisitSessionHelper {
 
   public static getByServiceTimeId(visitSessions: VisitSessionInterface[], serviceTimeId: string): VisitSessionInterface[] {
     let result: VisitSessionInterface[] = [];
-    visitSessions.forEach(vs => { if (vs.session?.serviceTimeId === serviceTimeId) {result.push(vs);} });
+    visitSessions.forEach(vs => { if (vs.session?.serviceTimeId === serviceTimeId) { result.push(vs); } });
     return result;
   }
 
   public static setValue(visitSessions: VisitSessionInterface[], serviceTimeId: string, groupId: string, displayName: string) {
     for (let i = visitSessions.length - 1; i >= 0; i--) {
-      if (visitSessions[i].session?.serviceTimeId === serviceTimeId) {visitSessions.splice(i, 1);}
+      if (visitSessions[i].session?.serviceTimeId === serviceTimeId) { visitSessions.splice(i, 1); }
     }
-    if (groupId !== "") {visitSessions.push({ session: { serviceTimeId: serviceTimeId, groupId: groupId, displayName: displayName } });}
+    if (groupId !== "") { visitSessions.push({ session: { serviceTimeId: serviceTimeId, groupId: groupId, displayName: displayName } }); }
   }
 
   public static getDisplayText = (visitSession: VisitSessionInterface) => {
@@ -32,15 +32,14 @@ export class VisitSessionHelper {
   public static getPickupText = (visitSession: VisitSessionInterface) => {
     const st: ServiceTimeInterface = ArrayHelper.getOne(CachedData.serviceTimes, "id", visitSession.session?.serviceTimeId || "");
     const group: GroupInterface = ArrayHelper.getOne(st?.groups || [], "id", visitSession.session?.groupId || "");
-    if (group.parentPickup) {return group.name;}
-    else {return "";}
+    if (group.parentPickup) { return group.name; } else { return ""; }
   };
 
   public static getPickupSessions = (visitSessions: VisitSessionInterface[]) => {
     const items: string[] = [];
     visitSessions.forEach(vs => {
       const name = VisitSessionHelper.getDisplayText(vs);
-      if (name !== "") {items.push(name);}
+      if (name !== "") { items.push(name); }
     });
     return items.join();
   };

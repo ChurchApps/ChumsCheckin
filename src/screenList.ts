@@ -1,4 +1,4 @@
-import { ServiceTimeInterface } from "@churchapps/mobilehelper";
+import { ServiceTimeInterface } from "../src/helpers";
 
 
 export type ScreenList = {

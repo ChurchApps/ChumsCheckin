@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
-import  org.chums.checkin.PrintHandHelper;
 import  org.chums.checkin.PrinterHelper;
 
 import java.io.File;

@@ -1,14 +1,44 @@
 import fs from "react-native-fs";
 import { CachedData } from "./CachedData";
-import { Utilities } from "./Utilities";
 import { VisitSessionHelper } from "./VisitSessionHelper";
-import { VisitInterface, PersonInterface, ServiceTimeInterface, GroupInterface, ArrayHelper } from "@churchapps/mobilehelper";
+import { VisitInterface, PersonInterface, ServiceTimeInterface, GroupInterface } from "./Interfaces";
+import { ArrayHelper } from "./ArrayHelper";
 
 export class LabelHelper {
 
   private static generatePickupCode() {
     //Omitted vowels and numbers that are substituted for vowels to avoid bad words from being formed
-    const characters = ["2", "3", "4", "5", "6", "7", "8", "9", "B", "C", "D", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "V", "W", "X", "Y", "Z"];
+    const characters = [
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "B",
+      "C",
+      "D",
+      "F",
+      "G",
+      "H",
+      "J",
+      "K",
+      "L",
+      "M",
+      "N",
+      "P",
+      "Q",
+      "R",
+      "S",
+      "T",
+      "V",
+      "W",
+      "X",
+      "Y",
+      "Z"
+    ];
     let pickupCode = "";
     for (let i = 0; i < 4; i++) {
       let idx = Math.floor(Math.random() * characters.length);

@@ -1,9 +1,11 @@
 import React from "react";
-import { Text, FlatList, ActivityIndicator, SafeAreaView, Dimensions, PixelRatio, ScrollView, View } from "react-native";
+import {
+  Text, FlatList, ActivityIndicator, Dimensions, PixelRatio, View
+} from "react-native";
 import Ripple from "react-native-material-ripple";
-import Header from "./components/Header";
-import { screenNavigationProps, CachedData, Styles, StyleConstants, Utilities } from "../src/helpers";
-import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper, FirebaseHelper, GroupInterface, GroupServiceTimeInterface } from "@churchapps/mobilehelper";
+import Header from "../src/components/Header";
+import { screenNavigationProps, CachedData, Styles, StyleConstants } from "../src/helpers";
+import { ApiHelper, ArrayHelper, DimensionHelper, FirebaseHelper, GroupInterface, GroupServiceTimeInterface } from "../src/helpers";
 
 interface Props { navigation: screenNavigationProps }
 
@@ -16,7 +18,7 @@ const Services = (props: Props) => {
     setIsLoading(true);
 
     ApiHelper.get("/services", "AttendanceApi").then(data => {
-      console.log("data", data)
+      console.log("data", data);
       setServices(data); setIsLoading(false);
     });
   };
@@ -37,11 +39,7 @@ const Services = (props: Props) => {
   const selectService = (serviceId: string) => {
     setIsLoading(true);
 
-    const promises: Promise<any>[] = [
-      ApiHelper.get("/servicetimes?serviceId=" + serviceId, "AttendanceApi").then(times => { CachedData.serviceId = serviceId; CachedData.serviceTimes = times; }),
-      ApiHelper.get("/groupservicetimes", "AttendanceApi").then(groupServiceTimes => { CachedData.groupServiceTimes = groupServiceTimes; }),
-      ApiHelper.get("/groups", "MembershipApi").then(groups => { CachedData.groups = groups; })
-    ];
+    const promises: Promise<any>[] = [ApiHelper.get("/servicetimes?serviceId=" + serviceId, "AttendanceApi").then(times => { CachedData.serviceId = serviceId; CachedData.serviceTimes = times; }), ApiHelper.get("/groupservicetimes", "AttendanceApi").then(groupServiceTimes => { CachedData.groupServiceTimes = groupServiceTimes; }), ApiHelper.get("/groups", "MembershipApi").then(groups => { CachedData.groups = groups; })];
 
     Promise.all(promises).then(() => {
       //for simplicity, iterate the group service times and add groups to the services.
@@ -70,8 +68,7 @@ const Services = (props: Props) => {
   };
 
   const getResults = () => {
-    if (isLoading) { return (<ActivityIndicator size="large" color={StyleConstants.baseColor1} animating={isLoading} style={{ marginTop: "25%" }} />); }
-    else { return (<FlatList data={services} renderItem={getRow} keyExtractor={(item: any) => item.id.toString()} />); }
+    if (isLoading) { return (<ActivityIndicator size="large" color={StyleConstants.baseColor1} animating={isLoading} style={{ marginTop: "25%" }} />); } else { return (<FlatList data={services} renderItem={getRow} keyExtractor={(item: any) => item.id.toString()} />); }
   };
 
   React.useEffect(loadData, []);
@@ -84,4 +81,4 @@ const Services = (props: Props) => {
     </View>
   );
 };
-export default Services
+export default Services;

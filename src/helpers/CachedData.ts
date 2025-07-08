@@ -1,6 +1,5 @@
-import { VisitInterface, LoginUserChurchInterface, PersonInterface, ServiceTimeInterface, GroupServiceTimeInterface, GroupInterface } from "@churchapps/mobilehelper";
+import { VisitInterface, LoginUserChurchInterface, PersonInterface, ServiceTimeInterface, GroupServiceTimeInterface, GroupInterface } from "./Interfaces";
 import { AppearanceInterface, AvailablePrinter } from "./Interfaces";
-import { Appearance } from "react-native";
 
 export class CachedData {
   static pendingVisits: VisitInterface[] = [];

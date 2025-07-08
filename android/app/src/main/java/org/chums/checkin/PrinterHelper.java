@@ -16,7 +16,6 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 import  org.chums.checkin.printProviders.BrotherProvider;
-import  org.chums.checkin.printProviders.PrintHandProvider;
 import  org.chums.checkin.printProviders.PrintProviderInterface;
 
 import java.util.ArrayList;
@@ -28,7 +27,6 @@ public class PrinterHelper extends  ReactContextBaseJavaModule  {
     static Runnable statusChangeRunnable;
     public static boolean readyToPrint=false;
     public static ReactContext reactContext = null;
-    //static PrintProviderInterface printProvider = new PrintHandProvider();
     static PrintProviderInterface printProvider = new BrotherProvider();
     static Context context = null;
 
