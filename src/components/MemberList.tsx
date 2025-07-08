@@ -23,11 +23,17 @@ interface Props { navigation: screenNavigationProps, pendingVisits: VisitInterfa
         visit?.visitSessions?.forEach((vs: VisitSessionInterface, index) => {
           const st: ServiceTimeInterface | null = ArrayHelper.getOne(CachedData.serviceTimes, "id", vs.session?.serviceTimeId || "");
           const group: GroupInterface = ArrayHelper.getOne(st?.groups || [], "id", vs.session?.groupId || "");
-          let name = group.name || "none";
-          if (st != null) {name = (st.name || "") + " - " + name;}
-          groups.push(<View key={index} style={memberListStyles.groupChip}>
-            <Text style={memberListStyles.groupName} numberOfLines={1}>{name}</Text>
-          </View>);
+          const groupName = group.name || "none";
+          const serviceTime = st?.name || "";
+          
+          groups.push(
+            <View key={index} style={memberListStyles.groupChip}>
+              <View style={memberListStyles.groupInfo}>
+                <Text style={memberListStyles.serviceTimeLabel} numberOfLines={1}>{serviceTime}</Text>
+                <Text style={memberListStyles.groupName} numberOfLines={1}>{groupName}</Text>
+              </View>
+            </View>
+          );
         });
         return (<View style={memberListStyles.groupContainer}>{groups}</View>);
       }
@@ -144,26 +150,39 @@ const memberListStyles = {
   },
 
   groupContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "flex-start"
+    flexDirection: "column",
+    alignItems: "flex-start",
+    flex: 1
   },
 
   groupChip: {
     backgroundColor: StyleConstants.baseColor + "15",
     borderRadius: 8,
-    paddingHorizontal: DimensionHelper.wp("2%"),
-    paddingVertical: DimensionHelper.wp("1%"),
-    marginRight: DimensionHelper.wp("1%"),
+    paddingHorizontal: DimensionHelper.wp("2.5%"),
+    paddingVertical: DimensionHelper.wp("1.5%"),
     marginBottom: DimensionHelper.wp("1%"),
     borderWidth: 1,
-    borderColor: StyleConstants.baseColor + "30"
+    borderColor: StyleConstants.baseColor + "30",
+    maxWidth: "100%",
+    alignSelf: "flex-start"
+  },
+
+  groupInfo: {
+    flexDirection: "column",
+    alignItems: "flex-start"
+  },
+
+  serviceTimeLabel: {
+    fontSize: DimensionHelper.wp("2.8%"),
+    fontFamily: StyleConstants.RobotoMedium,
+    color: StyleConstants.baseColor,
+    marginBottom: DimensionHelper.wp("0.5%")
   },
 
   groupName: {
     fontSize: DimensionHelper.wp("3.2%"),
     fontFamily: StyleConstants.RobotoMedium,
-    color: StyleConstants.baseColor
+    color: StyleConstants.darkColor
   },
 
   expandIconContainer: {
