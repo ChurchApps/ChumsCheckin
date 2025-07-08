@@ -2,6 +2,7 @@ import React from "react";
 import { Text, FlatList, ActivityIndicator, SafeAreaView, Dimensions, PixelRatio, ScrollView, View, Image, StatusBar } from "react-native";
 import Ripple from "react-native-material-ripple";
 import Header from "../src/components/Header";
+import Subheader from "../src/components/Subheader";
 import { screenNavigationProps, CachedData, Styles, StyleConstants, Utilities } from "../src/helpers";
 import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper, FirebaseHelper, GroupInterface, GroupServiceTimeInterface } from "../src/helpers";
 import { router } from "expo-router";
@@ -77,26 +78,26 @@ const Services = (props: Props) => {
   };
 
   const getResults = () => {
-    if (isLoading) { 
+    if (isLoading) {
       return (
         <View style={serviceStyles.loadingContainer}>
           <ActivityIndicator size="large" color={StyleConstants.baseColor} animating={isLoading} />
           <Text style={serviceStyles.loadingText}>Loading services...</Text>
         </View>
-      ); 
+      );
     }
-    else { 
+    else {
       return (
         <View style={serviceStyles.servicesContainer}>
-          <FlatList 
-            data={services} 
-            renderItem={getRow} 
+          <FlatList
+            data={services}
+            renderItem={getRow}
             keyExtractor={(item: any) => item.id.toString()}
             contentContainerStyle={serviceStyles.servicesList}
             showsVerticalScrollIndicator={false}
           />
         </View>
-      ); 
+      );
     }
   };
 
@@ -104,25 +105,17 @@ const Services = (props: Props) => {
 
   return (
     <View style={serviceStyles.container}>
-      <Header 
-        navigation={props.navigation} 
+      <Header
+        navigation={props.navigation}
         prominentLogo={true}
       />
 
       {/* Select a Service Section */}
-      <View style={serviceStyles.textSection}>
-        <View style={serviceStyles.headerTextContainer}>
-          <View style={serviceStyles.titleRow}>
-            <View style={serviceStyles.titleIconContainer}>
-              <Text style={serviceStyles.titleIcon}>🏛️</Text>
-            </View>
-            <View style={serviceStyles.titleTextContainer}>
-              <Text style={serviceStyles.headerTitle}>Select a Service</Text>
-              <Text style={serviceStyles.headerSubtitle}>Choose which service you'd like to check in for</Text>
-            </View>
-          </View>
-        </View>
-      </View>
+      <Subheader
+        icon="📅"
+        title="Select a Service"
+        subtitle="Choose which service to check in for"
+      />
 
       {/* Main Content */}
       <View style={serviceStyles.mainContent}>
@@ -138,21 +131,21 @@ const serviceStyles = {
     flex: 1,
     backgroundColor: StyleConstants.ghostWhite
   },
-  
+
   // Main Content
   mainContent: {
     flex: 1,
     paddingHorizontal: DimensionHelper.wp("5%")
   },
-  
+
   servicesContainer: {
     flex: 1
   },
-  
+
   servicesList: {
     paddingBottom: DimensionHelper.wp("5%")
   },
-  
+
   // Service Cards (Professional Material Design)
   serviceCard: {
     backgroundColor: StyleConstants.whiteColor,
@@ -169,38 +162,38 @@ const serviceStyles = {
     alignSelf: "center",
     minHeight: DimensionHelper.wp("16%")
   },
-  
+
   serviceCardContent: {
     flex: 1,
     justifyContent: "center"
   },
-  
+
   campusName: {
     fontSize: DimensionHelper.wp("3.8%"),
     fontFamily: StyleConstants.RobotoMedium,
     color: StyleConstants.baseColor,
     marginBottom: DimensionHelper.wp("1%")
   },
-  
+
   serviceName: {
     fontSize: DimensionHelper.wp("4.5%"),
     fontFamily: StyleConstants.RobotoMedium,
     color: StyleConstants.darkColor,
     lineHeight: DimensionHelper.wp("5.5%")
   },
-  
+
   arrowContainer: {
     marginLeft: DimensionHelper.wp("3%"),
     justifyContent: "center",
     alignItems: "center"
   },
-  
+
   arrow: {
     fontSize: DimensionHelper.wp("6%"),
     color: StyleConstants.baseColor,
     opacity: 0.7
   },
-  
+
   // Loading State
   loadingContainer: {
     flex: 1,
@@ -208,73 +201,13 @@ const serviceStyles = {
     alignItems: "center",
     paddingTop: DimensionHelper.wp("20%")
   },
-  
+
   loadingText: {
     fontSize: DimensionHelper.wp("4%"),
     fontFamily: StyleConstants.RobotoRegular,
     color: StyleConstants.baseColor,
     marginTop: DimensionHelper.wp("4%"),
     textAlign: "center"
-  },
-
-  // Text Section (Light blue background)
-  textSection: {
-    backgroundColor: "#568BDA", // Light blue background
-    paddingHorizontal: DimensionHelper.wp("5%"),
-    paddingTop: DimensionHelper.wp("5%"),
-    paddingBottom: DimensionHelper.wp("5%"),
-    borderBottomLeftRadius: DimensionHelper.wp("8%"),
-    borderBottomRightRadius: DimensionHelper.wp("8%"),
-    marginBottom: DimensionHelper.wp("2%"),
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 8,
-    elevation: 5,
-    shadowColor: StyleConstants.baseColor
-  },
-
-  headerTextContainer: {
-    width: "100%"
-  },
-
-  titleRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%"
-  },
-
-  titleIconContainer: {
-    backgroundColor: "rgba(255,255,255,0.2)",
-    borderRadius: 8,
-    width: DimensionHelper.wp("10%"),
-    height: DimensionHelper.wp("10%"),
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: DimensionHelper.wp("3%")
-  },
-
-  titleIcon: {
-    fontSize: DimensionHelper.wp("5%")
-  },
-
-  titleTextContainer: {
-    flex: 1
-  },
-
-  headerTitle: {
-    fontSize: DimensionHelper.wp("5.5%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    fontWeight: "600",
-    color: StyleConstants.whiteColor,
-    marginBottom: DimensionHelper.wp("1%"),
-    textAlign: "left"
-  },
-
-  headerSubtitle: {
-    fontSize: DimensionHelper.wp("3.8%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    color: "rgba(255,255,255,0.9)",
-    textAlign: "left"
   }
 };
 
