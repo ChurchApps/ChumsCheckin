@@ -112,7 +112,6 @@ export default function Splash() {
         source={require("../src/images/logo1.png")}
         style={splashStyles.logo}
       />
-      <Text style={splashStyles.title}>CHUMS Check-in</Text>
       <View style={splashStyles.loadingContainer}>
         <ActivityIndicator size="large" color={StyleConstants.baseColor} />
         <Text style={splashStyles.statusText}>{statusMessage}</Text>
@@ -129,10 +128,10 @@ const splashStyles = {
     backgroundColor: StyleConstants.whiteColor
   },
   logo: {
-    width: DimensionHelper.wp("35%"),
-    height: DimensionHelper.wp("35%"),
+    width: DimensionHelper.wp("60%"),
+    height: DimensionHelper.wp("60%"),
     resizeMode: "contain",
-    marginBottom: DimensionHelper.wp("4%")
+    marginBottom: DimensionHelper.wp("8%")
   },
   title: {
     fontSize: DimensionHelper.wp("6%"),

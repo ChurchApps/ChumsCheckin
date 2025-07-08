@@ -2,7 +2,7 @@
   "expo": {
     "name": "Chums Checkin",
     "slug": "chums-checkin",
-    "version": "1.30.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -31,8 +31,8 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
+          "image": "./src/images/logo1.png",
+          "imageWidth": 300,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
@@ -40,6 +40,9 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "ios": {
+      "bundleIdentifier": "org.chums.checkin"
     }
   }
 }
