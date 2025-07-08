@@ -5,6 +5,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper, FirebaseHelper } from "../src/helpers";
 import PrintUI from "../src/components/PrintUI";
 import Header from "../src/components/Header";
+import Subheader from "../src/components/Subheader";
 import { router } from "expo-router";
 
 interface Props { navigation: screenNavigationProps; }
@@ -65,11 +66,36 @@ const CheckinComplete = (props: Props) => {
   React.useEffect(loadData, []);  //eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <View style={{ backgroundColor: StyleConstants.ghostWhite }}>
-      <Header navigation={props.navigation} />
-      <View style={[Styles.mainContainer, { justifyContent: "center" }]}>
-        <FontAwesome name={"check-circle"} style={{ fontSize: DimensionHelper.wp("20%"), color: StyleConstants.greenColor, alignSelf: "center" }} size={DimensionHelper.wp("20%")} />
-        <Text style={[Styles.H1, { alignSelf: "center" }]}>Checkin Complete.</Text>
+    <View style={checkinCompleteStyles.container}>
+      <Header
+        navigation={props.navigation}
+        prominentLogo={true}
+      />
+
+      {/* Check-in Complete Section */}
+      <Subheader
+        icon="✅"
+        title="Check-in Complete"
+        subtitle="Your family has been successfully checked in"
+      />
+
+      {/* Main Content */}
+      <View style={checkinCompleteStyles.mainContent}>
+        <View style={checkinCompleteStyles.successCard}>
+          <View style={checkinCompleteStyles.successIconContainer}>
+            <FontAwesome 
+              name="check-circle" 
+              style={checkinCompleteStyles.successIcon}
+              size={DimensionHelper.wp("15%")} 
+            />
+          </View>
+          <Text style={checkinCompleteStyles.successTitle}>Welcome!</Text>
+          <Text style={checkinCompleteStyles.successMessage}>
+            Your family has been checked in successfully. 
+            {CachedData.printer?.ipAddress ? " Your labels are being printed now." : ""}
+          </Text>
+        </View>
+        
         {getLabelView()}
       </View>
     </View>
@@ -77,5 +103,70 @@ const CheckinComplete = (props: Props) => {
 
 };
 
+// Professional tablet-optimized styles matching ChumsApp design patterns
+const checkinCompleteStyles = {
+  container: {
+    flex: 1,
+    backgroundColor: StyleConstants.ghostWhite
+  },
+
+  // Main Content
+  mainContent: {
+    flex: 1,
+    paddingHorizontal: DimensionHelper.wp("5%"),
+    paddingTop: DimensionHelper.wp("5%"),
+    justifyContent: "center",
+    alignItems: "center"
+  },
+
+  // Success Card (Professional Material Design)
+  successCard: {
+    backgroundColor: StyleConstants.whiteColor,
+    borderRadius: 16,
+    padding: DimensionHelper.wp("8%"),
+    marginBottom: DimensionHelper.wp("5%"),
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 8,
+    shadowColor: StyleConstants.baseColor,
+    alignItems: "center",
+    minWidth: DimensionHelper.wp("80%"),
+    maxWidth: DimensionHelper.wp("90%")
+  },
+
+  successIconContainer: {
+    backgroundColor: StyleConstants.greenColor + "20",
+    borderRadius: DimensionHelper.wp("8%"),
+    width: DimensionHelper.wp("20%"),
+    height: DimensionHelper.wp("20%"),
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: DimensionHelper.wp("5%")
+  },
+
+  successIcon: {
+    color: StyleConstants.greenColor
+  },
+
+  successTitle: {
+    fontSize: DimensionHelper.wp("6%"),
+    fontFamily: StyleConstants.RobotoMedium,
+    fontWeight: "600",
+    color: StyleConstants.darkColor,
+    marginBottom: DimensionHelper.wp("3%"),
+    textAlign: "center"
+  },
+
+  successMessage: {
+    fontSize: DimensionHelper.wp("4.2%"),
+    fontFamily: StyleConstants.RobotoRegular,
+    color: StyleConstants.darkColor,
+    textAlign: "center",
+    lineHeight: DimensionHelper.wp("5.5%"),
+    opacity: 0.8,
+    paddingHorizontal: DimensionHelper.wp("2%")
+  }
+};
 
 export default CheckinComplete
