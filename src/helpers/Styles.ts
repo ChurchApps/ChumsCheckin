@@ -20,6 +20,7 @@ export class StyleConstants {
   static blackColor = "black";
   static grayColor = "gray";
   static lightGrayColor = "lightgray";
+  static lightGray = "#9E9E9E";
   static whiteColor = "white";
   static yellowColor = "#FEAA24";
   static greenColor = "#70DC87";

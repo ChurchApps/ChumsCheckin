@@ -7,8 +7,8 @@ import { ScreenList } from "../src/screenList";
 import { EnvironmentHelper, screenNavigationProps, CachedData, Styles, StyleConstants } from "../src/helpers";
 import { ApiHelper, AppCenterHelper, ArrayHelper, DimensionHelper, FirebaseHelper, PersonInterface, Utils } from "../src/helpers";
 import Header from "../src/components/Header";
+import Subheader from "../src/components/Subheader";
 import { router } from "expo-router";
-// import { Header } from "./components";
 
 type ProfileScreenRouteProp = RouteProp<ScreenList, "Lookup">;
 interface Props { navigation: screenNavigationProps; route: ProfileScreenRouteProp; }
@@ -73,7 +73,6 @@ const Lookup = (props: Props) => {
       ApiHelper.get("/people/search/phone?number=" + searchQuery, "MembershipApi").then(data => {
         setIsLoading(false);
         setPeople(data);
-        if (data.length === 0) { Utils.snackBar("No matches found"); }
       });
     }
   };
@@ -81,17 +80,61 @@ const Lookup = (props: Props) => {
   const getRow = (data: any) => {
     const person: PersonInterface = data.item;
     return (
-      <Ripple style={[Styles.flatlistMainView, { width: wd("90%") }]} onPress={() => { selectPerson(person); }}>
-        <Image source={{ uri: EnvironmentHelper.ContentRoot + person.photo }} style={Styles.personPhoto} />
-        <Text style={Styles.personName}>{person.name.display}</Text>
+      <Ripple style={[lookupStyles.personCard, { width: wd("90%") }]} onPress={() => { selectPerson(person); }}>
+        <Image 
+          source={{ uri: EnvironmentHelper.ContentRoot + person.photo }} 
+          style={lookupStyles.personPhoto} 
+        />
+        <View style={lookupStyles.personInfo}>
+          <Text style={lookupStyles.personName}>{person.name.display}</Text>
+        </View>
+        <View style={lookupStyles.arrowContainer}>
+          <Text style={lookupStyles.arrow}>›</Text>
+        </View>
       </Ripple>
     );
   };
 
   const getResults = () => {
-    if (!hasSearched) { return null; }
-    else if (isLoading) { return (<ActivityIndicator size="large" color={StyleConstants.baseColor1} animating={isLoading} style={{ marginTop: "25%" }} />); }
-    else { return (<FlatList data={people} renderItem={getRow} keyExtractor={(item: PersonInterface) => item.id?.toString() || "0"} />); }
+    if (!hasSearched) { 
+      return (
+        <View style={lookupStyles.emptyState}>
+          <Text style={lookupStyles.emptyStateIcon}>🔍</Text>
+          <Text style={lookupStyles.emptyStateTitle}>Ready to Search</Text>
+          <Text style={lookupStyles.emptyStateSubtitle}>Enter a phone number to find people</Text>
+        </View>
+      );
+    }
+    else if (isLoading) { 
+      return (
+        <View style={lookupStyles.loadingContainer}>
+          <ActivityIndicator size="large" color={StyleConstants.baseColor} animating={isLoading} />
+          <Text style={lookupStyles.loadingText}>Searching...</Text>
+        </View>
+      );
+    }
+    else { 
+      if (people.length === 0) {
+        return (
+          <View style={lookupStyles.noResultsState}>
+            <Text style={lookupStyles.noResultsIcon}>😔</Text>
+            <Text style={lookupStyles.noResultsTitle}>No Matches Found</Text>
+            <Text style={lookupStyles.noResultsSubtitle}>Try searching with a different phone number</Text>
+          </View>
+        );
+      }
+      return (
+        <View style={lookupStyles.resultsContainer}>
+          <FlatList 
+            data={people} 
+            renderItem={getRow} 
+            keyExtractor={(item: PersonInterface) => item.id?.toString() || "0"}
+            contentContainerStyle={lookupStyles.resultsList}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
+      );
+    }
   };
 
   React.useEffect(() => {
@@ -108,17 +151,239 @@ const Lookup = (props: Props) => {
   };
 
   return (
-    <View style={{ backgroundColor: StyleConstants.ghostWhite }}>
-      <Header navigation={props.navigation} />
-      <Text style={{ ...Styles.H1, marginLeft: DimensionHelper.wp("5%") }}>Search by phone number:</Text>
-      <View style={[Styles.searchView, { width: wd("90%") }]}>
-        <TextInput placeholder="Enter last four digits of mobile number" onChangeText={(value) => { setPhone(value); }} keyboardType="numeric" style={Styles.searchTextInput} />
-        <Ripple style={Styles.searchButton} onPress={handleSearch}>
-          <Text style={[Styles.searchButtonText]}>Search</Text>
-        </Ripple>
+    <View style={lookupStyles.container}>
+      <Header
+        navigation={props.navigation}
+        prominentLogo={true}
+      />
+
+      {/* Search Section */}
+      <Subheader
+        icon="🔍"
+        title="Search by Phone Number"
+        subtitle="Enter last four digits of mobile number"
+      />
+
+      {/* Main Content */}
+      <View style={lookupStyles.mainContent}>
+        {/* Search Input */}
+        <View style={lookupStyles.searchSection}>
+          <View style={[lookupStyles.searchView, { width: wd("90%") }]}>
+            <TextInput 
+              placeholder="Enter last four digits of mobile number" 
+              onChangeText={(value) => { setPhone(value); }} 
+              keyboardType="numeric" 
+              style={lookupStyles.searchTextInput} 
+              placeholderTextColor={StyleConstants.lightGray}
+            />
+            <Ripple style={lookupStyles.searchButton} onPress={handleSearch}>
+              <Text style={lookupStyles.searchButtonText}>Search</Text>
+            </Ripple>
+          </View>
+        </View>
+
+        {/* Results Section */}
+        <View style={lookupStyles.resultsSection}>
+          {getResults()}
+        </View>
       </View>
-      {getResults()}
     </View>
   );
 };
+
+// Professional tablet-optimized styles matching ChumsApp
+const lookupStyles = {
+  container: {
+    flex: 1,
+    backgroundColor: StyleConstants.ghostWhite
+  },
+
+  // Main Content
+  mainContent: {
+    flex: 1,
+    paddingHorizontal: DimensionHelper.wp("5%")
+  },
+
+  // Search Section
+  searchSection: {
+    marginBottom: DimensionHelper.wp("5%")
+  },
+
+  searchView: {
+    backgroundColor: StyleConstants.whiteColor,
+    borderRadius: 12,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: DimensionHelper.wp("4%"),
+    paddingVertical: DimensionHelper.wp("2%"),
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 5,
+    shadowColor: StyleConstants.baseColor,
+    alignSelf: "center",
+    marginVertical: DimensionHelper.wp("3%")
+  },
+
+  searchTextInput: {
+    flex: 1,
+    fontSize: DimensionHelper.wp("4%"),
+    fontFamily: StyleConstants.RobotoRegular,
+    color: StyleConstants.darkColor,
+    paddingVertical: DimensionHelper.wp("2%"),
+    paddingHorizontal: DimensionHelper.wp("2%")
+  },
+
+  searchButton: {
+    backgroundColor: StyleConstants.baseColor,
+    paddingHorizontal: DimensionHelper.wp("6%"),
+    paddingVertical: DimensionHelper.wp("3%"),
+    borderRadius: 8,
+    marginLeft: DimensionHelper.wp("3%")
+  },
+
+  searchButtonText: {
+    color: StyleConstants.whiteColor,
+    fontSize: DimensionHelper.wp("3.8%"),
+    fontFamily: StyleConstants.RobotoMedium,
+    fontWeight: "600"
+  },
+
+  // Results Section
+  resultsSection: {
+    flex: 1
+  },
+
+  resultsContainer: {
+    flex: 1
+  },
+
+  resultsList: {
+    paddingBottom: DimensionHelper.wp("5%")
+  },
+
+  // Person Cards (Professional Material Design)
+  personCard: {
+    backgroundColor: StyleConstants.whiteColor,
+    borderRadius: 12,
+    marginVertical: DimensionHelper.wp("1.5%"),
+    padding: DimensionHelper.wp("4%"),
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 5,
+    shadowColor: StyleConstants.baseColor,
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "center",
+    minHeight: DimensionHelper.wp("18%")
+  },
+
+  personPhoto: {
+    width: DimensionHelper.wp("12%"),
+    height: DimensionHelper.wp("12%"),
+    borderRadius: DimensionHelper.wp("6%"),
+    marginRight: DimensionHelper.wp("4%")
+  },
+
+  personInfo: {
+    flex: 1,
+    justifyContent: "center"
+  },
+
+  personName: {
+    fontSize: DimensionHelper.wp("4.5%"),
+    fontFamily: StyleConstants.RobotoMedium,
+    color: StyleConstants.darkColor,
+    lineHeight: DimensionHelper.wp("5.5%")
+  },
+
+  arrowContainer: {
+    marginLeft: DimensionHelper.wp("3%"),
+    justifyContent: "center",
+    alignItems: "center"
+  },
+
+  arrow: {
+    fontSize: DimensionHelper.wp("6%"),
+    color: StyleConstants.baseColor,
+    opacity: 0.7
+  },
+
+  // Loading State
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: DimensionHelper.wp("20%")
+  },
+
+  loadingText: {
+    fontSize: DimensionHelper.wp("4%"),
+    fontFamily: StyleConstants.RobotoRegular,
+    color: StyleConstants.baseColor,
+    marginTop: DimensionHelper.wp("4%"),
+    textAlign: "center"
+  },
+
+  // Empty States
+  emptyState: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: DimensionHelper.wp("20%")
+  },
+
+  emptyStateIcon: {
+    fontSize: DimensionHelper.wp("16%"),
+    marginBottom: DimensionHelper.wp("4%")
+  },
+
+  emptyStateTitle: {
+    fontSize: DimensionHelper.wp("5%"),
+    fontFamily: StyleConstants.RobotoMedium,
+    color: StyleConstants.darkColor,
+    marginBottom: DimensionHelper.wp("2%"),
+    textAlign: "center"
+  },
+
+  emptyStateSubtitle: {
+    fontSize: DimensionHelper.wp("3.8%"),
+    fontFamily: StyleConstants.RobotoRegular,
+    color: StyleConstants.lightGray,
+    textAlign: "center",
+    lineHeight: DimensionHelper.wp("5%")
+  },
+
+  // No Results State
+  noResultsState: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: DimensionHelper.wp("15%")
+  },
+
+  noResultsIcon: {
+    fontSize: DimensionHelper.wp("16%"),
+    marginBottom: DimensionHelper.wp("4%")
+  },
+
+  noResultsTitle: {
+    fontSize: DimensionHelper.wp("5%"),
+    fontFamily: StyleConstants.RobotoMedium,
+    color: StyleConstants.darkColor,
+    marginBottom: DimensionHelper.wp("2%"),
+    textAlign: "center"
+  },
+
+  noResultsSubtitle: {
+    fontSize: DimensionHelper.wp("3.8%"),
+    fontFamily: StyleConstants.RobotoRegular,
+    color: StyleConstants.lightGray,
+    textAlign: "center",
+    lineHeight: DimensionHelper.wp("5%"),
+    paddingHorizontal: DimensionHelper.wp("10%")
+  }
+};
+
 export default Lookup
