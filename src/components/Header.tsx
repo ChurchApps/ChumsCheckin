@@ -1,7 +1,9 @@
 import React from "react";
-import { View, Image, StatusBar, Text, NativeModules, NativeEventEmitter, Platform, Dimensions } from "react-native";
+import { View, Image, StatusBar, Text, NativeModules, NativeEventEmitter, Platform, Dimensions, Alert } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Ripple from "react-native-material-ripple";
 import { CachedData, screenNavigationProps, Styles, StyleConstants, DimensionHelper } from "../helpers";
+import { FontAwesome } from "@expo/vector-icons";
 import { routeToScreen } from "expo-router/build/useScreens";
 import { router } from "expo-router";
 
@@ -18,12 +20,68 @@ interface Props {
 const Header = (props: Props) => {
   const [status, setStatus] = React.useState("");
   const [landscape, setLandscape] = React.useState(false);
+  const [logoTapCount, setLogoTapCount] = React.useState(0);
+  const logoTapTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
 
   let eventEmitter: NativeEventEmitter;
 
   const handleClick = () => {
     router.navigate('/printers')
     // props.navigation?.navigate("/printers");
+  };
+
+  const handleLogoTap = () => {
+    // Clear any existing timeout
+    if (logoTapTimeoutRef.current) {
+      clearTimeout(logoTapTimeoutRef.current);
+    }
+
+    // Increment tap count
+    const newTapCount = logoTapCount + 1;
+    setLogoTapCount(newTapCount);
+
+    if (newTapCount >= 7) {
+      // Show logout confirmation after 7 taps
+      Alert.alert(
+        "Secret Menu",
+        "Are you sure you want to logout?",
+        [
+          {
+            text: "Cancel",
+            style: "cancel",
+            onPress: () => setLogoTapCount(0)
+          },
+          {
+            text: "Logout",
+            onPress: async () => {
+              // Clear stored credentials and church selection
+              await AsyncStorage.multiRemove([
+                "@Email",
+                "@Password",
+                "@SelectedChurchId",
+                "@ChurchAppearance",
+                "@UserChurches",
+                "@Login"
+              ]);
+              
+              // Clear cached data
+              CachedData.userChurch = null;
+              CachedData.churchAppearance = null;
+              
+              // Navigate to login screen
+              router.replace('/login');
+            },
+            style: "destructive"
+          }
+        ]
+      );
+      setLogoTapCount(0);
+    } else {
+      // Reset tap count after 2 seconds of no taps
+      logoTapTimeoutRef.current = setTimeout(() => {
+        setLogoTapCount(0);
+      }, 2000);
+    }
   };
 
   const receiveNativeStatus = (receivedStatus: string) => { setStatus(receivedStatus); };
@@ -87,10 +145,10 @@ const Header = (props: Props) => {
 
         {/* Logo Section with Dark Blue Background */}
         <View style={headerStyles.logoSection}>
-          {/* Prominent Church Logo in White Box */}
-          <View style={headerStyles.logoContainer}>
+          {/* Prominent Church Logo in White Box - Tappable for secret logout */}
+          <Ripple style={headerStyles.logoContainer} onPress={handleLogoTap}>
             <Image source={getLogoUrl()} style={headerStyles.prominentLogo} />
-          </View>
+          </Ripple>
         </View>
 
       </View>
@@ -107,7 +165,9 @@ const Header = (props: Props) => {
         <Text style={{ backgroundColor: StyleConstants.baseColor, color: "#FFF" }}>{getVersion()} - {status}</Text>
       </Ripple>
       {props.logo !== false && (
-        <Image source={getLogoUrl()} style={[Styles.headerLogoIcon, landscape && { maxHeight: "40%", top: "10%" }]} />
+        <Ripple onPress={handleLogoTap} style={{ alignItems: "center", justifyContent: "center" }}>
+          <Image source={getLogoUrl()} style={[Styles.headerLogoIcon, landscape && { maxHeight: "40%", top: "10%" }]} />
+        </Ripple>
       )}
     </View>
   );
