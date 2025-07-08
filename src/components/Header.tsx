@@ -25,7 +25,7 @@ const Header = (props: Props) => {
     router.navigate('/printers')
     // props.navigation?.navigate("/printers");
   };
-  
+
   const receiveNativeStatus = (receivedStatus: string) => { setStatus(receivedStatus); };
 
   const init = () => {
@@ -79,39 +79,27 @@ const Header = (props: Props) => {
     return (
       <View style={{ backgroundColor: StyleConstants.ghostWhite }}>
         <StatusBar backgroundColor={StyleConstants.baseColor} />
-        
+
         {/* Compact Printer Status Bar */}
         <Ripple style={Styles.printerStatus} onPress={() => { handleClick(); }}>
           <Text style={{ backgroundColor: StyleConstants.baseColor, color: "#FFF" }}>{getVersion()} - {status}</Text>
         </Ripple>
 
-        {/* Professional Header Section with Prominent Logo */}
-        <View style={headerStyles.headerSection}>
+        {/* Logo Section with Dark Blue Background */}
+        <View style={headerStyles.logoSection}>
           {/* Prominent Church Logo in White Box */}
           <View style={headerStyles.logoContainer}>
             <Image source={getLogoUrl()} style={headerStyles.prominentLogo} />
           </View>
-          
-          {/* Header Text Below Logo */}
-          <View style={headerStyles.headerTextContainer}>
-            <View style={headerStyles.titleRow}>
-              <View style={headerStyles.titleIconContainer}>
-                <Text style={headerStyles.titleIcon}>🏛️</Text>
-              </View>
-              <View style={headerStyles.titleTextContainer}>
-                <Text style={headerStyles.headerTitle}>{props.title || "Select a Service"}</Text>
-                <Text style={headerStyles.headerSubtitle}>{props.subtitle || "Choose which service you'd like to check in for"}</Text>
-              </View>
-            </View>
-          </View>
         </View>
+
       </View>
     );
   }
 
   return (
     <View style={[
-      props.logo !== false ? Styles.headerLogoView : { backgroundColor: "transparent" }, 
+      props.logo !== false ? Styles.headerLogoView : { backgroundColor: "transparent" },
       landscape && { maxHeight: props.logo ? "30%" : DimensionHelper.wp("50%") }
     ]}>
       <StatusBar backgroundColor={StyleConstants.baseColor} />
@@ -127,23 +115,15 @@ const Header = (props: Props) => {
 
 // Professional tablet-optimized styles for prominent logo mode
 const headerStyles = {
-  // Header Section (Blue background with prominent logo)
-  headerSection: {
+  // Logo Section (Dark blue background)
+  logoSection: {
     backgroundColor: StyleConstants.baseColor, // Dark blue #1565C0
     paddingHorizontal: DimensionHelper.wp("5%"),
-    paddingTop: DimensionHelper.wp("6%"),
+    paddingTop: DimensionHelper.wp("5%"),
     paddingBottom: DimensionHelper.wp("5%"),
-    borderBottomLeftRadius: DimensionHelper.wp("8%"),
-    borderBottomRightRadius: DimensionHelper.wp("8%"),
-    marginBottom: DimensionHelper.wp("2%"),
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 8,
-    elevation: 5,
-    shadowColor: StyleConstants.baseColor,
     alignItems: "center"
   },
-  
+
   // Prominent White Box for Logo within Blue Header
   logoContainer: {
     backgroundColor: StyleConstants.whiteColor,
@@ -152,61 +132,16 @@ const headerStyles = {
     height: DimensionHelper.wp("16%"),
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: DimensionHelper.wp("4%"),
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.15,
     shadowRadius: 6,
     elevation: 4
   },
-  
+
   prominentLogo: {
     width: DimensionHelper.wp("65%"), // Slightly smaller than container for padding
     height: DimensionHelper.wp("14%"),
     resizeMode: "contain"
-  },
-  
-  headerTextContainer: {
-    width: "100%"
-  },
-  
-  titleRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%"
-  },
-  
-  titleIconContainer: {
-    backgroundColor: "rgba(255,255,255,0.2)",
-    borderRadius: 8,
-    width: DimensionHelper.wp("10%"),
-    height: DimensionHelper.wp("10%"),
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: DimensionHelper.wp("3%")
-  },
-  
-  titleIcon: {
-    fontSize: DimensionHelper.wp("5%")
-  },
-  
-  titleTextContainer: {
-    flex: 1
-  },
-  
-  headerTitle: {
-    fontSize: DimensionHelper.wp("5.5%"),
-    fontFamily: StyleConstants.RobotoMedium,
-    fontWeight: "600",
-    color: StyleConstants.whiteColor,
-    marginBottom: DimensionHelper.wp("1%"),
-    textAlign: "left"
-  },
-  
-  headerSubtitle: {
-    fontSize: DimensionHelper.wp("3.8%"),
-    fontFamily: StyleConstants.RobotoRegular,
-    color: "rgba(255,255,255,0.9)",
-    textAlign: "left"
   }
 };
 

@@ -107,9 +107,22 @@ const Services = (props: Props) => {
       <Header 
         navigation={props.navigation} 
         prominentLogo={true}
-        title="Select a Service"
-        subtitle="Choose which service you'd like to check in for"
       />
+
+      {/* Select a Service Section */}
+      <View style={serviceStyles.textSection}>
+        <View style={serviceStyles.headerTextContainer}>
+          <View style={serviceStyles.titleRow}>
+            <View style={serviceStyles.titleIconContainer}>
+              <Text style={serviceStyles.titleIcon}>🏛️</Text>
+            </View>
+            <View style={serviceStyles.titleTextContainer}>
+              <Text style={serviceStyles.headerTitle}>Select a Service</Text>
+              <Text style={serviceStyles.headerSubtitle}>Choose which service you'd like to check in for</Text>
+            </View>
+          </View>
+        </View>
+      </View>
 
       {/* Main Content */}
       <View style={serviceStyles.mainContent}>
@@ -202,6 +215,66 @@ const serviceStyles = {
     color: StyleConstants.baseColor,
     marginTop: DimensionHelper.wp("4%"),
     textAlign: "center"
+  },
+
+  // Text Section (Light blue background)
+  textSection: {
+    backgroundColor: "#568BDA", // Light blue background
+    paddingHorizontal: DimensionHelper.wp("5%"),
+    paddingTop: DimensionHelper.wp("5%"),
+    paddingBottom: DimensionHelper.wp("5%"),
+    borderBottomLeftRadius: DimensionHelper.wp("8%"),
+    borderBottomRightRadius: DimensionHelper.wp("8%"),
+    marginBottom: DimensionHelper.wp("2%"),
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 5,
+    shadowColor: StyleConstants.baseColor
+  },
+
+  headerTextContainer: {
+    width: "100%"
+  },
+
+  titleRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%"
+  },
+
+  titleIconContainer: {
+    backgroundColor: "rgba(255,255,255,0.2)",
+    borderRadius: 8,
+    width: DimensionHelper.wp("10%"),
+    height: DimensionHelper.wp("10%"),
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: DimensionHelper.wp("3%")
+  },
+
+  titleIcon: {
+    fontSize: DimensionHelper.wp("5%")
+  },
+
+  titleTextContainer: {
+    flex: 1
+  },
+
+  headerTitle: {
+    fontSize: DimensionHelper.wp("5.5%"),
+    fontFamily: StyleConstants.RobotoMedium,
+    fontWeight: "600",
+    color: StyleConstants.whiteColor,
+    marginBottom: DimensionHelper.wp("1%"),
+    textAlign: "left"
+  },
+
+  headerSubtitle: {
+    fontSize: DimensionHelper.wp("3.8%"),
+    fontFamily: StyleConstants.RobotoRegular,
+    color: "rgba(255,255,255,0.9)",
+    textAlign: "left"
   }
 };
 
