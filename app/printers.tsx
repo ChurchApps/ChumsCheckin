@@ -29,6 +29,28 @@ const Printers = (props: Props) => {
     FirebaseHelper.addOpenScreenEvent("Printers");
     console.log("Scanning");
     setIsScanning(true);
+    
+    // Load saved printer selection if available
+    try {
+      if (CachedData.printer && CachedData.printer.model !== "none") {
+        setSelectedPrinter(CachedData.printer);
+        console.log("Loaded saved printer selection from CachedData:", CachedData.printer);
+      } else {
+        // Fallback: try to load directly from AsyncStorage
+        const savedPrinter = await AsyncStorage.getItem("@Printer");
+        if (savedPrinter) {
+          const printer = JSON.parse(savedPrinter);
+          if (printer && printer.model !== "none") {
+            setSelectedPrinter(printer);
+            CachedData.printer = printer; // Update CachedData too
+            console.log("Loaded saved printer selection from AsyncStorage:", printer);
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Error loading saved printer:", error);
+    }
+    
     if (NativeModules.PrinterHelper) {
       NativeModules.PrinterHelper.scan().then((data: string) => {
         console.log("Scan callback", data);
