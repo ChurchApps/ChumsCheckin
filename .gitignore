@@ -5,7 +5,7 @@
 android/app/.cxx
 .vscode/.react/
 keystore.jks
-
+.serena
 .expo
 
 #ReactNative

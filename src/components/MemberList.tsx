@@ -23,7 +23,7 @@ const MemberList = (props: Props) => {
         visit?.visitSessions?.forEach((vs: VisitSessionInterface, index) => {
           const st: ServiceTimeInterface | null = ArrayHelper.getOne(CachedData.serviceTimes, "id", vs.session?.serviceTimeId || "");
           const group: GroupInterface = ArrayHelper.getOne(st?.groups || [], "id", vs.session?.groupId || "");
-          const groupName = group.name || "none";
+          const groupName = group?.name || "none";
           const serviceTime = st?.name || "";
 
           groups.push(
@@ -66,7 +66,7 @@ const MemberList = (props: Props) => {
               style={memberListStyles.memberPhoto}
             />
             <View style={memberListStyles.memberInfo}>
-              <Text style={memberListStyles.memberName} numberOfLines={1}>{person.name.display}</Text>
+              <Text style={memberListStyles.memberName} numberOfLines={1}>{person.name?.display || person.displayName || "Unknown"}</Text>
               {getCondensedGroupList(person)}
             </View>
             <View style={memberListStyles.expandIconContainer}>

@@ -12,9 +12,3 @@
 -keep class com.facebook.react.turbomodule.** { *; }
 
 # Add any project specific keep options here:
-
-# Brother Print SDK
--keep class com.brother.** { *; }
--keep class com.brother.ptouch.sdk.** { *; }
--keep class com.brother.sdk.lmprinter.** { *; }
--dontwarn com.brother.**

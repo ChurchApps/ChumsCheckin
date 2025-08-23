@@ -41,6 +41,9 @@
     "experiments": {
       "typedRoutes": true
     },
+    "updates": {
+      "url": "https://u.expo.dev/3e543eda-7610-49dc-b345-38234d7b9059"
+    },
     "ios": {
       "bundleIdentifier": "org.chums.checkin"
     }

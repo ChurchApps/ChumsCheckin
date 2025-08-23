@@ -2,9 +2,9 @@ import { ApiHelper } from "./ApiHelper";
 
 
 let CONTENT_ROOT = "https://content.staging.churchapps.org";
-let MEMBERSHIP_API = "https://membershipapi.staging.churchapps.org";
-let ATTENDANCE_API = "https://attendanceapi.staging.churchapps.org";
-// import { CONTENT_ROOT, MEMBERSHIP_API, ATTENDANCE_API, STAGE } from "@env";
+let MEMBERSHIP_API = "https://api.staging.churchapps.org/membership";
+let ATTENDANCE_API = "https://api.staging.churchapps.org/attendance";
+
 export class EnvironmentHelper {
   private static MembershipApi = "";
   private static AttendanceApi = "";
@@ -34,15 +34,15 @@ export class EnvironmentHelper {
 
   //NOTE: None of these values are secret.
   static initStaging = () => {
-    EnvironmentHelper.MembershipApi = "https://membershipapi.staging.churchapps.org";
-    EnvironmentHelper.AttendanceApi = "https://attendanceapi.staging.churchapps.org";
+    EnvironmentHelper.MembershipApi = "https://api.staging.churchapps.org/membership";
+    EnvironmentHelper.AttendanceApi = "https://api.staging.churchapps.org/attendance";
     EnvironmentHelper.ContentRoot = "https://content.staging.churchapps.org";
   };
 
   //NOTE: None of these values are secret.
   static initProd = () => {
-    EnvironmentHelper.MembershipApi = "https://membershipapi.churchapps.org";
-    EnvironmentHelper.AttendanceApi = "https://attendanceapi.churchapps.org";
+    EnvironmentHelper.MembershipApi = "https://api.churchapps.org/membership";
+    EnvironmentHelper.AttendanceApi = "https://api.churchapps.org/attendance";
     EnvironmentHelper.ContentRoot = "https://content.churchapps.org";
   };
 }

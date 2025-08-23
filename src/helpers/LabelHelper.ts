@@ -56,7 +56,7 @@ export class LabelHelper {
     const person: PersonInterface = ArrayHelper.getOne(CachedData.householdMembers, "id", visit.personId || "");
     let isChild: boolean = false;
     childVisits.forEach(cv => { if (cv.personId === person.id) { isChild = true; } });
-    let result = html.replace(/\[Name\]/g, person.name.display || "");
+    let result = html.replace(/\[Name\]/g, person.name?.display || person.displayName || "");
     result = result.replace(/\[Sessions\]/g, VisitSessionHelper.getDisplaySessions(visit.visitSessions || []).replace(/ ,/g, "<br/>"));
     result = result.replace(/\[PickupCode\]/g, (isChild) ? pickupCode : "");
     result = result.replace(/\[Allergies\]/g, (person.nametagNotes) ? person.nametagNotes : "");
@@ -70,7 +70,7 @@ export class LabelHelper {
     let allergiesList: string[] = [];
     childVisits.forEach(cv => {
       const person: PersonInterface = ArrayHelper.getOne(CachedData.householdMembers, "id", cv.personId || "");
-      childList.push(person.name.display + " - " + VisitSessionHelper.getPickupSessions(cv.visitSessions || []));
+      childList.push((person.name?.display || person.displayName || "Unknown") + " - " + VisitSessionHelper.getPickupSessions(cv.visitSessions || []));
       allergiesList.push(person.nametagNotes ?? "");
     });
     let childBullets = "";
