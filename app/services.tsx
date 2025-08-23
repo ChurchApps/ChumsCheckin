@@ -19,7 +19,9 @@ const Services = (props: Props) => {
   const loadData = () => {
     setIsLoading(true);
     // AppCenterHelper.trackEvent("Services Screen");
+    console.log("LOADING SERVICES");
     ApiHelper.get("/services", "AttendanceApi").then(data => {
+      console.log("Services Data: ", JSON.stringify(data));
       setServices(data); setIsLoading(false);
     });
   };

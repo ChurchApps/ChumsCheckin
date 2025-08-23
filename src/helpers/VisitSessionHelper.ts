@@ -20,7 +20,7 @@ export class VisitSessionHelper {
   public static getDisplayText = (visitSession: VisitSessionInterface) => {
     const st: ServiceTimeInterface = ArrayHelper.getOne(CachedData.serviceTimes, "id", visitSession.session?.serviceTimeId || "");
     const group: GroupInterface = ArrayHelper.getOne(st?.groups || [], "id", visitSession.session?.groupId || "");
-    return st.name + " - " + group.name;
+    return (st?.name || "Unknown Service") + " - " + (group?.name || "Unknown Group");
   };
 
   public static getDisplaySessions = (visitSessions: VisitSessionInterface[]) => {
@@ -32,7 +32,7 @@ export class VisitSessionHelper {
   public static getPickupText = (visitSession: VisitSessionInterface) => {
     const st: ServiceTimeInterface = ArrayHelper.getOne(CachedData.serviceTimes, "id", visitSession.session?.serviceTimeId || "");
     const group: GroupInterface = ArrayHelper.getOne(st?.groups || [], "id", visitSession.session?.groupId || "");
-    if (group.parentPickup) { return group.name; } else { return ""; }
+    if (group?.parentPickup) { return group.name || "Unknown Group"; } else { return ""; }
   };
 
   public static getPickupSessions = (visitSessions: VisitSessionInterface[]) => {

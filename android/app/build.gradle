@@ -90,9 +90,9 @@ android {
     namespace 'org.chums.checkin'
     defaultConfig {
         applicationId 'org.chums.checkin'
-        minSdkVersion 25
-        targetSdkVersion 35
-        versionCode 30
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
         versionName "2.0.0"
     }
     signingConfigs {
@@ -150,9 +150,6 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
-
-    // Brother Print SDK
-    implementation files('libs/BrotherPrintLibrary.aar')
 
     def isGifEnabled = (findProperty('expo.gif.enabled') ?: "") == "true";
     def isWebpEnabled = (findProperty('expo.webp.enabled') ?: "") == "true";
