@@ -12,3 +12,7 @@
 -keep class com.facebook.react.turbomodule.** { *; }
 
 # Add any project specific keep options here:
+
+# Brother Print Library
+-keep class com.brother.** { *; }
+-dontwarn com.brother.**

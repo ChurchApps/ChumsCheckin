@@ -1,7 +1,7 @@
 {
   "name": "chums-checkin",
   "main": "expo-router/entry",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
@@ -12,7 +12,8 @@
     "lint": "expo lint",
     "lint:fix": "expo lint --fix",
     "build:android": "eas build --platform android",
-    "build:amazon": "eas build --platform android --profile amazon"
+    "build:amazon": "eas build --platform android --profile amazon",
+    "update": "eas update --branch production --message \"Update from CLI\""
   },
   "jest": {
     "preset": "jest-expo"

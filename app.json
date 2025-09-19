@@ -2,7 +2,7 @@
   "expo": {
     "name": "Chums Checkin",
     "slug": "chums-checkin",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -46,6 +46,7 @@
     },
     "ios": {
       "bundleIdentifier": "org.chums.checkin"
-    }
+    },
+    "runtimeVersion": "1.0.0"
   }
 }

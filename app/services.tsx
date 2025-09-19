@@ -67,7 +67,6 @@ const Services = (props: Props) => {
     return (
       <Ripple style={[serviceStyles.serviceCard, { width: wd("90%") }]} onPress={() => { selectService(item.id); }}>
         <View style={serviceStyles.serviceCardContent}>
-          <Text style={serviceStyles.campusName}>{item.campus.name}</Text>
           <Text style={serviceStyles.serviceName}>{item.name}</Text>
         </View>
         <View style={serviceStyles.arrowContainer}>

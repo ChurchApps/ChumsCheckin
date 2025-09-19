@@ -57,14 +57,33 @@ const MemberList = (props: Props) => {
   const getMemberRow = (data: any) => {
     const person: PersonInterface = data.item;
     const isExpanded = selectedMemberId === person.id;
+
+    const getPhotoElement = () => {
+      if (person.photo) {
+        return (
+          <Image
+            source={{ uri: EnvironmentHelper.ContentRoot + person.photo }}
+            style={memberListStyles.memberPhoto}
+          />
+        );
+      } else {
+        return (
+          <View style={[memberListStyles.memberPhoto, memberListStyles.placeholderPhoto]}>
+            <FontAwesome
+              name="user"
+              size={DimensionHelper.wp("7%")}
+              color={StyleConstants.whiteColor}
+            />
+          </View>
+        );
+      }
+    };
+
     return (
       <View style={memberListStyles.memberContainer}>
         <Ripple style={[memberListStyles.memberCard, { width: wd("90%") }]} onPress={() => { handleMemberClick(person.id || ""); }}>
           <View style={memberListStyles.memberContent}>
-            <Image
-              source={{ uri: EnvironmentHelper.ContentRoot + person.photo }}
-              style={memberListStyles.memberPhoto}
-            />
+            {getPhotoElement()}
             <View style={memberListStyles.memberInfo}>
               <Text style={memberListStyles.memberName} numberOfLines={1}>{person.name?.display || person.displayName || "Unknown"}</Text>
               {getCondensedGroupList(person)}
@@ -135,6 +154,12 @@ const memberListStyles = {
     height: DimensionHelper.wp("14%"),
     borderRadius: DimensionHelper.wp("7%"),
     marginRight: DimensionHelper.wp("4%")
+  },
+
+  placeholderPhoto: {
+    backgroundColor: StyleConstants.baseColor,
+    justifyContent: "center",
+    alignItems: "center"
   },
 
   memberInfo: {
