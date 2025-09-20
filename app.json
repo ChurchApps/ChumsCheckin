@@ -47,6 +47,6 @@
     "ios": {
       "bundleIdentifier": "org.chums.checkin"
     },
-    "runtimeVersion": "1.0.0"
+    "runtimeVersion": "2.0.0"
   }
 }
