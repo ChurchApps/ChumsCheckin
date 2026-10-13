@@ -55,3 +55,5 @@ Android and Amazon release builds run locally by default (`yarn build:android:ea
 3. Run `yarn build:android` — Google Play bundle at `android/app/build/outputs/bundle/release/app-release.aab`
 4. Run `yarn build:amazon` — Amazon apk at `android/app/build/outputs/apk/release/app-release.apk`
 5. Upload to the store consoles, or submit via `npx eas-cli submit -p android --path <file>`.
+
+`yarn publish:stores` bumps the version and ships through EAS. The procedure is `/publish-app-stores b1checkin`.

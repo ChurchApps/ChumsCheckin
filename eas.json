@@ -50,7 +50,8 @@
   "submit": {
     "GooglePlay": {
       "android": {
-        "serviceAccountKeyPath": "./google-service-account.json"
+        "track": "production",
+        "releaseStatus": "completed"
       }
     },
     "Amazon": {
@@ -58,7 +59,9 @@
       }
     },
     "AppStore": {
-      "ios": {}
+      "ios": {
+        "appleTeamId": "84A55Q9H5B"
+      }
     }
   }
 }

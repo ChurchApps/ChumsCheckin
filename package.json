@@ -22,6 +22,7 @@
     "build:amazon": "node ./scripts/build-android.js amazon",
     "build:android:eas": "eas build --platform android",
     "build:amazon:eas": "eas build --platform android --profile amazon",
+    "publish:stores": "node ../../agents/store-publish/publish.cjs --app b1checkin",
     "update": "eas update --branch production --message \"Update from CLI\"",
     "postinstall": "patch-package"
   },
