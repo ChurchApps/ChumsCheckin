@@ -50,7 +50,7 @@
   "submit": {
     "GooglePlay": {
       "android": {
-        "track": "production",
+        "track": "beta",
         "releaseStatus": "completed"
       }
     },
@@ -60,6 +60,7 @@
     },
     "AppStore": {
       "ios": {
+        "ascAppId": "6775081998",
         "appleTeamId": "84A55Q9H5B"
       }
     }
