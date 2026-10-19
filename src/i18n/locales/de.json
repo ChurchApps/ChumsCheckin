@@ -25,6 +25,7 @@
   "checkinComplete": {
     "allSet": "Alles erledigt!",
     "checkinError": "Etwas hat nicht geklappt – bitte wenden Sie sich an einen Mitarbeiter.",
+    "gateNotOpen": "Check-in ist gerade nicht geöffnet",
     "haveAGreatService": "Wir wünschen Ihnen einen schönen Gottesdienst.",
     "labelsPrinted": "Namensschilder gedruckt",
     "milestoneWeeks": "Wochen in Folge!",
@@ -161,6 +162,7 @@
     "title": "Gruppe auswählen"
   },
   "services": {
+    "checkinNotOpen": "Der Check-in für diesen Gottesdienst ist gerade nicht geöffnet.",
     "emptySubtitle": "Erstellen Sie Gottesdienste in B1 Admin, um mit dem Einchecken zu beginnen.",
     "emptyTitle": "Noch keine Gottesdienste eingerichtet",
     "loadError": "Gottesdienste konnten nicht geladen werden.",

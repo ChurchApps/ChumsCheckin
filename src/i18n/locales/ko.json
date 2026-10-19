@@ -25,6 +25,7 @@
   "checkinComplete": {
     "allSet": "모두 완료되었습니다!",
     "checkinError": "체크인이 제대로 처리되지 않았습니다. 봉사자에게 문의해주세요.",
+    "gateNotOpen": "지금은 체크인이 열려 있지 않습니다",
     "haveAGreatService": "은혜로운 예배 되세요.",
     "labelsPrinted": "명찰이 출력되었습니다",
     "milestoneWeeks": "연속 주!",
@@ -161,6 +162,7 @@
     "title": "그룹 선택"
   },
   "services": {
+    "checkinNotOpen": "지금은 이 예배의 체크인이 열려 있지 않습니다.",
     "emptySubtitle": "B1 Admin에서 예배를 만들면 체크인을 시작할 수 있습니다.",
     "emptyTitle": "아직 설정된 예배가 없습니다",
     "loadError": "예배를 불러올 수 없습니다.",

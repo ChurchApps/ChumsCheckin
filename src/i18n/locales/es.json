@@ -25,6 +25,7 @@
   "checkinComplete": {
     "allSet": "¡Todo listo!",
     "checkinError": "Algo no salió bien. Por favor, acuda a un voluntario.",
+    "gateNotOpen": "el registro no está abierto ahora",
     "haveAGreatService": "Que tenga un excelente servicio.",
     "labelsPrinted": "Etiquetas de nombre impresas",
     "milestoneWeeks": "¡Semanas seguidas!",
@@ -161,6 +162,7 @@
     "title": "Seleccione un Grupo"
   },
   "services": {
+    "checkinNotOpen": "El registro para este servicio no está abierto en este momento.",
     "emptySubtitle": "Cree servicios en B1 Admin para comenzar a registrar personas.",
     "emptyTitle": "Aún no hay servicios configurados",
     "loadError": "No se pudieron cargar los servicios.",

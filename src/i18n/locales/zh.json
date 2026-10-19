@@ -25,6 +25,7 @@
   "checkinComplete": {
     "allSet": "全部完成！",
     "checkinError": "签到未能完成，请联系现场志愿者。",
+    "gateNotOpen": "现在未开放签到",
     "haveAGreatService": "祝您聚会愉快。",
     "labelsPrinted": "名牌已打印",
     "milestoneWeeks": "连续周！",
@@ -161,6 +162,7 @@
     "title": "选择小组"
   },
   "services": {
+    "checkinNotOpen": "此聚会现在未开放签到。",
     "emptySubtitle": "请在 B1 Admin 中创建服务以开始签到。",
     "emptyTitle": "尚未设置服务",
     "loadError": "无法加载服务。",

@@ -36,6 +36,7 @@
     "gateChangeRooms": "Shintja Emakamelo",
     "gateFull": "ligumbi ligcwele noma livaliwe",
     "gateNeedsVolunteer": "kudzingeka lenye ivolontiya",
+    "gateNotOpen": "kungena akuvulekile nyalo",
     "gateTitle": "Awukakhoni Kubhalisa",
     "haveAGreatService": "Ube nenkonzo lenhle.",
     "labelsPrinted": "Emalebula emabito aphrintiwe",
@@ -217,6 +218,7 @@
     "title": "Khetsa Licembu"
   },
   "services": {
+    "checkinNotOpen": "Kungena kwalenkonzo akuvulekile nyalo.",
     "emptySubtitle": "Dala tinkonzo ku-B1 Admin kute ucale kubhalisa bantfu.",
     "emptyTitle": "Akukho tinkonzo letihlelekile kwakamuva",
     "loadError": "Kwehlulekile kulayisha tinkonzo.",

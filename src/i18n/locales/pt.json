@@ -25,6 +25,7 @@
   "checkinComplete": {
     "allSet": "Tudo pronto!",
     "checkinError": "Algo não deu certo — por favor, procure um voluntário.",
+    "gateNotOpen": "o check-in não está aberto agora",
     "haveAGreatService": "Tenha um ótimo culto.",
     "labelsPrinted": "Crachás impressos",
     "milestoneWeeks": "Semanas seguidas!",
@@ -161,6 +162,7 @@
     "title": "Selecione um Grupo"
   },
   "services": {
+    "checkinNotOpen": "O check-in deste culto não está aberto agora.",
     "emptySubtitle": "Crie cultos no B1 Admin para começar a fazer o check-in das pessoas.",
     "emptyTitle": "Nenhum culto configurado ainda",
     "loadError": "Não foi possível carregar os cultos.",

@@ -14,7 +14,7 @@ import { Avatar, Button, Screen, StepIndicator, Sheet } from "../src/components/
 
 interface Props { navigation: screenNavigationProps; }
 
-interface GateViolation { groupId: string; groupName: string; reason: "capacity" | "ratio"; }
+interface GateViolation { groupId: string; groupName: string; reason: "capacity" | "ratio" | "notOpen"; }
 
 // ApiHelper throws Error("HTTP <status>: <body>") on non-2xx — recover the gate JSON from it.
 const parseGate = (error: unknown): { status: number; body: any } | null => {
@@ -194,7 +194,11 @@ const CheckinComplete = (props: Props) => {
     );
   };
 
-  const reasonText = (v: GateViolation) => v.reason === "ratio" ? t("checkinComplete.gateNeedsVolunteer") : t("checkinComplete.gateFull");
+  const reasonText = (v: GateViolation) => {
+    if (v.reason === "ratio") return t("checkinComplete.gateNeedsVolunteer");
+    if (v.reason === "notOpen") return t("checkinComplete.gateNotOpen");
+    return t("checkinComplete.gateFull");
+  };
 
   if (gateError) {
     return (

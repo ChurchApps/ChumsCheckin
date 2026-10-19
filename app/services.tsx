@@ -7,7 +7,7 @@ import Animated, { FadeInDown } from "react-native-reanimated";
 import { router } from "expo-router";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
-import { ApiHelper, ArrayHelper, CachedData, FirebaseHelper, GroupInterface, GroupServiceTimeInterface, screenNavigationProps } from "../src/helpers";
+import { ApiHelper, ArrayHelper, CachedData, FirebaseHelper, GroupInterface, GroupServiceTimeInterface, screenNavigationProps, ServiceTimeInterface } from "../src/helpers";
 import { useCheckinTheme } from "../src/context/CheckinThemeContext";
 import { useAppTheme } from "../src/theme";
 import { Button, EmptyState, ListRow, Screen, SkeletonList } from "../src/components/ui";
@@ -24,6 +24,7 @@ const Services = (props: Props) => {
   // Campuses are mastered in the membership module; resolve the campus name by id.
   const [campuses, setCampuses] = React.useState<any[]>([]);
   const [selectingId, setSelectingId] = React.useState<string | null>(null);
+  const [notOpen, setNotOpen] = React.useState(false);
 
   const loadData = () => {
     setIsLoading(true);
@@ -53,11 +54,14 @@ const Services = (props: Props) => {
   const selectService = (serviceId: string) => {
     if (selectingId) return;
     setSelectingId(serviceId);
+    let allClosed = false;
 
     const promises: Promise<any>[] = [
       ApiHelper.get("/servicetimes?serviceId=" + serviceId, "AttendanceApi").then(times => {
         CachedData.serviceId = serviceId;
-        CachedData.serviceTimes = times;
+        // Hide service times whose scheduled check-in window is closed right now.
+        CachedData.serviceTimes = (Array.isArray(times) ? times : []).filter((t: ServiceTimeInterface) => t?.checkinOpen !== false);
+        allClosed = Array.isArray(times) && times.length > 0 && CachedData.serviceTimes.length === 0;
       }),
       ApiHelper.get("/groupservicetimes", "AttendanceApi").then(groupServiceTimes => { CachedData.groupServiceTimes = groupServiceTimes; }),
       ApiHelper.get("/groups", "MembershipApi").then(groups => { CachedData.groups = groups; }),
@@ -76,6 +80,11 @@ const Services = (props: Props) => {
 
     Promise.all(promises)
       .then(() => {
+        if (allClosed) {
+          setNotOpen(true);
+          setSelectingId(null);
+          return;
+        }
         //for simplicity, iterate the group service times and add groups to the services.
         if (CachedData.serviceTimes && Array.isArray(CachedData.serviceTimes)) {
           CachedData.serviceTimes.forEach(st => {
@@ -126,6 +135,16 @@ const Services = (props: Props) => {
           tone="warning"
           title={t("services.loadError")}
           action={<Button label={t("common.retry")} onPress={loadData} fullWidth />}
+        />
+      );
+    }
+    if (notOpen) {
+      return (
+        <EmptyState
+          icon="schedule"
+          tone="warning"
+          title={t("services.checkinNotOpen")}
+          action={<Button label={t("common.back")} variant="outline" onPress={() => setNotOpen(false)} fullWidth />}
         />
       );
     }

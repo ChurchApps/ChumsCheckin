@@ -100,6 +100,7 @@ export interface ServiceTimeInterface {
   serviceId?: string;
   service?: ServiceInterface;
   groups?: GroupInterface[];
+  checkinOpen?: boolean;
 }
 
 // Group interfaces

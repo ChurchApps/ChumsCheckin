@@ -25,6 +25,7 @@
   "checkinComplete": {
     "allSet": "Alt er klart!",
     "checkinError": "Noe gikk galt – ta kontakt med en frivillig.",
+    "gateNotOpen": "innsjekking er ikke åpen nå",
     "haveAGreatService": "Ha en fin gudstjeneste.",
     "labelsPrinted": "Navnelapper skrevet ut",
     "milestoneWeeks": "Uker på rad!",
@@ -161,6 +162,7 @@
     "title": "Velg en gruppe"
   },
   "services": {
+    "checkinNotOpen": "Innsjekking for denne gudstjenesten er ikke åpen nå.",
     "emptySubtitle": "Opprett gudstjenester i B1 Admin for å begynne å sjekke inn folk.",
     "emptyTitle": "Ingen gudstjenester er satt opp ennå",
     "loadError": "Kunne ikke laste gudstjenester.",
