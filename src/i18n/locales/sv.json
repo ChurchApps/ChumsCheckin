@@ -25,6 +25,7 @@
   "checkinComplete": {
     "allSet": "Allt är klart!",
     "checkinError": "Något gick inte igenom – ta gärna hjälp av en volontär.",
+    "gateNotOpen": "incheckningen är inte öppen nu",
     "haveAGreatService": "Ha en fin gudstjänst.",
     "labelsPrinted": "Namnbrickorna har skrivits ut",
     "milestoneWeeks": "Veckor i rad!",
@@ -161,6 +162,7 @@
     "title": "Välj en grupp"
   },
   "services": {
+    "checkinNotOpen": "Incheckningen för den här gudstjänsten är inte öppen just nu.",
     "emptySubtitle": "Skapa gudstjänster i B1 Admin för att börja checka in.",
     "emptyTitle": "Inga gudstjänster har skapats ännu",
     "loadError": "Det gick inte att ladda gudstjänsterna.",

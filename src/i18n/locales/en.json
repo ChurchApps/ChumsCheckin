@@ -36,6 +36,7 @@
     "gateChangeRooms": "Change Rooms",
     "gateFull": "room is full or closed",
     "gateNeedsVolunteer": "needs another volunteer",
+    "gateNotOpen": "check-in isn't open right now",
     "gateTitle": "Can't check in yet",
     "haveAGreatService": "Have a great service.",
     "labelsPrinted": "Name tags printed",
@@ -217,6 +218,7 @@
     "title": "Select a Group"
   },
   "services": {
+    "checkinNotOpen": "Check-in isn't open for this service right now.",
     "emptySubtitle": "Create services in B1 Admin to start checking people in.",
     "emptyTitle": "No services set up yet",
     "loadError": "Couldn't load services.",

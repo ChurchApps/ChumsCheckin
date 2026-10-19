@@ -25,6 +25,7 @@
   "checkinComplete": {
     "allSet": "Tutto fatto!",
     "checkinError": "Qualcosa non è andato a buon fine — rivolgiti a un volontario.",
+    "gateNotOpen": "il check-in non è aperto ora",
     "haveAGreatService": "Buona celebrazione.",
     "labelsPrinted": "Cartellini stampati",
     "milestoneWeeks": "Settimane consecutive!",
@@ -161,6 +162,7 @@
     "title": "Seleziona un Gruppo"
   },
   "services": {
+    "checkinNotOpen": "Il check-in per questo servizio non è aperto in questo momento.",
     "emptySubtitle": "Crea i servizi in B1 Admin per iniziare a fare il check-in delle persone.",
     "emptyTitle": "Nessun servizio configurato",
     "loadError": "Impossibile caricare i servizi.",

@@ -25,6 +25,7 @@
   "checkinComplete": {
     "allSet": "C'est tout bon !",
     "checkinError": "Quelque chose n'a pas fonctionné — veuillez vous adresser à un bénévole.",
+    "gateNotOpen": "l'enregistrement n'est pas ouvert pour le moment",
     "haveAGreatService": "Nous vous souhaitons un excellent service.",
     "labelsPrinted": "Badges imprimés",
     "milestoneWeeks": "Semaines d'affilée !",
@@ -161,6 +162,7 @@
     "title": "Sélectionner un groupe"
   },
   "services": {
+    "checkinNotOpen": "L'enregistrement pour ce service n'est pas ouvert pour le moment.",
     "emptySubtitle": "Créez des services dans B1 Admin pour commencer à enregistrer les participants.",
     "emptyTitle": "Aucun service configuré pour le moment",
     "loadError": "Impossible de charger les services.",

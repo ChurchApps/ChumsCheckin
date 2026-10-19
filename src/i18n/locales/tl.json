@@ -25,6 +25,7 @@
   "checkinComplete": {
     "allSet": "Ayos na ang lahat!",
     "checkinError": "May hindi natuloy — mangyaring lumapit sa isang volunteer.",
+    "gateNotOpen": "hindi pa bukas ang check-in ngayon",
     "haveAGreatService": "Magkaroon po kayo ng magandang serbisyo.",
     "labelsPrinted": "Na-print na ang mga name tag",
     "milestoneWeeks": "Sunod-sunod na Linggo!",
@@ -161,6 +162,7 @@
     "title": "Pumili ng Grupo"
   },
   "services": {
+    "checkinNotOpen": "Hindi pa bukas ang check-in para sa serbisyong ito ngayon.",
     "emptySubtitle": "Gumawa ng mga serbisyo sa B1 Admin upang makapagsimulang mag-check in.",
     "emptyTitle": "Wala pang naka-set up na serbisyo",
     "loadError": "Hindi ma-load ang mga serbisyo.",

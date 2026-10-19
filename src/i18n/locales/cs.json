@@ -25,6 +25,7 @@
   "checkinComplete": {
     "allSet": "Vše je hotovo!",
     "checkinError": "Něco se nepovedlo – obraťte se prosím na dobrovolníka.",
+    "gateNotOpen": "odbavení teď není otevřené",
     "haveAGreatService": "Přejeme vám krásnou bohoslužbu.",
     "labelsPrinted": "Jmenovky vytištěny",
     "milestoneWeeks": "Týdnů v řadě!",
@@ -161,6 +162,7 @@
     "title": "Vyberte skupinu"
   },
   "services": {
+    "checkinNotOpen": "Odbavení pro tuto bohoslužbu teď není otevřené.",
     "emptySubtitle": "Vytvořte bohoslužby v B1 Admin a začněte přihlašovat účastníky.",
     "emptyTitle": "Zatím nejsou nastaveny žádné bohoslužby",
     "loadError": "Bohoslužby se nepodařilo načíst.",

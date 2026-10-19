@@ -25,6 +25,7 @@
   "checkinComplete": {
     "allSet": "सब हो गया!",
     "checkinError": "कुछ गड़बड़ हो गई — कृपया किसी स्वयंसेवक से मिलें।",
+    "gateNotOpen": "चेक-इन अभी खुला नहीं है",
     "haveAGreatService": "सेवा का आनंद लें।",
     "labelsPrinted": "नाम टैग प्रिंट हो गए",
     "milestoneWeeks": "लगातार सप्ताह!",
@@ -161,6 +162,7 @@
     "title": "एक समूह चुनें"
   },
   "services": {
+    "checkinNotOpen": "इस सेवा के लिए चेक-इन अभी खुला नहीं है।",
     "emptySubtitle": "लोगों का चेक इन शुरू करने के लिए B1 Admin में सेवाएं बनाएं।",
     "emptyTitle": "अभी तक कोई सेवा सेट नहीं की गई है",
     "loadError": "सेवाएं लोड नहीं हो सकीं।",
