@@ -90,7 +90,14 @@ const MemberServiceTimes = (props: Props) => {
             <Text numberOfLines={2} style={{ fontSize: 14, fontFamily: theme.fonts.regular, color: theme.colors.textSecondary, marginTop: 2 }}>{groupSummary}</Text>
           )}
         </View>
-        {closed ? (
+        {closed && isSelected ? (
+          <View style={{ maxWidth: "55%", flexDirection: "row", alignItems: "center", gap: 6, borderRadius: theme.radius.md, paddingHorizontal: theme.spacing.md, paddingVertical: theme.spacing.sm, backgroundColor: theme.colors.successBg }}>
+            <MaterialIcons name="check-circle" size={18} color={theme.colors.success} />
+            <Text numberOfLines={1} style={{ flexShrink: 1, fontSize: 16, fontFamily: theme.fonts.medium, color: theme.colors.success }}>
+              {t("members.checkedInClosed", { group: selectedGroupName })}
+            </Text>
+          </View>
+        ) : closed ? (
           <Text style={{ maxWidth: "55%", fontSize: 16, fontFamily: theme.fonts.medium, color: theme.colors.textSecondary }}>
             {opens ? t("members.closedOpens", { time: opens }) : t("selectGroup.closed")}
           </Text>

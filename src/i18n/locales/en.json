@@ -161,6 +161,7 @@
   },
   "members": {
     "closedOpens": "Closed · opens {{time}}",
+    "checkedInClosed": "{{group}} · Checked in",
     "error": "Error",
     "selectGroup": "Select Group",
     "unknown": "Unknown"
