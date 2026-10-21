@@ -15,7 +15,7 @@ const CHECKIN_TYPES: { value: CheckinType; icon: any; labelKey: "household.type.
 ];
 
 const MemberServiceTimes = (props: Props) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const theme = useAppTheme();
   const personId = props.person.id || "";
   const defaultType: CheckinType = props.person.isGuest ? "guest" : "member";
@@ -76,6 +76,8 @@ const MemberServiceTimes = (props: Props) => {
       selectedGroupName = group?.name || t("members.error");
     }
     const groupSummary = ServiceTimeHelper.getGroupSummary(serviceTime);
+    const closed = !ServiceTimeHelper.isCheckinOpen(serviceTime);
+    const opens = closed ? ServiceTimeHelper.getOpensLabel([serviceTime], i18n.language) : "";
 
     return (
       <View key={serviceTime.id} style={{ backgroundColor: theme.colors.canvas, borderRadius: theme.radius.md, padding: theme.spacing.md, marginBottom: theme.spacing.sm, flexDirection: "row", alignItems: "center", gap: theme.spacing.md }}>
@@ -88,29 +90,35 @@ const MemberServiceTimes = (props: Props) => {
             <Text numberOfLines={2} style={{ fontSize: 14, fontFamily: theme.fonts.regular, color: theme.colors.textSecondary, marginTop: 2 }}>{groupSummary}</Text>
           )}
         </View>
-        <Pressable
-          accessibilityRole="button"
-          onPress={() => { handleServiceTimeClick(serviceTime, props.person); }}
-          style={({ pressed }) => ({
-            minHeight: 56,
-            maxWidth: "55%",
-            minWidth: 160,
-            borderRadius: theme.radius.md,
-            paddingHorizontal: theme.spacing.lg,
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: theme.spacing.sm,
-            backgroundColor: isSelected ? theme.colors.button : pressed ? theme.colors.primarySoft : theme.colors.surface,
-            borderWidth: isSelected ? 0 : 1.5,
-            borderColor: theme.colors.primaryBorder,
-            opacity: pressed ? 0.9 : 1
-          })}>
-          <Text numberOfLines={1} style={{ flexShrink: 1, fontSize: 16, fontFamily: theme.fonts.medium, color: isSelected ? theme.colors.onButton : theme.colors.primary }}>
-            {selectedGroupName}
+        {closed ? (
+          <Text style={{ maxWidth: "55%", fontSize: 16, fontFamily: theme.fonts.medium, color: theme.colors.textSecondary }}>
+            {opens ? t("members.closedOpens", { time: opens }) : t("selectGroup.closed")}
           </Text>
-          <MaterialIcons name="chevron-right" size={22} color={isSelected ? theme.colors.onButton : theme.colors.primary} />
-        </Pressable>
+        ) : (
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => { handleServiceTimeClick(serviceTime, props.person); }}
+            style={({ pressed }) => ({
+              minHeight: 56,
+              maxWidth: "55%",
+              minWidth: 160,
+              borderRadius: theme.radius.md,
+              paddingHorizontal: theme.spacing.lg,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: theme.spacing.sm,
+              backgroundColor: isSelected ? theme.colors.button : pressed ? theme.colors.primarySoft : theme.colors.surface,
+              borderWidth: isSelected ? 0 : 1.5,
+              borderColor: theme.colors.primaryBorder,
+              opacity: pressed ? 0.9 : 1
+            })}>
+            <Text numberOfLines={1} style={{ flexShrink: 1, fontSize: 16, fontFamily: theme.fonts.medium, color: isSelected ? theme.colors.onButton : theme.colors.primary }}>
+              {selectedGroupName}
+            </Text>
+            <MaterialIcons name="chevron-right" size={22} color={isSelected ? theme.colors.onButton : theme.colors.primary} />
+          </Pressable>
+        )}
       </View>
     );
   };

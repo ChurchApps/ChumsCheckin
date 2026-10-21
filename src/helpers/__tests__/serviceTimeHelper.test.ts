@@ -20,3 +20,43 @@ describe("ServiceTimeHelper.getGroupSummary", () => {
     expect(ServiceTimeHelper.getGroupSummary(st)).toBe("Nursery, Preschool");
   });
 });
+
+describe("ServiceTimeHelper.isCheckinOpen", () => {
+  // Sunday 9:30 service, 9:30-10:30, opens 30 min before, closes 15 min after.
+  const st = { id: "st1", dayOfWeek: 0, startTime: "09:30", endTime: "10:30", checkinOpenMinutes: 30, checkinCloseMinutes: 15 };
+  const at = (day: number, h: number, m: number) => new Date(2024, 0, 7 + day, h, m);
+
+  it("is always open without a schedule", () => {
+    expect(ServiceTimeHelper.isCheckinOpen({ id: "st1" }, at(3, 12, 0))).toBe(true);
+  });
+
+  it("opens and closes around the window", () => {
+    expect(ServiceTimeHelper.isCheckinOpen(st, at(0, 8, 59))).toBe(false);
+    expect(ServiceTimeHelper.isCheckinOpen(st, at(0, 9, 0))).toBe(true);
+    expect(ServiceTimeHelper.isCheckinOpen(st, at(0, 10, 45))).toBe(true);
+    expect(ServiceTimeHelper.isCheckinOpen(st, at(0, 10, 46))).toBe(false);
+    expect(ServiceTimeHelper.isCheckinOpen(st, at(1, 9, 30))).toBe(false);
+  });
+
+  it("handles a window spilling from Saturday into Sunday", () => {
+    const early = { id: "st2", dayOfWeek: 0, startTime: "00:15", checkinOpenMinutes: 30 };
+    expect(ServiceTimeHelper.isCheckinOpen(early, at(-1, 23, 50))).toBe(true);
+  });
+});
+
+describe("ServiceTimeHelper.getOpensLabel", () => {
+  const sunday = { id: "st1", dayOfWeek: 0, startTime: "09:30", checkinOpenMinutes: 30 };
+  const wednesday = { id: "st2", dayOfWeek: 3, startTime: "19:00" };
+  const monday = new Date(2024, 0, 8, 12, 0);
+
+  it("subtracts the open lead time, rolling into the previous day", () => {
+    expect(ServiceTimeHelper.getOpensLabel([sunday], "en-US", monday)).toBe("Sun 9:00 AM");
+    expect(ServiceTimeHelper.getOpensLabel([{ id: "st3", dayOfWeek: 0, startTime: "00:15", checkinOpenMinutes: 30 }], "en-US", monday)).toBe("Sat 11:45 PM");
+    expect(ServiceTimeHelper.getOpensLabel([{ id: "st4" }])).toBe("");
+  });
+
+  it("picks the soonest upcoming opening", () => {
+    expect(ServiceTimeHelper.getOpensLabel([sunday, wednesday], "en-US", monday)).toBe("Wed 7:00 PM");
+    expect(ServiceTimeHelper.getOpensLabel([sunday, wednesday], "en-US", new Date(2024, 0, 11, 12, 0))).toBe("Sun 9:00 AM");
+  });
+});

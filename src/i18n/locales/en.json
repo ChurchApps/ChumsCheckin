@@ -160,6 +160,7 @@
     "welcomeTitle": "Welcome! Let's check you in."
   },
   "members": {
+    "closedOpens": "Closed · opens {{time}}",
     "error": "Error",
     "selectGroup": "Select Group",
     "unknown": "Unknown"
@@ -219,6 +220,7 @@
   },
   "services": {
     "checkinNotOpen": "Check-in isn't open for this service right now.",
+    "checkinOpensAt": "Check-in for this service opens {{time}}.",
     "emptySubtitle": "Create services in B1 Admin to start checking people in.",
     "emptyTitle": "No services set up yet",
     "loadError": "Couldn't load services.",

@@ -7,7 +7,7 @@ import Animated, { FadeInDown } from "react-native-reanimated";
 import { router } from "expo-router";
 import Header from "../src/components/Header";
 import Subheader from "../src/components/Subheader";
-import { ApiHelper, ArrayHelper, CachedData, FirebaseHelper, GroupInterface, GroupServiceTimeInterface, screenNavigationProps, ServiceTimeInterface } from "../src/helpers";
+import { ApiHelper, ArrayHelper, CachedData, FirebaseHelper, GroupInterface, GroupServiceTimeInterface, screenNavigationProps, ServiceTimeHelper, ServiceTimeInterface } from "../src/helpers";
 import { useCheckinTheme } from "../src/context/CheckinThemeContext";
 import { useAppTheme } from "../src/theme";
 import { Button, EmptyState, ListRow, Screen, SkeletonList } from "../src/components/ui";
@@ -15,7 +15,7 @@ import { Button, EmptyState, ListRow, Screen, SkeletonList } from "../src/compon
 interface Props { navigation: screenNavigationProps }
 
 const Services = (props: Props) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const theme = useAppTheme();
   const { loadTheme } = useCheckinTheme();
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
@@ -24,7 +24,7 @@ const Services = (props: Props) => {
   // Campuses are mastered in the membership module; resolve the campus name by id.
   const [campuses, setCampuses] = React.useState<any[]>([]);
   const [selectingId, setSelectingId] = React.useState<string | null>(null);
-  const [notOpen, setNotOpen] = React.useState(false);
+  const [notOpen, setNotOpen] = React.useState<string | null>(null);
 
   const loadData = () => {
     setIsLoading(true);
@@ -59,9 +59,8 @@ const Services = (props: Props) => {
     const promises: Promise<any>[] = [
       ApiHelper.get("/servicetimes?serviceId=" + serviceId, "AttendanceApi").then(times => {
         CachedData.serviceId = serviceId;
-        // Hide service times whose scheduled check-in window is closed right now.
-        CachedData.serviceTimes = (Array.isArray(times) ? times : []).filter((t: ServiceTimeInterface) => t?.checkinOpen !== false);
-        allClosed = Array.isArray(times) && times.length > 0 && CachedData.serviceTimes.length === 0;
+        CachedData.serviceTimes = Array.isArray(times) ? times : [];
+        allClosed = CachedData.serviceTimes.length > 0 && CachedData.serviceTimes.every((st: ServiceTimeInterface) => st?.checkinOpen === false);
       }),
       ApiHelper.get("/groupservicetimes", "AttendanceApi").then(groupServiceTimes => { CachedData.groupServiceTimes = groupServiceTimes; }),
       ApiHelper.get("/groups", "MembershipApi").then(groups => { CachedData.groups = groups; }),
@@ -81,7 +80,8 @@ const Services = (props: Props) => {
     Promise.all(promises)
       .then(() => {
         if (allClosed) {
-          setNotOpen(true);
+          const opens = ServiceTimeHelper.getOpensLabel(CachedData.serviceTimes, i18n.language);
+          setNotOpen(opens ? t("services.checkinOpensAt", { time: opens }) : t("services.checkinNotOpen"));
           setSelectingId(null);
           return;
         }
@@ -143,8 +143,8 @@ const Services = (props: Props) => {
         <EmptyState
           icon="schedule"
           tone="warning"
-          title={t("services.checkinNotOpen")}
-          action={<Button label={t("common.back")} variant="outline" onPress={() => setNotOpen(false)} fullWidth />}
+          title={notOpen}
+          action={<Button label={t("common.back")} variant="outline" onPress={() => setNotOpen(null)} fullWidth />}
         />
       );
     }

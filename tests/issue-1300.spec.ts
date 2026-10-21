@@ -30,14 +30,14 @@ test.describe("closed service times", () => {
     await setSchedule(request, attendance, null);
   });
 
-  test("a service whose check-in window is closed says check-in isn't open", async ({ page }) => {
+  test("a service whose check-in window is closed says when check-in opens", async ({ page }) => {
     await page.goto("/");
     await page.getByPlaceholder("Email").fill(DEMO_EMAIL);
     await page.getByPlaceholder("Password").fill(DEMO_PASSWORD);
     await page.getByRole("button", { name: "Login" }).click();
     await page.getByRole("button", { name: /Grace Community Church/i }).click({ timeout: 30000 });
     await page.getByRole("button", { name: /Sunday Morning Service/i }).click({ timeout: 30000 });
-    await expect(page.getByText("Check-in isn't open for this service right now.")).toBeVisible({ timeout: 30000 });
+    await expect(page.getByText(/Check-in for this service opens \w{3} 8:30\sAM\./)).toBeVisible({ timeout: 30000 });
   });
 });
 

@@ -101,6 +101,11 @@ export interface ServiceTimeInterface {
   service?: ServiceInterface;
   groups?: GroupInterface[];
   checkinOpen?: boolean;
+  dayOfWeek?: number | null;
+  startTime?: string | null;
+  endTime?: string | null;
+  checkinOpenMinutes?: number | null;
+  checkinCloseMinutes?: number | null;
 }
 
 // Group interfaces
