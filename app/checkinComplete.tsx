@@ -16,6 +16,12 @@ interface Props { navigation: screenNavigationProps; }
 
 interface GateViolation { groupId: string; groupName: string; reason: "capacity" | "ratio" | "notOpen"; }
 
+// The success screen stays up this long from when it appears, printer or not, so families can see it worked.
+const MIN_SHOWN_MS = 6000;
+const MIN_SHOWN_MILESTONE_MS = 8000;
+// A tap carried over from the Check In button shouldn't skip the screen.
+const TAP_GUARD_MS = 1500;
+
 // ApiHelper throws Error("HTTP <status>: <body>") on non-2xx — recover the gate JSON from it.
 const parseGate = (error: unknown): { status: number; body: any } | null => {
   const match = String((error as any)?.message || "").match(/^HTTP (\d+): ([\s\S]*)$/);
@@ -36,6 +42,7 @@ const CheckinComplete = (props: Props) => {
   const milestonesRef = React.useRef<{ personId: string; streak: number }[]>([]);
   const redirectTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
   const redirectedRef = React.useRef(false);
+  const mountedAtRef = React.useRef(Date.now());
 
   const [checkedInPeople] = React.useState<PersonInterface[]>(() => {
     const people: PersonInterface[] = [];
@@ -92,8 +99,14 @@ const CheckinComplete = (props: Props) => {
     router.replace("/lookup");
   };
 
+  const handleTap = () => {
+    if (Date.now() - mountedAtRef.current < TAP_GUARD_MS) return;
+    goToLookup();
+  };
+
   const redirectToLookup = (hasMilestone?: boolean) => {
-    const delay = hasMilestone ? 6000 : 3000;
+    const minMs = hasMilestone ? MIN_SHOWN_MILESTONE_MS : MIN_SHOWN_MS;
+    const delay = Math.max(minMs - (Date.now() - mountedAtRef.current), TAP_GUARD_MS);
     setReturnDelay(delay);
     redirectTimerRef.current = setTimeout(goToLookup, delay);
   };
@@ -225,7 +238,7 @@ const CheckinComplete = (props: Props) => {
   return (
     <>
       <Screen header={<Header navigation={props.navigation} prominentLogo={true} />} scroll={false}>
-        <Pressable style={{ flex: 1 }} onPress={goToLookup} disabled={returnDelay === 0}>
+        <Pressable style={{ flex: 1 }} onPress={handleTap} disabled={returnDelay === 0}>
           <StepIndicator steps={[t("steps.find"), t("steps.select"), t("steps.done")]} current={2} style={{ marginTop: theme.spacing.lg }} />
           <View style={{ flex: 1, alignItems: "center", justifyContent: "center", gap: theme.spacing.md }}>
             <Animated.View

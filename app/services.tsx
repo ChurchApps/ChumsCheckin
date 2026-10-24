@@ -59,7 +59,7 @@ const Services = (props: Props) => {
     const promises: Promise<any>[] = [
       ApiHelper.get("/servicetimes?serviceId=" + serviceId, "AttendanceApi").then(times => {
         CachedData.serviceId = serviceId;
-        CachedData.serviceTimes = Array.isArray(times) ? times : [];
+        CachedData.serviceTimes = Array.isArray(times) ? ServiceTimeHelper.sortByTime(times) : [];
         allClosed = CachedData.serviceTimes.length > 0 && CachedData.serviceTimes.every((st: ServiceTimeInterface) => st?.checkinOpen === false);
       }),
       ApiHelper.get("/groupservicetimes", "AttendanceApi").then(groupServiceTimes => { CachedData.groupServiceTimes = groupServiceTimes; }),

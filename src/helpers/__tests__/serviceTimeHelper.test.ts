@@ -60,3 +60,27 @@ describe("ServiceTimeHelper.getOpensLabel", () => {
     expect(ServiceTimeHelper.getOpensLabel([sunday, wednesday], "en-US", new Date(2024, 0, 11, 12, 0))).toBe("Sun 9:00 AM");
   });
 });
+
+describe("ServiceTimeHelper.sortByTime", () => {
+  const names = (times: { name?: string }[]) => times.map(t => t.name);
+
+  it("orders times in the name by the clock, not as text", () => {
+    const sorted = ServiceTimeHelper.sortByTime([{ id: "a", name: "10:30 AM Service" }, { id: "b", name: "9:00 AM Service" }, { id: "c", name: "6:00 PM" }, { id: "d", name: "12:15 PM" }]);
+    expect(names(sorted)).toEqual(["9:00 AM Service", "10:30 AM Service", "12:15 PM", "6:00 PM"]);
+  });
+
+  it("uses the scheduled day and start time when set", () => {
+    const sorted = ServiceTimeHelper.sortByTime([
+      { id: "a", name: "Second", dayOfWeek: 0, startTime: "10:30" },
+      { id: "b", name: "Saturday", dayOfWeek: 6, startTime: "08:00" },
+      { id: "c", name: "First", dayOfWeek: 0, startTime: "09:00" }
+    ]);
+    expect(names(sorted)).toEqual(["First", "Second", "Saturday"]);
+  });
+
+  it("puts names without a time last, by name, and leaves the input alone", () => {
+    const input = [{ id: "a", name: "Kids" }, { id: "b", name: "Adults" }, { id: "c", name: "9:00 AM" }];
+    expect(names(ServiceTimeHelper.sortByTime(input))).toEqual(["9:00 AM", "Adults", "Kids"]);
+    expect(names(input)).toEqual(["Kids", "Adults", "9:00 AM"]);
+  });
+});
