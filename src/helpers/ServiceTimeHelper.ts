@@ -7,7 +7,33 @@ const parseTime = (value?: string | null) => {
   return match ? Number(match[1]) * 60 + Number(match[2]) : null;
 };
 
+// Minutes into the day from a name like "10:30 AM Service"; null when the name has no time.
+const parseNameTime = (name?: string | null) => {
+  const match = name?.match(/(\d{1,2}):(\d{2})\s*(AM|PM)?/i);
+  if (!match) return null;
+  let hours = Number(match[1]) % 24;
+  const meridiem = match[3]?.toUpperCase();
+  if (meridiem === "PM" && hours < 12) hours += 12;
+  if (meridiem === "AM" && hours === 12) hours = 0;
+  return hours * 60 + Number(match[2]);
+};
+
 export class ServiceTimeHelper {
+  // Earliest first: the scheduled day and start time when set, else the time in the name, else the name.
+  // The Api orders by name as text, which puts "10:30 AM" before "9:00 AM".
+  static sortByTime(times: ServiceTimeInterface[]): ServiceTimeInterface[] {
+    const key = (st: ServiceTimeInterface) => {
+      const start = parseTime(st.startTime);
+      if (start !== null) return (st.dayOfWeek ?? 0) * DAY + start;
+      return parseNameTime(st.name) ?? Infinity;
+    };
+    return [...times].sort((a, b) => {
+      const ka = key(a), kb = key(b);
+      if (ka !== kb) return ka < kb ? -1 : 1;
+      return (a.name || "").localeCompare(b.name || "");
+    });
+  }
+
   // Comma-separated names of the groups offered at a service time, de-duplicated in first-seen order.
   static getGroupSummary(serviceTime: ServiceTimeInterface): string {
     const seen = new Set<string>();
